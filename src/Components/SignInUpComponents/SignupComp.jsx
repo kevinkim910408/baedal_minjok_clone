@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { __userSignUp, __userIdCheck, __userEmailCheck } from '../../Redux/modules/user'
 import ExitHeader from '../Common/ExitHeader'
-import { passwordCheck } from '../../Shared/LoginCheck'
+import { passwordCheck, emailRegCheck } from '../../Shared/LoginCheck'
 import {StInput, StWrap, StSmallInput , StSubmitButton, StDiv, StTitle, StFlexInfoInput, StButton} from './SigninupStyled'
 import { useEffect } from 'react'
 
@@ -39,7 +39,9 @@ const Signup = () => {
     else return true;
   }
 
+  console.log(emailRegCheck(email))
   const onDupEmailDisableHandler = () => {
+    if(emailRegCheck(email) === false) return true;
     if(emailCheck === false) return false;
     if(email !== savedTemp) return false;
     else return true;
@@ -48,7 +50,7 @@ const Signup = () => {
   // 서버 연결 함수들
   const onSignUpHandler = () => {dispatch(__userSignUp({email,nickName,pw,pwTwo}))}
   const onIdDupCheckHandler = (id) => {dispatch(__userIdCheck({id})); setSavedTemp(nickName)}
-  const onEmailDupCheckHandler = (email) => {dispatch(__userEmailCheck({email})); setSavedTemp(email)}
+  const onEmailDupCheckHandler = (email) => {dispatch(__userEmailCheck({email})); setSavedTemp(email);}
 
   return (
     <>

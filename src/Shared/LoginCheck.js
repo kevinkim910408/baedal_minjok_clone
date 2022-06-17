@@ -2,15 +2,20 @@
 
 // 아이디 형식 검사
 export const idCheck = (username) => {
-  let _reg = /^(?=.*[0-9a-zA-Z])[가-힣a-zA-Z0-9-_.]{4,15}$/;
-  return _reg.test(username);
+  const regPass = /^(?=.*[0-9a-zA-Z])[가-힣a-zA-Z0-9-_.]{4,15}$/;
+  return regPass.test(username);
 };
 
 // 비밀번호 체크
 export const passwordCheck = (passwordcheck) => {
-  let regPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d~!@#$%^&*()+|=]{8,20}$/;
+  const regPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d~!@#$%^&*()+|=]{8,20}$/;
   return regPass.test(passwordcheck);
 };
+
+export const emailRegCheck = (email) =>{
+  const regPass = /(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/g;
+  return regPass.test(email);
+}
 
 // 정규식
 // ^ => 시작
