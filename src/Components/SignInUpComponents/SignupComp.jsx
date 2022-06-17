@@ -26,6 +26,8 @@ const Signup = () => {
     else if (passwordCheck(pwTwo) === false) return true;
     else if((Boolean(!email) || Boolean(!nickName) || Boolean(pw?.length < PW_MIN_LENGTH) || Boolean(pwTwo?.length < PW_MIN_LENGTH))) return true;
     else if (pw !== pwTwo) return true;
+    else if (idCheck === false) return true;
+    else if (emailCheck === false) return true;
     else return false;
   }
 

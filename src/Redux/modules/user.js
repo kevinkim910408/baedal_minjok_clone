@@ -21,7 +21,7 @@ export const __userSignUp = ({email, nickName, pw, pwTwo}) => async (dispatch) =
             password: pw,
             passwordCheck: pwTwo,
           })
-          data.result ? alert('회원가입에 성공하셨습니다.') : alert('회원가입에 대 실패 했습니다......');
+          data.data.result ? alert('회원가입에 성공하셨습니다.') : alert('회원가입에 대 실패 했습니다......');
     }catch(error){
        alert('Sign Up Error:' + error)
     }finally{
@@ -35,8 +35,8 @@ export const __userIdCheck = ({id}) => async (dispatch) =>{
     try{
         const data = await api.get(`/user/check/nickname/${id}`)
         console.log(data);
-        data.result ? alert('사용가능한 아이디입니다') : alert('이미 있는 아이디 입니다');
-        dispatch(userIdCheck(data.result));
+        data.data.result ? alert('사용가능한 아이디입니다') : alert('이미 있는 아이디 입니다');
+        dispatch(userIdCheck(data.data.result));
     }catch(error){
        alert('ID Check Error:' + error)
     }finally{
@@ -48,8 +48,8 @@ export const __userEmailCheck = ({email}) => async (dispatch) =>{
     dispatch(getRequestLoading(true));
     try{
         const data = await api.get(`/user/check/email/${email}`)
-        data.result ? alert('사용가능한 이메일입니다') : alert('이미 있는 이메일 입니다');
-        dispatch(userEmailCheck(data.result));
+        data.data.result ? alert('사용가능한 이메일입니다') : alert('이미 있는 이메일 입니다');
+        dispatch(userEmailCheck(data.data.result));
     }catch(error){
        alert('Email Check Error:' + error)
     }finally{
