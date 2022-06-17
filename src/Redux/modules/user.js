@@ -33,7 +33,8 @@ export const __userSignUp = ({email, nickName, pw, pwTwo}) => async (dispatch) =
 export const __userIdCheck = ({id}) => async (dispatch) =>{
     dispatch(getRequestLoading(true));
     try{
-        const data = await api.get(`/user/check/email/${id}`)
+        const data = await api.get(`/user/check/nickname/${id}`)
+        console.log(data);
         data.result ? alert('사용가능한 아이디입니다') : alert('이미 있는 아이디 입니다');
         dispatch(userIdCheck(data.result));
     }catch(error){

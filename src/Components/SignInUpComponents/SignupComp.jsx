@@ -5,7 +5,7 @@ import ExitHeader from '../Common/ExitHeader'
 import { passwordCheck } from '../../Shared/LoginCheck'
 import {StInput, StWrap, StSmallInput , StSubmitButton, StDiv, StTitle, StFlexInfoInput, StButton} from './SigninupStyled'
 
-const NICKNAME_MAX_LENGTH = 20;
+const NICKNAME_MAX_LENGTH = 10;
 const EMAIL_MAX_LENGTH = 20;
 const PW_MAX_LENGTH = 20;
 const PW_MIN_LENGTH = 8;
@@ -41,8 +41,8 @@ const Signup = () => {
 
   // 서버 연결 함수들
   const onSignUpHandler = () => {dispatch(__userSignUp({email,nickName,pw,pwTwo}))}
-  const onIdDupCheckHandler = (nickName) => {dispatch(__userIdCheck(nickName))}
-  const onEmailDupCheckHandler = (email) => {dispatch(__userEmailCheck(email))}
+  const onIdDupCheckHandler = (id) => {dispatch(__userIdCheck({id}))}
+  const onEmailDupCheckHandler = (email) => {dispatch(__userEmailCheck({email}))}
   
   return (
     <>
