@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from '../../Pages/Home'
 import Signin from "../../Pages/Signin";
 import Signup from "../../Pages/Signup";
+import Kakao from "../../Pages/Kakao";
 
 const Routing = () => {
   return (
@@ -11,7 +12,7 @@ const Routing = () => {
       <Route path="/" element={<Home />}/>
       <Route path="/signin" element={<Signin />}/>
       <Route path="/signup" element={<Signup />}/>
-      <Route />
+      <Route path="/user/kakao/callback" element={<Kakao />}/>
       <Route />
       <Route />
       <Route />

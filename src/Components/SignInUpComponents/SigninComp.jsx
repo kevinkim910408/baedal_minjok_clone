@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import ExitHeader from '../Common/ExitHeader'
-import { __userSignIn, __kakaoSignIn } from '../../Redux/modules/user'
+import { __userSignIn } from '../../Redux/modules/user'
 import { useDispatch } from 'react-redux/es/exports'
 import {StInput, StWrap, StFlex, StSubmitInput, StTitle, StButtonLogin, StLink, StImg} from './SigninupStyled'
 import Kakao from '../../Assets/Image/kakao_login.png'
@@ -10,13 +10,8 @@ const SigninComp = () => {
   const [email, setEmail] = useState();
   const [pw, setPw] = useState();
   const dispatch = useDispatch();
-
   const onLoginHandler = () =>{
     dispatch(__userSignIn({email, pw}))
-  }
-
-  const onKakaoHandler = () => {
-    dispatch(__kakaoSignIn())
   }
 
   return (
@@ -31,10 +26,14 @@ const SigninComp = () => {
 
       <StFlex>
         <StButtonLogin >
-          <StImg src={Kakao} alt="" onClick={onKakaoHandler}/>
+          <a href='http://3.37.87.166/user/kakao'>
+            <StImg src={Kakao} alt=""/>
+          </a>
         </StButtonLogin>
         <StButtonLogin>
-          <StImg src={Naver} alt="" />
+        <a href='http://3.37.87.166/user/naver'>
+            <StImg src={Naver} alt=""/>
+          </a>
         </StButtonLogin>
         <span>
           혹시, 배달의민족이 처음이신가요?

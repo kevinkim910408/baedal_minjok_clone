@@ -63,11 +63,12 @@ export const __userSignIn = ({email, pw}) => async (dispatch) =>{
     try{
         const data = await api.post(`/user/login`, {
             email: email,
-            pw: pw,
+            password: pw,
         })
-        data.result ? alert('로그인 되었습니다') : alert('아이디 혹은 비밀번호를 체크해주세요');
-        setCookie("Authorization", data.token)
-        setCookie("username", data.nickname)
+        console.log(data)
+        data.data.result ? alert('로그인 되었습니다') : alert('아이디 혹은 비밀번호를 체크해주세요');
+        setCookie("Authorization", data.data.token)
+        setCookie("username", data.data.nickname)
     }catch(error){
        alert('Login Error:' + error)
     }finally{
@@ -76,15 +77,15 @@ export const __userSignIn = ({email, pw}) => async (dispatch) =>{
 }
 
 // 카카오 로그인
-export const __kakaoSignIn = () => async (dispatch) =>{
+export const __kakaoSignIn = (code) => async (dispatch) =>{
     dispatch(getRequestLoading(true));
     try{
-        const data = await api.get(`/user/kakao`)
-        data.result ? alert('로그인 되었습니다') : alert('아이디 혹은 비밀번호를 체크해주세요');
-        setCookie("Authorization", data.token)
-        setCookie("username", data.nickname)
+        const data = await api.get(`/user/kakao/callback?code=${code}`)
+        data.data.result ? alert('로그인 되었습니다') : alert('아이디 혹은 비밀번호를 체크해주세요');
+        setCookie("Authorization", data.data.token)
+        setCookie("username", data.data.nickname)
     }catch(error){
-       alert('Login Error:' + error)
+       alert('Kakao Login Error:' + error)
     }finally{
         dispatch(getRequestLoading(false))
     }
