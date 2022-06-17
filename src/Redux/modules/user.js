@@ -34,11 +34,10 @@ export const __userIdCheck = ({id}) => async (dispatch) =>{
     dispatch(getRequestLoading(true));
     try{
         const data = await api.get(`/user/check/nickname/${id}`)
-        console.log(data);
         data.data.result ? alert('사용가능한 아이디입니다') : alert('이미 있는 아이디 입니다');
         dispatch(userIdCheck(data.data.result));
     }catch(error){
-       alert('ID Check Error:' + error)
+        alert('이미 있는 아이디 입니다');
     }finally{
         dispatch(getRequestLoading(false))
     }
@@ -51,7 +50,7 @@ export const __userEmailCheck = ({email}) => async (dispatch) =>{
         data.data.result ? alert('사용가능한 이메일입니다') : alert('이미 있는 이메일 입니다');
         dispatch(userEmailCheck(data.data.result));
     }catch(error){
-       alert('Email Check Error:' + error)
+        alert('이미 있는 이메일 입니다');
     }finally{
         dispatch(getRequestLoading(false))
     }

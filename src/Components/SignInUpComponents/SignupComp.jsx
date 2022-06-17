@@ -4,6 +4,7 @@ import { __userSignUp, __userIdCheck, __userEmailCheck } from '../../Redux/modul
 import ExitHeader from '../Common/ExitHeader'
 import { passwordCheck } from '../../Shared/LoginCheck'
 import {StInput, StWrap, StSmallInput , StSubmitButton, StDiv, StTitle, StFlexInfoInput, StButton} from './SigninupStyled'
+import { useEffect } from 'react'
 
 const NICKNAME_MAX_LENGTH = 10;
 const EMAIL_MAX_LENGTH = 20;
@@ -12,12 +13,13 @@ const PW_MIN_LENGTH = 8;
 
 const Signup = () => {
   // states
-  const [nickName, setNickName] = useState();
-  const [email, setEmail] = useState();
-  const [pw, setPw] = useState();
-  const [pwTwo, setPwTwo] = useState();
+  const [nickName, setNickName] = useState("");
+  const [email, setEmail] = useState("");
+  const [pw, setPw] = useState("");
+  const [pwTwo, setPwTwo] = useState("");
+  const [savedTemp, setSavedTemp] = useState("");
 
-  const {idCheck, emailCheck} = useSelector(state=>state.userReducer); // get data from Store
+  let {idCheck, emailCheck} = useSelector(state=>state.userReducer); // get data from Store
   const dispatch = useDispatch();
 
   // 버튼 비활성화 함수들
@@ -32,20 +34,22 @@ const Signup = () => {
   }
 
   const onDupIdDisableHandler = () => {
-    if(idCheck === false) return false; 
+    if(idCheck === false)return false;
+    if(nickName !== savedTemp) return false;
     else return true;
   }
 
   const onDupEmailDisableHandler = () => {
-    if(emailCheck === false) return false; 
+    if(emailCheck === false) return false;
+    if(email !== savedTemp) return false;
     else return true;
   }
 
   // 서버 연결 함수들
   const onSignUpHandler = () => {dispatch(__userSignUp({email,nickName,pw,pwTwo}))}
-  const onIdDupCheckHandler = (id) => {dispatch(__userIdCheck({id}))}
-  const onEmailDupCheckHandler = (email) => {dispatch(__userEmailCheck({email}))}
-  
+  const onIdDupCheckHandler = (id) => {dispatch(__userIdCheck({id})); setSavedTemp(nickName)}
+  const onEmailDupCheckHandler = (email) => {dispatch(__userEmailCheck({email})); setSavedTemp(email)}
+
   return (
     <>
       <StWrap>
