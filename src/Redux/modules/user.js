@@ -15,13 +15,12 @@ const getRequestLoading = (payload) => ({ type : GET_REQUEST_LOADING, payload })
 export const __userSignUp = ({email, nickName, pw, pwTwo}) => async (dispatch) => {
     dispatch(getRequestLoading(true))
     try{
-        const data = await api.post(`/user/signup`,{
+        await api.post(`/user/signup`,{
             email: email,
             nickname : nickName,
             password: pw,
             passwordCheck: pwTwo,
           })
-          data.data.result ? alert('회원가입에 성공하셨습니다.') : alert('회원가입에 대 실패 했습니다......');
     }catch(error){
        alert('Sign Up Error:' + error)
     }finally{
@@ -98,6 +97,7 @@ const initialState = {
     error: null,
     idCheck: false,
     emailCheck: false,
+    finishSignUp: false,
 }
 
 export default function userReducer(state = initialState, {payload, type}){

@@ -22,7 +22,7 @@ const Signup = () => {
   const [savedId, setSavedId] = useState("");
   const [savedEmail, setSavedEmail] = useState("");
 
-  let {idCheck, emailCheck} = useSelector(state=>state.userReducer); // get data from Store
+  const {idCheck, emailCheck} = useSelector(state=>state.userReducer); // get data from Store
 
   // 버튼 비활성화 함수들
   const onDisableHandler = () => {
@@ -50,7 +50,11 @@ const Signup = () => {
   }
 
   // 서버 연결 함수들
-  const onSignUpHandler = () => {dispatch(__userSignUp({email,nickName,pw,pwTwo})); navigate('/signin')}
+  const onSignUpHandler = () => {
+    dispatch(__userSignUp({email,nickName,pw,pwTwo})); 
+    alert('회원가입이 완료되었습니다.')
+    navigate('/signin')
+  }
   const onIdDupCheckHandler = (id) => {dispatch(__userIdCheck({id})); setSavedId(nickName)}
   const onEmailDupCheckHandler = (email) => {dispatch(__userEmailCheck({email})); setSavedEmail(email);}
 
