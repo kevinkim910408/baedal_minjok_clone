@@ -1,22 +1,32 @@
 import React, {useState} from 'react'
 import { __userSignIn } from '../../Redux/modules/user'
-import { useDispatch } from 'react-redux/es/exports'
+import { useDispatch, useSelector } from 'react-redux/es/exports'
 import { useNavigate } from 'react-router-dom'
 import {StInput, StWrap, StFlex, StSubmitInput, StTitle, StLoginDiv, StLink, StImg} from './SigninupStyled'
 import Kakao from '../../Assets/Image/kakao_login.png'
 import Naver from '../../Assets/Image/naver_login.png'
 import ExitHeader from '../Common/ExitHeader'
+import { useEffect } from 'react'
 
 const SigninComp = () => {
   const [email, setEmail] = useState();
   const [pw, setPw] = useState();
+  const {isLogin} = useSelector(state=>state.userReducer)
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
   const onLoginHandler = () =>{
     dispatch(__userSignIn({email, pw}))
-    navigate('/')
   }
 
+  useEffect(()=>{
+    if(isLogin){
+      alert('환영합니다')
+      navigate('/')
+    }
+  },[navigate, isLogin])
+
+  console.log(isLogin)
   return (
     <>
       <StWrap>

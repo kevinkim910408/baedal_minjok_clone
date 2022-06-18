@@ -1,47 +1,42 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
 import flex from '../Common/flex';
-import { useSelector, useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import mainlogo from "../../image/mainlogo2.png"
-import { getCookie, deleteAllCookies } from "../../Shared/Cookie"
-
-// 위에 폰트
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import {  useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import mainLogo from "../../image/mainlogo2.png"
+import { __logOut } from '../../Redux/modules/user';
 
 const Mainheader = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const getNickname = localStorage.getItem("username");
+    const cookie = localStorage.getItem("Authorization");
+    const [cookies, setCookies] = useState(cookie);
+    
     const onLoginHandler = () => {
         navigate('/Signin')
     }
-    const onMypageHandler = () => {
+    const onMyPageHandler = () => {
         navigate('/Mypage')
     }
-    // 로그아웃
-    const logout = deleteAllCookies();
-    // 페이지변환
-    const cookie = getCookie("Authorization");
-    const getnickname = getCookie("username");
-    const [cookies, setCookies] = useState(cookie);
-    const changePage = () => {
-        setCookies(cookies + 1)
-    }
 
-    console.log(cookies)
-    console.log(setCookies)
-    console.log(changePage.length)
+    // 로그아웃
+    const onLogoutHandler = () => {
+        dispatch(__logOut());
+        setCookies(null)
+    };
+   
+    
     return (
         <>
             {(() => {
                 // 로그인 전 헤더
-                if (cookies == undefined) {
+                if (cookies === null || cookies === undefined || cookies === false) {
                     return (
                         <HeaderFlex>
                             <HeaderWrap>
                                 <Imagebox>
-                                    <img src={mainlogo} style={{ width: '150px' }} />
+                                    <img src={mainLogo} style={{ width: '150px' }} alt=""/>
                                 </Imagebox>
                                 <Mainicon>
                                     <HeaderBtn onClick={onLoginHandler}>
@@ -58,16 +53,16 @@ const Mainheader = () => {
                         <HeaderFlex>
                             <HeaderWrap>
                                 <Imagebox>
-                                    <img src={mainlogo} style={{ width: '150px' }} />
+                                    <img src={mainLogo} style={{ width: '150px' }} alt=""/>
                                 </Imagebox>
                                 <Mainicon>
                                     <HeaderNickName>
-                                        안녕하세요 {getnickname}님
+                                        안녕하세요 {getNickname}님
                                     </HeaderNickName>
-                                    <HeaderBtn onClick={logout}>
+                                    <HeaderBtn onClick={onLogoutHandler}>
                                         😢
                                     </HeaderBtn>
-                                    <HeaderBtn onClick={onMypageHandler}>
+                                    <HeaderBtn onClick={onMyPageHandler}>
                                         😋
                                     </HeaderBtn>
                                 </Mainicon>

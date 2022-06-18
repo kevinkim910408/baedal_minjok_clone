@@ -1,5 +1,4 @@
 import api from '../../Shared/api'
-import {setCookie, deleteAllCookies} from '../../Shared/Cookie'
 
 // 액션 타입
 const USER_LOGIN = 'user/USER_LOGIN'
@@ -61,20 +60,17 @@ export const __userEmailCheck = ({email}) => async (dispatch) =>{
 
 // 로그인
 export const __userSignIn = ({email, pw}) => async (dispatch) =>{
-    console.log(email, pw)
     dispatch(getRequestLoading(true));
     try{
         const data = await api.post(`/user/login`, {
             email: email,
             password: pw,
         })
-        // data.data.result ? alert('로그인 되었습니다') : alert('아이디 혹은 비밀번호를 체크해주세요');
-        console.log(data)
-        setCookie("Authorization", data.data.token)
-        setCookie("username", data.data.nickname)
+        localStorage.setItem("Authorization", data.data.token)
+        localStorage.setItem("username", data.data.nickname)
         dispatch(userLogin(data.data.result));
     }catch(error){
-        // alert('아이디 혹은 비밀번호를 체크해주세요');
+        alert('아이디 혹은 비밀번호를 체크해주세요')
     }finally{
         dispatch(getRequestLoading(false))
     }
@@ -84,13 +80,12 @@ export const __userSignIn = ({email, pw}) => async (dispatch) =>{
 export const __kakaoSignIn = (code) => async (dispatch) =>{
     dispatch(getRequestLoading(true));
     try{
-        const data = await api.get(`/user/kakao/callback`)
-        console.log(data)
-        setCookie("Authorization", data.data.token)
-        setCookie("username", data.data.nickname)
+        const data = await api.get(`/user/kakao/callback?code=${code}`)
+        localStorage.setItem("Authorization", data.data.token)
+        localStorage.setItem("username", data.data.nickname)
         dispatch(userLogin(data.data.result));
     }catch(error){
-    //    alert('Kakao Login Error:' + error)
+        alert('아이디 혹은 비밀번호를 체크해주세요')
     }finally{
         dispatch(getRequestLoading(false))
     }
@@ -101,11 +96,11 @@ export const __naverSignIn = (code) => async (dispatch) =>{
     dispatch(getRequestLoading(true));
     try{
         const data = await api.get(`/user/naver/callback?code=${code}`)
-        setCookie("Authorization", data.data.token)
-        setCookie("username", data.data.nickname)
+        localStorage.setItem("Authorization", data.data.token)
+        localStorage.setItem("username", data.data.nickname)
         dispatch(userLogin(data.data.result));
     }catch(error){
-    //    alert('Naver Login Error:' + error)
+        alert('아이디 혹은 비밀번호를 체크해주세요')
     }finally{
         dispatch(getRequestLoading(false))
     }
@@ -113,15 +108,13 @@ export const __naverSignIn = (code) => async (dispatch) =>{
 
 // 로그아웃
 export const __logOut = () => (dispatch) => {
-    deleteAllCookies();
-    // const data = false
-    // dispatch(logout(data))
+    localStorage.clear();
+    const temp = false;
+    dispatch(logout(temp))
 }
 
 // 초기값
 const initialState = {
-    nickName: "",
-    email: "",
     loading: false,
     error: null,
     idCheck: false,
