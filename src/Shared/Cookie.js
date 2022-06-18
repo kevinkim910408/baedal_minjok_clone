@@ -1,34 +1,32 @@
-const getCookie = (name) => {
-    let value = "; " + document.cookie;
-  
-    let parts = value.split(`; ${name}=`);
-  
-    if (parts.length === 2) {
-      return parts.pop().split(";").shift();
-    }
-  };
-  
-  const setCookie = (Authorization, value, exp = 5) => {
-    let date = new Date();
-    date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
-    document.cookie = `${Authorization}=${value}; expires=${date.toUTCString()}`;
-  };
-  
+// 설치된 패키지 import
+import Cookies from "universal-cookie";
 
-  const deleteCookie = (name) => {
-    document.cookie = name + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
-  };
+// 객체를 하나의 변수에 담아서 사용을 용이하게 함
+const cookies = new Cookies();
 
-  function deleteAllCookies() {
-    var cookies = document.cookie.split(";");
+// 쿠키에 값을 저장할때
+export const setCookie = (name, value, option) => {
+    return cookies.set(name, value, { ...option });
+}
 
-    for (var i = 0; i < cookies.length; i++) {
-        var cookie = cookies[i];
-        var eqPos = cookie.indexOf("=");
-        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    }
+// 쿠키에서 값을 빼내올때
+export const getCookie = (name) => {
+    return cookies.get(name);
+}
+
+// 쿠키에 있는 값을 지울때
+export const removeCookie = (name) =>{
+    return cookies.remove(name);
 }
   
-  export { getCookie, setCookie, deleteCookie, deleteAllCookies };
-  
+// 쿠키 전체 삭제
+export function deleteAllCookies() {
+  var cookies = document.cookie.split(";");
+
+  for (var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i];
+      var eqPos = cookie.indexOf("=");
+      var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  }
+}

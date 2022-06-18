@@ -61,7 +61,7 @@ const Signup = () => {
   return (
     <>
       <StWrap>
-          <ExitHeader />
+          <ExitHeader text="signin"/>
           {/* 텍스트 */}
           <StTitle>회원가입</StTitle>
           <StFlexInfoInput>

@@ -36,6 +36,7 @@ input[type=submit],
 button{
     color: var(--white);
     background-color: var(--primary);
+    border: none;
 }
 
 body {

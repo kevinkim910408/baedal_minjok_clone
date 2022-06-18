@@ -1,14 +1,18 @@
 import api from '../../Shared/api'
-import {setCookie} from '../../Shared/Cookie'
+import {setCookie, deleteAllCookies} from '../../Shared/Cookie'
 
 // 액션 타입
+const USER_LOGIN = 'user/USER_LOGIN'
 const USER_IDCHECK = 'user/USER_IDCHECK'
 const USER_EMAILCHECK = 'user/USER_EMAILCHECK'
+const USER_LOGOUT = 'user/USER_LOGOUT';
 const GET_REQUEST_LOADING = 'user/GET_REQUEST_LOADING';
 
 // 액션 함수
+const userLogin = (payload) => ({ type : USER_LOGIN, payload });
 const userIdCheck = (payload) => ({ type : USER_IDCHECK, payload });
 const userEmailCheck = (payload) => ({ type : USER_EMAILCHECK, payload });
+const logout = (payload) => ({ type : USER_LOGOUT, payload });
 const getRequestLoading = (payload) => ({ type : GET_REQUEST_LOADING, payload });
 
 // 회원가입 - 서버에 저장
@@ -57,6 +61,7 @@ export const __userEmailCheck = ({email}) => async (dispatch) =>{
 
 // 로그인
 export const __userSignIn = ({email, pw}) => async (dispatch) =>{
+    console.log(email, pw)
     dispatch(getRequestLoading(true));
     try{
         const data = await api.post(`/user/login`, {
@@ -64,10 +69,12 @@ export const __userSignIn = ({email, pw}) => async (dispatch) =>{
             password: pw,
         })
         // data.data.result ? alert('로그인 되었습니다') : alert('아이디 혹은 비밀번호를 체크해주세요');
+        console.log(data)
         setCookie("Authorization", data.data.token)
         setCookie("username", data.data.nickname)
+        dispatch(userLogin(data.data.result));
     }catch(error){
-        alert('아이디 혹은 비밀번호를 체크해주세요');
+        // alert('아이디 혹은 비밀번호를 체크해주세요');
     }finally{
         dispatch(getRequestLoading(false))
     }
@@ -77,12 +84,13 @@ export const __userSignIn = ({email, pw}) => async (dispatch) =>{
 export const __kakaoSignIn = (code) => async (dispatch) =>{
     dispatch(getRequestLoading(true));
     try{
-        const data = await api.get(`/user/kakao/callback?code=${code}`)
+        const data = await api.get(`/user/kakao/callback`)
+        console.log(data)
         setCookie("Authorization", data.data.token)
         setCookie("username", data.data.nickname)
-        data.data.result ? alert('로그인에 성공하였습니다.') : alert('아이디 혹은 비밀번호를 체크해주세요');
+        dispatch(userLogin(data.data.result));
     }catch(error){
-       alert('Kakao Login Error:' + error)
+    //    alert('Kakao Login Error:' + error)
     }finally{
         dispatch(getRequestLoading(false))
     }
@@ -95,12 +103,19 @@ export const __naverSignIn = (code) => async (dispatch) =>{
         const data = await api.get(`/user/naver/callback?code=${code}`)
         setCookie("Authorization", data.data.token)
         setCookie("username", data.data.nickname)
-        data.data.result ? alert('로그인에 성공하였습니다.') : alert('아이디 혹은 비밀번호를 체크해주세요');
+        dispatch(userLogin(data.data.result));
     }catch(error){
-       alert('Naver Login Error:' + error)
+    //    alert('Naver Login Error:' + error)
     }finally{
         dispatch(getRequestLoading(false))
     }
+}
+
+// 로그아웃
+export const __logOut = () => (dispatch) => {
+    deleteAllCookies();
+    // const data = false
+    // dispatch(logout(data))
 }
 
 // 초기값
@@ -111,6 +126,7 @@ const initialState = {
     error: null,
     idCheck: false,
     emailCheck: false,
+    isLogin: false,
 }
 
 export default function userReducer(state = initialState, {payload, type}){
@@ -125,6 +141,16 @@ export default function userReducer(state = initialState, {payload, type}){
                 ...state,
                 emailCheck: payload,
             };
+        case USER_LOGIN:
+            return {
+                ...state,
+                isLogin: payload,
+            }
+        case USER_LOGOUT:
+            return {
+                ...state,
+                isLogin: payload,
+            }
         default:
             return state; 
     }
