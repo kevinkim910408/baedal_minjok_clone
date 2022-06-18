@@ -3,6 +3,8 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { __kakaoSignIn } from '../Redux/modules/user';
+import { getCookie } from '../Shared/Cookie';
+import Loading from './Status/Loading';
 
 const Kakao = () => {
     // 인가코드 받는 부분
@@ -10,15 +12,17 @@ const Kakao = () => {
     const code = params.get("code"); 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
+    const token = getCookie("Authorization")
 
     useEffect(()=>{
       dispatch(__kakaoSignIn(code))
-      navigate('/');
-    },[dispatch, code, navigate])
+      if(token){
+        navigate('/');
+      }
+    },[token])
   return (
     <>
-        로딩중입니다..
+        <Loading />
     </>
   )
 }

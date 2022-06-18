@@ -2,11 +2,13 @@ import api from '../../Shared/api'
 import {setCookie} from '../../Shared/Cookie'
 
 // 액션 타입
+const USER_LOGIN = 'user/USER_LOGIN'
 const USER_IDCHECK = 'user/USER_IDCHECK'
 const USER_EMAILCHECK = 'user/USER_EMAILCHECK'
 const GET_REQUEST_LOADING = 'user/GET_REQUEST_LOADING';
 
 // 액션 함수
+const userLogin = (payload) => ({ type : USER_LOGIN, payload });
 const userIdCheck = (payload) => ({ type : USER_IDCHECK, payload });
 const userEmailCheck = (payload) => ({ type : USER_EMAILCHECK, payload });
 const getRequestLoading = (payload) => ({ type : GET_REQUEST_LOADING, payload });
@@ -66,8 +68,9 @@ export const __userSignIn = ({email, pw}) => async (dispatch) =>{
         // data.data.result ? alert('로그인 되었습니다') : alert('아이디 혹은 비밀번호를 체크해주세요');
         setCookie("Authorization", data.data.token)
         setCookie("username", data.data.nickname)
+        dispatch(userLogin(data.data.result));
     }catch(error){
-        alert('아이디 혹은 비밀번호를 체크해주세요');
+        // alert('아이디 혹은 비밀번호를 체크해주세요');
     }finally{
         dispatch(getRequestLoading(false))
     }
@@ -80,9 +83,9 @@ export const __kakaoSignIn = (code) => async (dispatch) =>{
         const data = await api.get(`/user/kakao/callback?code=${code}`)
         setCookie("Authorization", data.data.token)
         setCookie("username", data.data.nickname)
-        data.data.result ? alert('로그인에 성공하였습니다.') : alert('아이디 혹은 비밀번호를 체크해주세요');
+        dispatch(userLogin(data.data.result));
     }catch(error){
-       alert('Kakao Login Error:' + error)
+    //    alert('Kakao Login Error:' + error)
     }finally{
         dispatch(getRequestLoading(false))
     }
@@ -95,9 +98,10 @@ export const __naverSignIn = (code) => async (dispatch) =>{
         const data = await api.get(`/user/naver/callback?code=${code}`)
         setCookie("Authorization", data.data.token)
         setCookie("username", data.data.nickname)
-        data.data.result ? alert('로그인에 성공하였습니다.') : alert('아이디 혹은 비밀번호를 체크해주세요');
+        console.log(data)
+        dispatch(userLogin(data.data.result));
     }catch(error){
-       alert('Naver Login Error:' + error)
+    //    alert('Naver Login Error:' + error)
     }finally{
         dispatch(getRequestLoading(false))
     }
@@ -111,6 +115,7 @@ const initialState = {
     error: null,
     idCheck: false,
     emailCheck: false,
+    isLogin: false,
 }
 
 export default function userReducer(state = initialState, {payload, type}){
@@ -125,6 +130,11 @@ export default function userReducer(state = initialState, {payload, type}){
                 ...state,
                 emailCheck: payload,
             };
+        case USER_LOGIN:
+            return {
+                ...state,
+                isLogin: payload,
+            }
         default:
             return state; 
     }

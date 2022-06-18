@@ -22,7 +22,6 @@ export const StTitle = styled.span`
   font-weight: 700;
 `;
 
-
 export const StWrap = styled.div`
     ${flex({direction:'column',align:'center'})}
     width: 100%;
