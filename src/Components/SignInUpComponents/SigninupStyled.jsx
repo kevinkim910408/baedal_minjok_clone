@@ -22,7 +22,7 @@ export const StTitle = styled.span`
   font-weight: 700;
 `;
 
-// 회원가입
+
 export const StWrap = styled.div`
     ${flex({direction:'column',align:'center'})}
     width: 100%;
@@ -36,6 +36,7 @@ export const StWrap = styled.div`
     }
 `;
 
+// 회원가입
 export const StSmallInput = styled.input`
   width: calc(100vh - 76vh);
   height: 60px;

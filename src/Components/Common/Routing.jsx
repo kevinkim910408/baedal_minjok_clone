@@ -5,6 +5,7 @@ import Home from '../../Pages/Home'
 import Signin from "../../Pages/Signin";
 import Signup from "../../Pages/Signup";
 import Kakao from "../../Pages/Kakao";
+import Naver from "../../Pages/Naver";
 
 const Routing = () => {
   return (
@@ -13,7 +14,7 @@ const Routing = () => {
       <Route path="/signin" element={<Signin />}/>
       <Route path="/signup" element={<Signup />}/>
       <Route path="/user/kakao/callback" element={<Kakao />}/>
-      <Route />
+      <Route path="/user/naver/callback" element={<Naver />}/>
       <Route />
       <Route />
       <Route />

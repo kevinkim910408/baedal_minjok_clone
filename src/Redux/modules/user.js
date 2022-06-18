@@ -3,13 +3,11 @@ import {setCookie} from '../../Shared/Cookie'
 
 // 액션 타입
 const USER_IDCHECK = 'user/USER_IDCHECK'
-const KAKAO_LOGIN = 'user/KAKAO_LOGIN'
 const USER_EMAILCHECK = 'user/USER_EMAILCHECK'
 const GET_REQUEST_LOADING = 'user/GET_REQUEST_LOADING';
 
 // 액션 함수
 const userIdCheck = (payload) => ({ type : USER_IDCHECK, payload });
-const kakaoLogin = (payload) => ({ type : KAKAO_LOGIN, payload });
 const userEmailCheck = (payload) => ({ type : USER_EMAILCHECK, payload });
 const getRequestLoading = (payload) => ({ type : GET_REQUEST_LOADING, payload });
 
@@ -83,9 +81,24 @@ export const __kakaoSignIn = (code) => async (dispatch) =>{
         const data = await api.get(`/user/kakao/callback?code=${code}`)
         setCookie("Authorization", data.data.token)
         setCookie("username", data.data.nickname)
-        dispatch(kakaoLogin(data.data.result))
+        data.data.result ? alert('로그인에 성공하였습니다.') : alert('아이디 혹은 비밀번호를 체크해주세요');
     }catch(error){
        alert('Kakao Login Error:' + error)
+    }finally{
+        dispatch(getRequestLoading(false))
+    }
+}
+
+// 네이버 로그인
+export const __naverSignIn = (code) => async (dispatch) =>{
+    dispatch(getRequestLoading(true));
+    try{
+        const data = await api.get(`/user/naver/callback?code=${code}`)
+        setCookie("Authorization", data.data.token)
+        setCookie("username", data.data.nickname)
+        data.data.result ? alert('로그인에 성공하였습니다.') : alert('아이디 혹은 비밀번호를 체크해주세요');
+    }catch(error){
+       alert('Naver Login Error:' + error)
     }finally{
         dispatch(getRequestLoading(false))
     }
@@ -99,7 +112,6 @@ const initialState = {
     error: null,
     idCheck: false,
     emailCheck: false,
-    kakaoStatus: false,
 }
 
 export default function userReducer(state = initialState, {payload, type}){
@@ -114,11 +126,6 @@ export default function userReducer(state = initialState, {payload, type}){
                 ...state,
                 emailCheck: payload,
             };
-        case KAKAO_LOGIN:
-            return {
-                ...state,
-                kakaoStatus: payload,
-            }
         default:
             return state; 
     }
