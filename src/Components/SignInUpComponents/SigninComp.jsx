@@ -26,7 +26,6 @@ const SigninComp = () => {
     }
   },[navigate, isLogin])
 
-  console.log(isLogin)
   return (
     <>
       <StWrap>

@@ -26,7 +26,7 @@ export default ExitHeader;
 const StFlex = styled.div`
     ${flex({})}
     width: 100%;
-    height: 50px;
+    height: 75px;
     border-bottom: 2px solid var(--primary);
 `;
 

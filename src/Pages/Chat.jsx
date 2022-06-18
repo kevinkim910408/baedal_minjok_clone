@@ -1,12 +1,13 @@
 import React from 'react';
 import styled, {keyframes} from 'styled-components';
+import io from 'socket.io-client'
 import flex from '../Components/Common/flex'
 import ChatPic from '../Assets/Image/ChatLogo.png'
 import Mainheader from '../Components/MainComponents/Mainheader'
 
 const Chat = () => {
     return (
-        <StWrap>
+        <StWrap> 
             <Mainheader />
             <StImg src={ChatPic} alt="" />
             <StDiv>
