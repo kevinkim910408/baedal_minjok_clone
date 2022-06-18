@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { __userSignIn } from '../../Redux/modules/user'
-import { useDispatch, useSelector} from 'react-redux/es/exports'
+import { useDispatch } from 'react-redux/es/exports'
 import { useNavigate } from 'react-router-dom'
 import {StInput, StWrap, StFlex, StSubmitInput, StTitle, StLoginDiv, StLink, StImg} from './SigninupStyled'
 import Kakao from '../../Assets/Image/kakao_login.png'
@@ -12,16 +12,9 @@ const SigninComp = () => {
   const [pw, setPw] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {isLogin} = useSelector(state=> state.userReducer)
-
   const onLoginHandler = () =>{
     dispatch(__userSignIn({email, pw}))
-    if(isLogin){
-      alert('로그인에 성공하였습니다.')
-      navigate('/')
-    }else{
-      alert('이메일형식의 아이디, 혹은 비밀번호를 체크해주세요')
-    }
+    navigate('/')
   }
 
   return (

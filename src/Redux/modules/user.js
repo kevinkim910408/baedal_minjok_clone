@@ -1,5 +1,5 @@
 import api from '../../Shared/api'
-import {deleteAllCookies, setCookie} from '../../Shared/Cookie'
+import {setCookie, deleteAllCookies} from '../../Shared/Cookie'
 
 // 액션 타입
 const USER_LOGIN = 'user/USER_LOGIN'
@@ -61,6 +61,7 @@ export const __userEmailCheck = ({email}) => async (dispatch) =>{
 
 // 로그인
 export const __userSignIn = ({email, pw}) => async (dispatch) =>{
+    console.log(email, pw)
     dispatch(getRequestLoading(true));
     try{
         const data = await api.post(`/user/login`, {
@@ -68,6 +69,7 @@ export const __userSignIn = ({email, pw}) => async (dispatch) =>{
             password: pw,
         })
         // data.data.result ? alert('로그인 되었습니다') : alert('아이디 혹은 비밀번호를 체크해주세요');
+        console.log(data)
         setCookie("Authorization", data.data.token)
         setCookie("username", data.data.nickname)
         dispatch(userLogin(data.data.result));
@@ -82,10 +84,10 @@ export const __userSignIn = ({email, pw}) => async (dispatch) =>{
 export const __kakaoSignIn = (code) => async (dispatch) =>{
     dispatch(getRequestLoading(true));
     try{
-        const data = await api.get(`/user/kakao/callback?code=${code}`)
+        const data = await api.get(`/user/kakao/callback`)
+        console.log(data)
         setCookie("Authorization", data.data.token)
         setCookie("username", data.data.nickname)
-        console.log(data)
         dispatch(userLogin(data.data.result));
     }catch(error){
     //    alert('Kakao Login Error:' + error)
@@ -112,8 +114,8 @@ export const __naverSignIn = (code) => async (dispatch) =>{
 // 로그아웃
 export const __logOut = () => (dispatch) => {
     deleteAllCookies();
-    const data = false
-    dispatch(logout(data))
+    // const data = false
+    // dispatch(logout(data))
 }
 
 // 초기값
