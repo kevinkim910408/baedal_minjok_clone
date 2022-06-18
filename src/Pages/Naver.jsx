@@ -13,14 +13,13 @@ const Naver = () => {
     const dispatch = useDispatch();
     const {isLogin} = useSelector(state=> state.userReducer)
 
-    console.log(isLogin)
     useEffect(()=>{
       dispatch(__naverSignIn(code))
       if(isLogin){
         alert('로그인에 성공하셨습니다.')
         navigate('/')
       }
-    })
+    },[dispatch, isLogin])
   return (
     <>
       <Loading />

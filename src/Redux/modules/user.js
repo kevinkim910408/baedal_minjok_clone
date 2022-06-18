@@ -1,16 +1,18 @@
 import api from '../../Shared/api'
-import {setCookie} from '../../Shared/Cookie'
+import {deleteAllCookies, setCookie} from '../../Shared/Cookie'
 
 // 액션 타입
 const USER_LOGIN = 'user/USER_LOGIN'
 const USER_IDCHECK = 'user/USER_IDCHECK'
 const USER_EMAILCHECK = 'user/USER_EMAILCHECK'
+const USER_LOGOUT = 'user/USER_LOGOUT';
 const GET_REQUEST_LOADING = 'user/GET_REQUEST_LOADING';
 
 // 액션 함수
 const userLogin = (payload) => ({ type : USER_LOGIN, payload });
 const userIdCheck = (payload) => ({ type : USER_IDCHECK, payload });
 const userEmailCheck = (payload) => ({ type : USER_EMAILCHECK, payload });
+const logout = (payload) => ({ type : USER_LOGOUT, payload });
 const getRequestLoading = (payload) => ({ type : GET_REQUEST_LOADING, payload });
 
 // 회원가입 - 서버에 저장
@@ -83,6 +85,7 @@ export const __kakaoSignIn = (code) => async (dispatch) =>{
         const data = await api.get(`/user/kakao/callback?code=${code}`)
         setCookie("Authorization", data.data.token)
         setCookie("username", data.data.nickname)
+        console.log(data)
         dispatch(userLogin(data.data.result));
     }catch(error){
     //    alert('Kakao Login Error:' + error)
@@ -98,13 +101,19 @@ export const __naverSignIn = (code) => async (dispatch) =>{
         const data = await api.get(`/user/naver/callback?code=${code}`)
         setCookie("Authorization", data.data.token)
         setCookie("username", data.data.nickname)
-        console.log(data)
         dispatch(userLogin(data.data.result));
     }catch(error){
     //    alert('Naver Login Error:' + error)
     }finally{
         dispatch(getRequestLoading(false))
     }
+}
+
+// 로그아웃
+export const __logOut = () => (dispatch) => {
+    deleteAllCookies();
+    const data = false
+    dispatch(logout(data))
 }
 
 // 초기값
@@ -131,6 +140,11 @@ export default function userReducer(state = initialState, {payload, type}){
                 emailCheck: payload,
             };
         case USER_LOGIN:
+            return {
+                ...state,
+                isLogin: payload,
+            }
+        case USER_LOGOUT:
             return {
                 ...state,
                 isLogin: payload,

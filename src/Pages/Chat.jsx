@@ -20,11 +20,10 @@ export const StWrap = styled.div`
     & > .pass {
       color: var(--primary);
     }
-    & > .danger {
+    & > .danger {   
       color: var(--red);
     }
 `;
-
 
 export const StDiv = styled.div`
     ${flex({direction:'column',align:'center'})}

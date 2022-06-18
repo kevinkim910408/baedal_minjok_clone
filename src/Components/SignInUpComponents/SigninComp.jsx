@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import { __userSignIn } from '../../Redux/modules/user'
-import { useDispatch} from 'react-redux/es/exports'
+import { useDispatch, useSelector} from 'react-redux/es/exports'
 import { useNavigate } from 'react-router-dom'
-import {StInput, StWrap, StFlex, StSubmitInput, StTitle, StButtonLogin, StLink, StImg} from './SigninupStyled'
+import {StInput, StWrap, StFlex, StSubmitInput, StTitle, StLoginDiv, StLink, StImg} from './SigninupStyled'
 import Kakao from '../../Assets/Image/kakao_login.png'
 import Naver from '../../Assets/Image/naver_login.png'
 import ExitHeader from '../Common/ExitHeader'
@@ -12,11 +12,17 @@ const SigninComp = () => {
   const [pw, setPw] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+  const {isLogin} = useSelector(state=> state.userReducer)
+
+  console.log(isLogin)
   const onLoginHandler = () =>{
     dispatch(__userSignIn({email, pw}))
-    alert('로그인에 성공하였습니다.')
-    navigate('/')
+    if(isLogin){
+      alert('로그인에 성공하였습니다.')
+      navigate('/')
+    }else{
+      alert('이메일형식의 아이디, 혹은 비밀번호를 체크해주세요')
+    }
   }
 
   return (
@@ -30,16 +36,16 @@ const SigninComp = () => {
       </StWrap>
 
       <StFlex>
-        <StButtonLogin >
+        <StLoginDiv >
           <a href='http://3.37.87.166/user/kakao'>
             <StImg src={Kakao} alt=""/>
           </a>
-        </StButtonLogin>
-        <StButtonLogin>
+        </StLoginDiv>
+        <StLoginDiv>
         <a href='http://3.37.87.166/user/naver'>
             <StImg src={Naver} alt=""/>
           </a>
-        </StButtonLogin>
+        </StLoginDiv>
         <span>
           혹시, 배달의민족이 처음이신가요?
         <StLink to={'/signup'}> 회원가입</StLink>

@@ -83,7 +83,7 @@ export const StFlex = styled.div`
   width:100%;
 `;
 
-export const StButtonLogin = styled.button`
+export const StLoginDiv = styled.div`
   width: calc(100vh - 60vh);
   height: 40px;
   margin-bottom: 3rem;
