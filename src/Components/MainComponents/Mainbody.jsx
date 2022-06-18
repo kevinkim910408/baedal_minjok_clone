@@ -24,93 +24,108 @@ import category14 from '../../image/category14.jpg'
 
 const Maininput = () => {
   return (
-    <>
-      <Inputbox>
+    <StWrap>
+      <InputBox>
         <input className="input" type="text" placeholder='찾는 메뉴가 뭐예요?'
         />
-        <Searchbutton>
+        <SearchButton>
           <FontAwesomeIcon className='icon' icon={faMagnifyingGlass}
             color={"black"}
           />
-        </Searchbutton>
-      </Inputbox><br />
-      <Categorybody>
+        </SearchButton>
+      </InputBox>
+      <CategoryBody>
         <Categorybox>
-          <img src={category1} style={{ width: '150px' }} />
+          <img src={category1} alt=""/>
         </Categorybox>
         <Categorybox>
-          <img src={category2} style={{ width: '150px' }} />
+          <img src={category2} alt=""/>
         </Categorybox>
         <Categorybox>
-          <img src={category3} style={{ width: '150px' }} />
+          <img src={category3} alt=""/>
         </Categorybox>
         <Categorybox>
-          <img src={category4} style={{ width: '150px' }} />
+          <img src={category4} alt=""/>
         </Categorybox>
         <Categorybox>
-          <img src={category5} style={{ width: '150px' }} />
+          <img src={category5} alt=""/>
         </Categorybox>
         <Categorybox>
-          <img src={category6} style={{ width: '150px' }} />
+          <img src={category6} alt=""/>
         </Categorybox>
         <Categorybox>
-          <img src={category7} style={{ width: '150px' }} />
+          <img src={category7} alt=""/>
         </Categorybox>
         <Categorybox>
-          <img src={category8} style={{ width: '150px' }} />
+          <img src={category8} alt=""/>
         </Categorybox>
         <Categorybox>
-          <img src={category9} style={{ width: '150px' }} />
+          <img src={category9} alt=""/>
         </Categorybox>
         <Categorybox>
-          <img src={category10} style={{ width: '150px' }} />
+          <img src={category10} alt=""/>
         </Categorybox>
         <Categorybox>
-          <img src={category11} style={{ width: '150px' }} />
+          <img src={category11} alt=""/>
         </Categorybox>
         <Categorybox>
-          <img src={category12} style={{ width: '150px' }} />
+          <img src={category12} alt=""/>
         </Categorybox>
         <Categorybox>
-          <img src={category13} style={{ width: '150px' }} />
+          <img src={category13} alt=""/>
         </Categorybox>
         <Categorybox>
-          <img src={category14} style={{ width: '150px' }} />
+          <img src={category14} alt=""/>
         </Categorybox>
-      </Categorybody>
-    </>
+      </CategoryBody>
+    </StWrap>
   );
 }
 
 export default Maininput;
 
-// const MainButton = styled.button`
-//   font-size: 1.5rem;
-//   border: none;
-//   border-radius: 10px;
-//   padding: 0.5rem;
-// `;
-
-const Inputbox = styled.div`
-${flex({ direction: 'column' })}
-height: 100px;
-width: 100%;
+const StWrap = styled.div`
+  ${flex({direction:'column'})}
+  width: 100%;
+  height: 100%;
+  background-color: var(--white);
 `;
 
-const Searchbutton = styled.button`
+
+const InputBox = styled.div`
+  ${flex({})}
+  width: calc(100vh - 60vh);
+  height: 100px;
+  margin-bottom: 1rem;
+  & > input{
+    width: 70%;
+    height: 50px;
+    border: none;
+    border-bottom: 1px solid var(--font-secondary);
+  }
+`;
+
+const CategoryBody = styled.div`
+  ${flex({gap:'3px'})}
+  flex-wrap: wrap;
+  width: calc(100vh - 60vh);
+  background-color: var(--primary);
+  padding: 1rem;
+
+`;
+
+const Categorybox = styled.div`
+  & > img{
+    width: 100px;
+  }
+`;
+
+const SearchButton = styled.button`
+  width: 70px;
   height: 50px;
-  width: 50px;
+  border: none;
+  border-radius: 5px;
+  & > .icon{
+    font-size: large;
+  }
 `;
-
-const Categorybody = styled.button`
-`;
-
-const Categorybox = styled.button`
-cursor: pointer;
-`;
-
-const input = styled.button`
-${flex({ direction: "column", gap: "24px" })}
-`;
-
-

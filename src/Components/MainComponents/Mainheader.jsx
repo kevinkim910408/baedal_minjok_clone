@@ -15,9 +15,6 @@ const Mainheader = () => {
     const onLoginHandler = () => {
         navigate('/Signin')
     }
-    const onSignupHandler = () => {
-        navigate('/Signup')
-    }
     return (
         <>
             <HeaderFlex>
@@ -27,10 +24,7 @@ const Mainheader = () => {
                     </Imagebox>
                     <Mainicon>
                         <HeaderBtn onClick={onLoginHandler}>
-                            <FontAwesomeIcon className='icon' icon={faRightToBracket} />
-                        </HeaderBtn>
-                        <HeaderBtn onClick={onSignupHandler}>
-                            <FontAwesomeIcon className='icon' icon={faUserPlus} />
+                            😋
                         </HeaderBtn>
                     </Mainicon>
                 </HeaderWrap>
@@ -71,9 +65,8 @@ margin-Right: 1.5rem;
 export default Mainheader;
 
 // // 로그인 조건
-//     //   const is_login = useSelector((state) => state.user.is_login);
-//     //   const cookie = getCookie("is_login");
-//     //   const is_token = cookie ? true : false;
+//     //   const cookie = getCookie("Authorization");
+//     //   Boolean(cookie) ? 회원정보? : 로그인등보여주기;
 //     return (
 //         <StyleHeader>
 //             {(() => {
