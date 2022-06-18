@@ -1,4 +1,3 @@
-/* GlobalStyle.jsx */
 import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
 import "./font.css";
