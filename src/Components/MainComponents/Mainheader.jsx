@@ -23,7 +23,7 @@ const Mainheader = () => {
             <HeaderFlex>
                 <HeaderWrap>
                     <Imagebox>
-                        <img className="bannerimg" src={mainlogo} alt="logo" style={{ width: '100px' }} />
+                        <img src={mainlogo} style={{ width: '150px' }} />
                     </Imagebox>
                     <Mainicon>
                         <HeaderBtn onClick={onLoginHandler}>
@@ -59,6 +59,7 @@ cursor: pointer;
 
 const Imagebox = styled.div`
 margin-Left: 1.5rem;
+cursor: pointer;
 `
 
 const Mainicon = styled.div`

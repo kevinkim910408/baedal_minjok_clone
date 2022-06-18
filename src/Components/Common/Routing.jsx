@@ -4,14 +4,15 @@ import { Routes, Route } from "react-router-dom";
 import Home from '../../Pages/Home'
 import Signin from "../../Pages/Signin";
 import Signup from "../../Pages/Signup";
+import Chat from '../../Pages/Chat'
 
 const Routing = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />}/>
-      <Route path="/signin" element={<Signin />}/>
-      <Route path="/signup" element={<Signup />}/>
-      <Route />
+      <Route path="/" element={<Home />} />
+      <Route path="/signin" element={<Signin />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/chat" element={<Chat />} />
       <Route />
       <Route />
       <Route />
