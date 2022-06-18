@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { __naverSignIn } from '../Redux/modules/user';
 import { getCookie } from '../Shared/Cookie';
-import Loading from './Loading';
+import Loading from './Status/Loading';
 
 const Naver = () => {
     // 인가코드 받는 부분

@@ -1,7 +1,7 @@
 import React from 'react'
-import LoadingOne from '../Assets/Image/loadingOne.PNG'
 import styled, { keyframes } from 'styled-components'
-import flex from '../Components/Common/flex';
+import flex from '../../Components/Common/flex';
+import LoadingOne from '../../Assets/Image/loadingOne.PNG'
 
 const Loading = () => {
   return (
