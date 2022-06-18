@@ -28,6 +28,11 @@ button:disabled{
   background-color: var(--font-secondary);
 }
 
+input[type=submit]:hover:enabled,
+button:hover:enabled{
+    background-color: var(--primary-hover);
+}
+
 input[type=submit],
 button{
     color: var(--white);
@@ -45,6 +50,7 @@ body {
 
 :root {
     --primary: #2ec2b8;
+    --primary-hover: #20a097;
     --font-main: #0f0f0f;
     --font-secondary:#cbcbcb;
     --Line:#f4f4f4;
