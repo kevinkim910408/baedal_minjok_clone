@@ -1,7 +1,6 @@
 import React from 'react'
-import { useState } from 'react';
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { __kakaoSignIn } from '../Redux/modules/user';
 import Loading from './Status/Loading';
@@ -12,11 +11,16 @@ const Kakao = () => {
     const code = params.get("code"); 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [cookie, setCookie] = useState();
+    const {isLogin} = useSelector(state=>state.userReducer)
 
     useEffect(()=>{
-      dispatch(__kakaoSignIn())
-    },[dispatch, code, navigate])
+      dispatch(__kakaoSignIn(code))
+      if(isLogin){
+        alert('환영합니다')
+        navigate('/')
+      }
+    },[dispatch, code, navigate, isLogin])
+
   return (
     <>
         <Loading />
