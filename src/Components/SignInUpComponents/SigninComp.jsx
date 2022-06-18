@@ -1,18 +1,22 @@
 import React, {useState} from 'react'
-import ExitHeader from '../Common/ExitHeader'
 import { __userSignIn } from '../../Redux/modules/user'
 import { useDispatch} from 'react-redux/es/exports'
+import { useNavigate } from 'react-router-dom'
 import {StInput, StWrap, StFlex, StSubmitInput, StTitle, StButtonLogin, StLink, StImg} from './SigninupStyled'
 import Kakao from '../../Assets/Image/kakao_login.png'
 import Naver from '../../Assets/Image/naver_login.png'
+import ExitHeader from '../Common/ExitHeader'
 
 const SigninComp = () => {
   const [email, setEmail] = useState();
   const [pw, setPw] = useState();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
   const onLoginHandler = () =>{
     dispatch(__userSignIn({email, pw}))
+    alert('로그인에 성공하였습니다.')
+    navigate('/')
   }
 
   return (

@@ -63,8 +63,7 @@ export const __userSignIn = ({email, pw}) => async (dispatch) =>{
             email: email,
             password: pw,
         })
-        console.log(data)
-        data.data.result ? alert('로그인 되었습니다') : alert('아이디 혹은 비밀번호를 체크해주세요');
+        // data.data.result ? alert('로그인 되었습니다') : alert('아이디 혹은 비밀번호를 체크해주세요');
         setCookie("Authorization", data.data.token)
         setCookie("username", data.data.nickname)
     }catch(error){
