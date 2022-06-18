@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL: "https://e9d7-125-189-149-94.ngrok.io"
+    baseURL: "http://3.37.87.166"
 })
 
 // 서버 url 입력하면 됩니다.
