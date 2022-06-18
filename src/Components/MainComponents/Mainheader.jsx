@@ -4,6 +4,7 @@ import flex from '../Common/flex';
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import mainlogo from "../../image/mainlogo2.png"
+import { getCookie, deleteAllCookies } from "../../Shared/Cookie"
 
 // 위에 폰트
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,20 +16,66 @@ const Mainheader = () => {
     const onLoginHandler = () => {
         navigate('/Signin')
     }
+    const onMypageHandler = () => {
+        navigate('/Mypage')
+    }
+    // 로그아웃
+    const logout = deleteAllCookies();
+    // 페이지변환
+    const cookie = getCookie("Authorization");
+    const getnickname = getCookie("username");
+    const [cookies, setCookies] = useState(cookie);
+    const changePage = () => {
+        setCookies(cookies + 1)
+    }
+
+    console.log(cookies)
+    console.log(setCookies)
+    console.log(changePage.length)
     return (
         <>
-            <HeaderFlex>
-                <HeaderWrap>
-                    <Imagebox>
-                        <img src={mainlogo} style={{ width: '150px' }} />
-                    </Imagebox>
-                    <Mainicon>
-                        <HeaderBtn onClick={onLoginHandler}>
-                            😋
-                        </HeaderBtn>
-                    </Mainicon>
-                </HeaderWrap>
-            </HeaderFlex>
+            {(() => {
+                // 로그인 전 헤더
+                if (cookies == undefined) {
+                    return (
+                        <HeaderFlex>
+                            <HeaderWrap>
+                                <Imagebox>
+                                    <img src={mainlogo} style={{ width: '150px' }} />
+                                </Imagebox>
+                                <Mainicon>
+                                    <HeaderBtn onClick={onLoginHandler}>
+                                        😍
+                                    </HeaderBtn>
+                                </Mainicon>
+                            </HeaderWrap>
+                        </HeaderFlex>
+                    );
+                }
+                // 로그인 후 헤더
+                else {
+                    return (
+                        <HeaderFlex>
+                            <HeaderWrap>
+                                <Imagebox>
+                                    <img src={mainlogo} style={{ width: '150px' }} />
+                                </Imagebox>
+                                <Mainicon>
+                                    <HeaderNickName>
+                                        안녕하세요 {getnickname}님
+                                    </HeaderNickName>
+                                    <HeaderBtn onClick={logout}>
+                                        😢
+                                    </HeaderBtn>
+                                    <HeaderBtn onClick={onMypageHandler}>
+                                        😋
+                                    </HeaderBtn>
+                                </Mainicon>
+                            </HeaderWrap>
+                        </HeaderFlex>
+                    );
+                }
+            })()}
         </>
     );
 }
@@ -45,6 +92,10 @@ width: 100%;
 height: 100%;
 `;
 
+const HeaderNickName = styled.div`
+font-size: 1rem;
+`
+
 const HeaderBtn = styled.div`
 font-size: 2rem;
 margin-left: 1rem;
@@ -60,6 +111,8 @@ const Mainicon = styled.div`
 ${flex({})}
 margin-Right: 1.5rem;
 `
+
+
 
 
 export default Mainheader;
