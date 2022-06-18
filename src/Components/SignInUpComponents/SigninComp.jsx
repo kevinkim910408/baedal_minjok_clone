@@ -14,7 +14,6 @@ const SigninComp = () => {
   const navigate = useNavigate();
   const {isLogin} = useSelector(state=> state.userReducer)
 
-  console.log(isLogin)
   const onLoginHandler = () =>{
     dispatch(__userSignIn({email, pw}))
     if(isLogin){
@@ -28,7 +27,7 @@ const SigninComp = () => {
   return (
     <>
       <StWrap>
-        <ExitHeader />
+        <ExitHeader text=""/>
         <StTitle>로그인</StTitle>
         <StInput type="text" placeholder='아이디'  onChange={(e)=> setEmail(e.target.value)}/>
         <StInput type="password" placeholder='비밀번호' onChange={(e)=> setPw(e.target.value)}/>

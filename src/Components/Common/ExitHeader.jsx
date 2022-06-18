@@ -5,10 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import flex from './flex';
 
-const ExitHeader = () => {
+const ExitHeader = ({text}) => {
     const navigate = useNavigate();
     const onBackHandler = () => {
-        navigate(-1)
+        navigate(`/${text}`)
     }
   return (
     <StFlex>
