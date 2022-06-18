@@ -3,11 +3,13 @@ import {setCookie} from '../../Shared/Cookie'
 
 // 액션 타입
 const USER_IDCHECK = 'user/USER_IDCHECK'
+const KAKAO_LOGIN = 'user/KAKAO_LOGIN'
 const USER_EMAILCHECK = 'user/USER_EMAILCHECK'
 const GET_REQUEST_LOADING = 'user/GET_REQUEST_LOADING';
 
 // 액션 함수
 const userIdCheck = (payload) => ({ type : USER_IDCHECK, payload });
+const kakaoLogin = (payload) => ({ type : KAKAO_LOGIN, payload });
 const userEmailCheck = (payload) => ({ type : USER_EMAILCHECK, payload });
 const getRequestLoading = (payload) => ({ type : GET_REQUEST_LOADING, payload });
 
@@ -68,7 +70,7 @@ export const __userSignIn = ({email, pw}) => async (dispatch) =>{
         setCookie("Authorization", data.data.token)
         setCookie("username", data.data.nickname)
     }catch(error){
-       alert('Login Error:' + error)
+        alert('아이디 혹은 비밀번호를 체크해주세요');
     }finally{
         dispatch(getRequestLoading(false))
     }
@@ -79,9 +81,9 @@ export const __kakaoSignIn = (code) => async (dispatch) =>{
     dispatch(getRequestLoading(true));
     try{
         const data = await api.get(`/user/kakao/callback?code=${code}`)
-        data.data.result ? alert('로그인 되었습니다') : alert('아이디 혹은 비밀번호를 체크해주세요');
         setCookie("Authorization", data.data.token)
         setCookie("username", data.data.nickname)
+        dispatch(kakaoLogin(data.data.result))
     }catch(error){
        alert('Kakao Login Error:' + error)
     }finally{
@@ -97,7 +99,7 @@ const initialState = {
     error: null,
     idCheck: false,
     emailCheck: false,
-    finishSignUp: false,
+    kakaoStatus: false,
 }
 
 export default function userReducer(state = initialState, {payload, type}){
@@ -112,6 +114,11 @@ export default function userReducer(state = initialState, {payload, type}){
                 ...state,
                 emailCheck: payload,
             };
+        case KAKAO_LOGIN:
+            return {
+                ...state,
+                kakaoStatus: payload,
+            }
         default:
             return state; 
     }

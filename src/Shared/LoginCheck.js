@@ -1,6 +1,6 @@
 // 로그인, 회원가입 유효성 검사 파일
 
-// 아이디 형식 검사
+// 닉네임 형식 검사
 export const idRegCheck = (id) => {
   const regPass = /^(?=.*[0-9a-zA-Z가-힣])[가-힣a-zA-Z0-9-_.]{4,15}$/;
   return regPass.test(id);
@@ -12,6 +12,7 @@ export const passwordRegCheck = (pw) => {
   return regPass.test(pw);
 };
 
+// 이메일
 export const emailRegCheck = (email) =>{
   const regPass = /(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/g;
   return regPass.test(email);
