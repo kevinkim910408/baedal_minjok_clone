@@ -14,6 +14,8 @@ const Chat = () => {
     const [messages, setMessages] = useState([]);
     const username = localStorage.getItem("username")
     const scrollRef = useRef();
+    const date = new Date();
+    const today = date.getMonth()+1 + "/" + date.getDate() + " "+ date.getHours() + "시"+ date.getMinutes() +"분";
 
     const scollToMyRef = () => {
       const scroll =
@@ -36,7 +38,7 @@ const Chat = () => {
     const sendMessage = (event) => {
         event.preventDefault();
         if(message !== "") socket.emit("chat", {msg: message}, () => setMessage(''));
-        setMessages([...messages, chatRef.current.value + "&^&%$^$@!/@$!-"])
+        setMessages([...messages, chatRef.current.value + "&^&%$^$@!/@$!-a$2%69(*/@@#1"])
         chatRef.current.value = "";
     }
 
@@ -48,10 +50,24 @@ const Chat = () => {
             <StDiv>
                 <StDivTwo ref={scrollRef}>
                     {messages.map((v,i)=>{
-                        if(v.includes("&^&%$^$@!/@$!-")){
-                            return <StP>{v.split("&^&%$^$@!/@$!-")}</StP>
+                        if(v.includes("&^&%$^$@!/@$!-a$2%69(*/@@#1")){
+                            return <>
+                            <StUserSideChat style={{margin:'0'}}>
+                                <p>{v.split("&^&%$^$@!/@$!-a$2%69(*/@@#1")}</p>
+                            </StUserSideChat>
+                            <StUserSideChat>
+                                <span>{today}</span>
+                            </StUserSideChat>
+                            </>
                         }else{
-                            return <StPTwo>{v.split("&^&%$^$@!/@$!-")}</StPTwo>
+                            return <>
+                            <StServerSideChat style={{margin:'0'}}>
+                                <p>{v}</p>
+                            </StServerSideChat>
+                            <StServerSideChat>
+                                <span>{today}</span>
+                            </StServerSideChat>
+                        </>
                         }
                     })}
                 </StDivTwo>
@@ -123,14 +139,33 @@ const StTitle = styled.div`
     font-family: 'BMDOHYEON';
 `;
 
-const StP = styled.div`
-    ${flex({ justify:'flex-end'})}
+const StPModel = styled.div`
     width: 100%;
+    margin: 0 0 1rem 0;
+    & > p{
+        padding: 10px;
+        border-radius: 15px;
+        color: white;
+        font-size: 1.5rem;
+    }
+    & > span{
+        font-size: 0.5rem;
+        color: var(--font-secondary);
+    }
 `;
 
-const StPTwo = styled.div`
+const StUserSideChat = styled(StPModel)`
+    ${flex({ justify:'flex-end'})}
+    & > p{
+        background-color: var(--primary);
+    }
+`;
+
+const StServerSideChat = styled(StPModel)`
     ${flex({ justify:'flex-start'})}
-    width: 100%;
+    & > p{
+        background-color: var(--primary-hover);
+    }
 `;
 
 const StDivTwo = styled.div`
