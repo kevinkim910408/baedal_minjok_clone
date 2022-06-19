@@ -12,25 +12,31 @@ const Chat = () => {
     const [flag, setFlag] = useState(true);
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
-    const [messageSends, setMessageSends] = useState([]);
-    const token = localStorage.getItem("Authorization")
+    const username = localStorage.getItem("username")
+    const scrollRef = useRef();
+
+    const scollToMyRef = () => {
+      const scroll =
+        scrollRef.current.scrollHeight - scrollRef.current.clientHeight;
+      scrollRef.current.scrollTo(0, scroll);
+    };
 
     useEffect(()=>{
         chatRef.current.focus();
-
+        scollToMyRef();
         if(flag){
-            socket.emit("token", {token:`Bearer ${token}`} );
+            socket.emit("login", {nickname: username})
             setFlag(false)
         }
         socket.on("chat", (data)=>{
-            setMessages([...messages, data])
+            setMessages([...messages, data.msg])
         })
-    },[flag, token, messages])
+    },[flag, messages, username])
 
     const sendMessage = (event) => {
         event.preventDefault();
         if(message !== "") socket.emit("chat", {msg: message}, () => setMessage(''));
-        setMessageSends([...messageSends, chatRef.current.value])
+        setMessages([...messages, chatRef.current.value + "&^&%$^$@!/@$!-"])
         chatRef.current.value = "";
     }
 
@@ -40,14 +46,15 @@ const Chat = () => {
             <StImg src={ChatPic} alt="" />
             <StTitle>무엇을 도와드릴까요?</StTitle>
             <StDiv>
-                <div style={{width:'100%'}}>
-                    {/* {messages.map((v,i)=>{
-                        return <StPTwo>{v}</StPTwo> 
+                <StDivTwo ref={scrollRef}>
+                    {messages.map((v,i)=>{
+                        if(v.includes("&^&%$^$@!/@$!-")){
+                            return <StP>{v.split("&^&%$^$@!/@$!-")}</StP>
+                        }else{
+                            return <StPTwo>{v.split("&^&%$^$@!/@$!-")}</StPTwo>
+                        }
                     })}
-                    {messageSends.map((v)=>{
-                        return <StP>{v}</StP>
-                    })} */}
-                </div>
+                </StDivTwo>
                 <StChatDiv> 
                     <StLine />
                     <input 
@@ -90,7 +97,6 @@ const StDiv = styled.div`
     border: 2px solid var(--primary);
     border-radius: 10px;
     margin-bottom: 2rem;
-    overflow: scroll;
 `;
 
 const StImg = styled.img`
@@ -109,7 +115,6 @@ const StLine = styled.div`
 const StChatDiv = styled.form`
     ${flex({direction:'column', justify:'flex-end'})}
     width: 100%;
-    height: 100%;
 `;
 
 const StTitle = styled.div`
@@ -126,4 +131,10 @@ const StP = styled.div`
 const StPTwo = styled.div`
     ${flex({ justify:'flex-start'})}
     width: 100%;
+`;
+
+const StDivTwo = styled.div`
+    width: 100%;
+    height: 600px;
+    overflow: scroll;
 `;
