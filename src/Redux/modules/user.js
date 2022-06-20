@@ -85,7 +85,7 @@ export const __kakaoSignIn = (code) => async (dispatch) =>{
         localStorage.setItem("username", data.data.nickname)
         dispatch(userLogin(data.data.result));
     }catch(error){
-        alert('아이디 혹은 비밀번호를 체크해주세요')
+        // alert('아이디 혹은 비밀번호를 체크해주세요')
     }finally{
         dispatch(getRequestLoading(false))
     }
@@ -100,7 +100,7 @@ export const __naverSignIn = (code) => async (dispatch) =>{
         localStorage.setItem("username", data.data.nickname)
         dispatch(userLogin(data.data.result));
     }catch(error){
-        alert('아이디 혹은 비밀번호를 체크해주세요')
+        // alert('아이디 혹은 비밀번호를 체크해주세요')
     }finally{
         dispatch(getRequestLoading(false))
     }
