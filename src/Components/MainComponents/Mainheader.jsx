@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
 import flex from '../Common/flex';
+
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+
 import mainLogo from "../../image/mainlogo2.png"
 import { __logOut } from '../../Redux/modules/user';
 
