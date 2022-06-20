@@ -29,11 +29,7 @@ const CircleButton = styled.button`
   cursor: pointer;
   width: 30px;
   height: 30px;
-  display: block;
-  align-items: center;
-  justify-content: center;
   font-size: 60px;
-  position: absolute;
   left: 50%;
   bottom: 0px;
   transform: translate(-50%, 50%);

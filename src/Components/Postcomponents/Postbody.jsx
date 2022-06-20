@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import flex from '../Common/flex';
 
 const Postbody = () => {
     return (
@@ -10,19 +9,25 @@ const Postbody = () => {
             <PostMenu />
             <PostMenu />
             <PostMenu />
-
-
-
+            <PostMenu />
+            <PostMenu />
+            <PostMenu />
+            <PostMenu />
+            <PostMenu />
+            <PostMenu />
+            <PostMenu />
+            <PostMenu />
+            <PostMenu />
         </>
     );
 }
 
 const PostMenu = styled.div`
-   width: calc(47vh);
-    height: 150px;
+    width: 95%;
+    min-height: 150px;
     border: 2px solid var(--primary);
     border-radius: 10px;
-    margin-bottom: 1rem;
+    margin: 1rem 0 1rem 0;
 
 `;
 
