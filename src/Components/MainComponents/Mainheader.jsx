@@ -59,7 +59,7 @@ const Mainheader = () => {
                         <HeaderFlex>
                             <HeaderWrap>
                                 <Imagebox>
-                                    <img src={mainLogo} style={{ width: '150px' }} alt="" />
+                                    <img onClick={onHomeHandler} src={mainLogo} style={{ width: '150px' }} alt="" />
                                 </Imagebox>
                                 <Mainicon>
                                     <HeaderNickName>
