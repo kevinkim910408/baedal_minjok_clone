@@ -41,8 +41,8 @@ const Mainheader = () => {
                     return (
                         <HeaderFlex>
                             <HeaderWrap>
-                                <Imagebox onClick={onHomeHandler}>
-                                    <img src={mainLogo} style={{ width: '150px' }} alt="" />
+                                <Imagebox >
+                                    <img onClick={onHomeHandler} src={mainLogo} style={{ width: '150px' }} alt="" />
                                 </Imagebox>
                                 <Mainicon>
                                     <HeaderBtn onClick={onLoginHandler}>

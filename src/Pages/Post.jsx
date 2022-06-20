@@ -1,11 +1,13 @@
 import React from 'react'
+import Posthead from '../Components/Postcomponents/Posthead'
+import Postbody from '../Components/Postcomponents/Postbody'
 
 const Post = () => {
   return (
-    <div>
-        ㅇ여기가 포스트 페이지
-
-    </div>
+    <>
+      <Posthead />
+      <Postbody />
+    </>
   )
 }
 

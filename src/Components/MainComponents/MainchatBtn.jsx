@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { BsFillChatFill } from 'react-icons/bs';
@@ -7,20 +8,42 @@ import { IoIosAddCircle } from 'react-icons/io'
 
 const MainchatBtn = () => {
     const navigate = useNavigate();
+    const getType = localStorage.getItem("usertype");
+    const [type, setType] = useState(getType);
     return (
         <>
-            <AddButton>
-                <IoIosAddCircle size={60} color={'#b71540'} onClick={() => {
-                    navigate('/post');
-                }}>
-                </IoIosAddCircle>
-            </AddButton>
-            <ChatButton>
-                <BsFillChatFill size={60} color={'#b71540'} onClick={() => {
-                    navigate('/chat');
-                }}>
-                </BsFillChatFill>
-            </ChatButton>
+            {(() => {
+                if (type === "1")
+                    return (
+                        <>
+                            <AddButton>
+                                <IoIosAddCircle size={60} color={'#b71540'} onClick={() => {
+                                    navigate('/post');
+                                }}>
+                                </IoIosAddCircle>
+                            </AddButton>
+                            <ChatButton>
+                                <BsFillChatFill size={60} color={'#b71540'} onClick={() => {
+                                    navigate('/chat');
+                                }}>
+                                </BsFillChatFill>
+                            </ChatButton>
+                        </>
+                    )
+                else {
+                    return (
+                        <>
+                            <ChatButton>
+                                <BsFillChatFill size={60} color={'#b71540'} onClick={() => {
+                                    navigate('/chat');
+                                }}>
+                                </BsFillChatFill>
+                            </ChatButton>
+                        </>
+                    );
+                }
+            })()}
+
         </>
     );
 }
