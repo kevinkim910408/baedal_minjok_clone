@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
 import flex from '../Common/flex';
-import {  useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import mainLogo from "../../image/mainlogo2.png"
 import { __logOut } from '../../Redux/modules/user';
@@ -12,7 +12,11 @@ const Mainheader = () => {
     const getNickname = localStorage.getItem("username");
     const cookie = localStorage.getItem("Authorization");
     const [cookies, setCookies] = useState(cookie);
-    
+
+    const onHomeHandler = () => {
+        navigate('/')
+    }
+
     const onLoginHandler = () => {
         navigate('/Signin')
     }
@@ -25,8 +29,8 @@ const Mainheader = () => {
         dispatch(__logOut());
         setCookies(null)
     };
-   
-    
+
+
     return (
         <>
             {(() => {
@@ -35,8 +39,8 @@ const Mainheader = () => {
                     return (
                         <HeaderFlex>
                             <HeaderWrap>
-                                <Imagebox>
-                                    <img src={mainLogo} style={{ width: '150px' }} alt=""/>
+                                <Imagebox onClick={onHomeHandler}>
+                                    <img src={mainLogo} style={{ width: '150px' }} alt="" />
                                 </Imagebox>
                                 <Mainicon>
                                     <HeaderBtn onClick={onLoginHandler}>
@@ -53,7 +57,7 @@ const Mainheader = () => {
                         <HeaderFlex>
                             <HeaderWrap>
                                 <Imagebox>
-                                    <img src={mainLogo} style={{ width: '150px' }} alt=""/>
+                                    <img src={mainLogo} style={{ width: '150px' }} alt="" />
                                 </Imagebox>
                                 <Mainicon>
                                     <HeaderNickName>

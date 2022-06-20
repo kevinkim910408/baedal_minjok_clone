@@ -6,20 +6,20 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 
 // 카테고리 이미지
-import category1 from '../../image/category1.jpg'
-import category2 from '../../image/category2.jpg'
-import category3 from '../../image/category3.jpg'
-import category4 from '../../image/category4.jpg'
-import category5 from '../../image/category5.jpg'
-import category6 from '../../image/category6.jpg'
-import category7 from '../../image/category7.jpg'
-import category8 from '../../image/category8.jpg'
-import category9 from '../../image/category9.jpg'
-import category10 from '../../image/category10.jpg'
-import category11 from '../../image/category11.jpg'
-import category12 from '../../image/category12.jpg'
-import category13 from '../../image/category13.jpg'
-import category14 from '../../image/category14.jpg'
+import category1 from '../../image/category1.JPG'
+import category2 from '../../image/category2.JPG'
+import category3 from '../../image/category3.JPG'
+import category4 from '../../image/category4.JPG'
+import category5 from '../../image/category5.JPG'
+import category6 from '../../image/category6.JPG'
+import category7 from '../../image/category7.JPG'
+import category8 from '../../image/category8.JPG'
+import category9 from '../../image/category9.JPG'
+import category10 from '../../image/category10.JPG'
+import category11 from '../../image/category11.JPG'
+import category12 from '../../image/category12.JPG'
+import category13 from '../../image/category13.JPG'
+import category14 from '../../image/category14.JPG'
 
 
 const Maininput = () => {
@@ -36,46 +36,46 @@ const Maininput = () => {
       </InputBox>
       <CategoryBody>
         <Categorybox>
-          <img src={category1} alt=""/>
+          <img src={category1} alt="" />
         </Categorybox>
         <Categorybox>
-          <img src={category2} alt=""/>
+          <img src={category2} alt="" />
         </Categorybox>
         <Categorybox>
-          <img src={category3} alt=""/>
+          <img src={category3} alt="" />
         </Categorybox>
         <Categorybox>
-          <img src={category4} alt=""/>
+          <img src={category4} alt="" />
         </Categorybox>
         <Categorybox>
-          <img src={category5} alt=""/>
+          <img src={category5} alt="" />
         </Categorybox>
         <Categorybox>
-          <img src={category6} alt=""/>
+          <img src={category6} alt="" />
         </Categorybox>
         <Categorybox>
-          <img src={category7} alt=""/>
+          <img src={category7} alt="" />
         </Categorybox>
         <Categorybox>
-          <img src={category8} alt=""/>
+          <img src={category8} alt="" />
         </Categorybox>
         <Categorybox>
-          <img src={category9} alt=""/>
+          <img src={category9} alt="" />
         </Categorybox>
         <Categorybox>
-          <img src={category10} alt=""/>
+          <img src={category10} alt="" />
         </Categorybox>
         <Categorybox>
-          <img src={category11} alt=""/>
+          <img src={category11} alt="" />
         </Categorybox>
         <Categorybox>
-          <img src={category12} alt=""/>
+          <img src={category12} alt="" />
         </Categorybox>
         <Categorybox>
-          <img src={category13} alt=""/>
+          <img src={category13} alt="" />
         </Categorybox>
         <Categorybox>
-          <img src={category14} alt=""/>
+          <img src={category14} alt="" />
         </Categorybox>
       </CategoryBody>
     </StWrap>
@@ -85,7 +85,7 @@ const Maininput = () => {
 export default Maininput;
 
 const StWrap = styled.div`
-  ${flex({direction:'column'})}
+  ${flex({ direction: 'column' })}
   width: 100%;
   height: 100%;
   background-color: var(--white);
@@ -106,7 +106,7 @@ const InputBox = styled.div`
 `;
 
 const CategoryBody = styled.div`
-  ${flex({gap:'3px'})}
+  ${flex({ gap: '3px' })}
   flex-wrap: wrap;
   width: calc(100vh - 60vh);
   background-color: var(--primary);
