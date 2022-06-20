@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import flex from '../Common/flex';
 
 const Postfixed = () => {
     return (
@@ -21,13 +20,3 @@ const PostTop = styled.div`
 
 
 export default Postfixed
-
-// const PostTop = styled.div`
-//     ${flex({})}
-//     width: calc(97vh - 50vh);
-//     height: 150px;
-//     border: 2px solid var(--primary);
-//     border-radius: 10px;
-//     margin-bottom: 33rem;
-//     position: fixed;
-// `;
