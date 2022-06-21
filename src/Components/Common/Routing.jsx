@@ -6,9 +6,9 @@ import Signin from "../../Pages/Signin";
 import Signup from "../../Pages/Signup";
 import Kakao from "../../Pages/Kakao";
 import Naver from "../../Pages/Naver";
-import Chat from '../../Pages/Chat';
 import Mypage from '../../Pages/Mypage';
 import Post from '../../Pages/Post';
+import UpdateUserInfo from '../../Pages/UpdateUserInfo';
 
 const Routing = () => {
   return (
@@ -18,10 +18,9 @@ const Routing = () => {
       <Route path="/signup" element={<Signup />} />
       <Route path="/user/kakao/callback" element={<Kakao />} />
       <Route path="/user/naver/callback" element={<Naver />} />
-      <Route path="/chat" element={<Chat />} />
       <Route path="/mypage" element={<Mypage />} />
       <Route path="/post" element={<Post />} />
-      <Route />
+      <Route path="/UpdateUserInfo" element={<UpdateUserInfo />}/>
       <Route />
       <Route />
       <Route />

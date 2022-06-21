@@ -17,11 +17,16 @@ const Mypage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-        // 로그아웃
-        const onLogoutHandler = () => {
-            dispatch(__logOut());
-            navigate('/')
-        };
+    // 로그아웃
+    const onLogoutHandler = () => {
+        dispatch(__logOut());
+        navigate('/')
+    };
+
+    const onUserProfileUpdate = () => {
+        navigate('/UpdateUserInfo')
+    }
+        
     
 
     return (
@@ -48,7 +53,7 @@ const Mypage = () => {
                         />
                     </StLoginDiv>
                     <StGrid>
-                        <div></div>
+                        <div onClick={onUserProfileUpdate}></div>
                         <div></div>
                         <div></div>
                         <div></div>
@@ -135,5 +140,5 @@ export const StGrid = styled.div`
 `;
 
 export const StList = styled.div`
-    
+
 `;
