@@ -4,14 +4,15 @@ import AddBtn from './PostAddBtn'
 import MinusBtn from './PostMinusBtn'
 
 const Postbody = () => {
-    const menunameRef = useRef();
+    const menuNameRef = useRef();
     const priceRef = useRef();
     const explainRef = useRef();
-
+    const menuImgRef = useRef();
     return (
         <>
             <PostMenu >
-                메뉴 <PostInput ref={menunameRef} /><br />
+                메뉴 <PostInput ref={menuNameRef} />
+                메뉴사진<PostInput type="file" ref={menuImgRef} /> <br />
                 가격 <PostInput type="number" ref={priceRef} /><br />
                 상품설명 <PostInputLong ref={explainRef} />
             </PostMenu>

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import flex from '../Components/Common/flex'
@@ -11,34 +11,40 @@ import MinusBtn from '../Components/Postcomponents/PostMinusBtn'
 
 
 const Post = () => {
-  const categoryIdRef = useRef();
   const nameRef = useRef();
   const locationRef = useRef();
   const phoneRef = useRef();
-  const imgRef = useRef();
-  const openinghoursRef = useRef();
-  const minpriceRef = useRef();
+  const logoImgRef = useRef();
+  const openingHoursRef = useRef();
+  const minPriceRef = useRef();
 
-  const menunameRef = useRef();
+  const menuNameRef = useRef();
   const priceRef = useRef();
   const explainRef = useRef();
+  const menuImgRef = useRef();
 
+  const [selectImage, setSelectImage] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const onChangeSelectImage = (e) => {
+    setSelectImage(e.target.files);
+  }
+
   const onPostHandler = () => {
     dispatch(__addPost({
-      categoryId: categoryIdRef.current.value,
       name: nameRef.current.value,
       location: locationRef.current.value,
       phone: phoneRef.current.value,
-      img: imgRef.current.value,
-      openingHours: openinghoursRef.current.value,
-      minprice: minpriceRef.current.value,
-      menuname: menunameRef.current.value,
+      logoImg: logoImgRef.current.value,
+      openingHours: openingHoursRef.current.value,
+      minPrice: minPriceRef.current.value,
+      menuName: menuNameRef.current.value,
       price: priceRef.current.value,
       explain: explainRef.current.value,
+      menuImg: menuImgRef.current.value,
     }))
+    alert('등록이 완료되었습니다')
     navigate('/')
   }
 
@@ -49,20 +55,19 @@ const Post = () => {
         <PostInsideDiv>
           <PostDiv>
             <PostMenu>
-              카테고리 <PostInput ref={categoryIdRef} />
-              가게이름 <PostInput ref={nameRef} /><br />
+              가게이름 <PostInput type='text' ref={nameRef} /><br />
               전화번호 <PostInput type="number" ref={phoneRef} />
-              최소주문금액 <PostInput type="number" ref={minpriceRef} /><br />
+              최소주문금액 <PostInput type="number" ref={minPriceRef} /><br />
               위치 <PostInput ref={locationRef} />
-              영업시간 <PostInput ref={openinghoursRef} />
-              가게로고 <PostInput type="file" ref={imgRef} />
+              영업시간 <PostInput type="number" ref={openingHoursRef} />
+              가게로고 <PostInput type="file" ref={logoImgRef} />
             </PostMenu>
             <PostMenu >
-              메뉴 <PostInput ref={menunameRef} /><br />
+              메뉴 <PostInput ref={menuNameRef} />
+              메뉴사진<PostInput type="file" ref={menuImgRef} /> <br />
               가격 <PostInput type="number" ref={priceRef} /><br />
-              상품설명 <PostInputLong ref={explainRef} />
+              상품설명 <PostInputLong type='text' ref={explainRef} />
             </PostMenu>
-            <Postbody />
             <Postbody />
             <AddBtn />
             <MinusBtn />

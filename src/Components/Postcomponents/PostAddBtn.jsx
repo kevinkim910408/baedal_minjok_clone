@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import styled from 'styled-components';
 import { IoIosAddCircle } from 'react-icons/io'
 import flex from "../Common/flex";
+import Postbody from "./Postbody";
 
 function AddBtn() {
+  const AddBody = () => {
+    <Postbody />
+  }
 
   return (
     <>
-      <CircleButton>
+      <CircleButton onClick={AddBody}>
         <IoIosAddCircle />
       </CircleButton>
     </>

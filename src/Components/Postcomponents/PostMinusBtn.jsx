@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import { AiFillMinusCircle } from 'react-icons/ai'
 import flex from "../Common/flex";
 
+
 function MinusBtn() {
 
     return (
         <>
-            <CircleButton>
+            <CircleButton >
                 <AiFillMinusCircle />
             </CircleButton>
         </>
