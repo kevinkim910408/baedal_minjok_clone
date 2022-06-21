@@ -6,7 +6,8 @@ import Postbody from '../Components/Postcomponents/Postbody'
 import Mainheader from '../Components/MainComponents/Mainheader'
 import { __addPost } from '../Redux/modules/posting'
 import { useDispatch } from "react-redux";
-
+import AddBtn from '../Components/Postcomponents/PostAddBtn'
+import MinusBtn from '../Components/Postcomponents/PostMinusBtn'
 
 
 const Post = () => {
@@ -33,7 +34,10 @@ const Post = () => {
       phone: phoneRef.current.value,
       img: imgRef.current.value,
       openingHours: openinghoursRef.current.value,
-      minPrice: minpriceRef.current.value,
+      minprice: minpriceRef.current.value,
+      menuname: menunameRef.current.value,
+      price: priceRef.current.value,
+      explain: explainRef.current.value,
     }))
     navigate('/')
   }
@@ -45,30 +49,23 @@ const Post = () => {
         <PostInsideDiv>
           <PostDiv>
             <PostMenu>
-              카테고리
-              <PostInput ref={categoryIdRef} />
-              가게이름
-              <PostInput ref={nameRef} /><br />
-              전화번호
-              <PostInput ref={phoneRef} />
-              최소주문금액
-              <PostInput ref={minpriceRef} /><br />
-              위치
-              <PostInput ref={locationRef} />
-              영업시간
-              <PostInput ref={openinghoursRef} />
-              가게로고
-              <PostInput ref={imgRef} type="file" />
+              카테고리 <PostInput ref={categoryIdRef} />
+              가게이름 <PostInput ref={nameRef} /><br />
+              전화번호 <PostInput type="number" ref={phoneRef} />
+              최소주문금액 <PostInput type="number" ref={minpriceRef} /><br />
+              위치 <PostInput ref={locationRef} />
+              영업시간 <PostInput ref={openinghoursRef} />
+              가게로고 <PostInput type="file" ref={imgRef} />
             </PostMenu>
             <PostMenu >
-              메뉴
-              <PostInput ref={menunameRef} /><br />
-              가격
-              <PostInput ref={priceRef} /><br />
-              상품설명
-              <PostInputLong ref={explainRef} />
+              메뉴 <PostInput ref={menunameRef} /><br />
+              가격 <PostInput type="number" ref={priceRef} /><br />
+              상품설명 <PostInputLong ref={explainRef} />
             </PostMenu>
             <Postbody />
+            <Postbody />
+            <AddBtn />
+            <MinusBtn />
           </PostDiv>
           <PostBtn onClick={onPostHandler}>등록하기</PostBtn>
         </PostInsideDiv>

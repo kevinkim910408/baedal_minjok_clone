@@ -11,16 +11,11 @@ const Postbody = () => {
     return (
         <>
             <PostMenu >
-                메뉴
-                <PostInput ref={menunameRef} /><br />
-                가격
-                <PostInput ref={priceRef} /><br />
-                상품설명
-                <PostInputLong ref={explainRef} />
+                메뉴 <PostInput ref={menunameRef} /><br />
+                가격 <PostInput type="number" ref={priceRef} /><br />
+                상품설명 <PostInputLong ref={explainRef} />
             </PostMenu>
-            <PostMenu />
-            <AddBtn />
-            <MinusBtn />
+
         </>
     );
 }

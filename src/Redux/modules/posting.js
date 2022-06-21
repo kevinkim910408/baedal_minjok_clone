@@ -18,22 +18,21 @@ const getPostError = (payload) => ({ type: GET_POST_ERROR, payload });
 const initialState = {
     lists: [
         {
-            // 샘플
-            "restaurantDetail": {
-              "name": "족발나라",
-              "location": "영등포점",
-              "phone": "07012345678",
-              "img": "url",
-              "openingHours": "오전11시",
-              "minPrice": 20000,
-              },
-            "Menus": {
-                  "menuName": "족발(大)",
-                  "price": 30000,
-                  "explain": "일본이 놀라 자빠지고 중국이 탐내는 족발",
-                  "img": null,
-                }
-          }
+            restaurantDetail: {
+                name: "",
+                location: "",
+                phone: "",
+                img: null,
+                openingHours: "",
+                minPrice: "",
+            },
+            Menus: {
+                menuname: "",
+                price: "",
+                explain: "",
+                img: null,
+            }
+        }
     ],
 }
 
@@ -52,13 +51,17 @@ export const __addPost = (payload) => async (dispatch, getState) => {
             img: payload.img,
             openingHours: payload.openingHours,
             minPrice: payload.minPrice,
-        },{
+            menuname: payload.menuname,
+            price: payload.price,
+            explain: payload.explain,
+            img: payload.img
+        }, {
             headers: {
                 'Authorization': `Bearer ${token}`,
-              }
+            }
         })
         console.log(data)
-       
+
         dispatch(addPost(data.data))
     } catch (error) {
         dispatch(getPostError(error))
