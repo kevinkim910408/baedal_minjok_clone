@@ -9,19 +9,16 @@ import Pic2 from '../Assets/Image/mypagePic2.jpg'
 import Pic3 from '../Assets/Image/arrow.png'
 import Pic4 from '../Assets/Image/mainSlide04.png'
 import Pic5 from '../Assets/Image/mainSlide05.jpg'
-import { __logOut, __getUser } from '../Redux/modules/user';
+import Pic6 from '../Assets/Image/Mypage_cate01.PNG'
+import Pic7 from '../Assets/Image/Mypage_cate02.PNG'
+import Pic8 from '../Assets/Image/Mypage_cate03.PNG'
+import { __getUser } from '../Redux/modules/user';
 
 const Mypage = () => {
     const username = localStorage.getItem('username')
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {address, phone} = useSelector(state=>state.userReducer)
-
-    // 로그아웃
-    const onLogoutHandler = () => {
-        dispatch(__logOut());
-        navigate('/')
-    };
 
     const onUserProfileUpdate = () => {
         navigate('/UpdateUserInfo')
@@ -50,7 +47,9 @@ const Mypage = () => {
                             class="icon" 
                             src={Pic3} 
                             alt="" 
-                            onClick={onLogoutHandler} 
+                            onClick={()=>{
+                                navigate('/UpdateUserInfo')
+                            }} 
                             style={{cursor:'pointer'}}
                         />
                     </StLoginDiv>
@@ -66,9 +65,15 @@ const Mypage = () => {
                     </div>
                     }
                     <StGrid>
-                        <div onClick={onUserProfileUpdate}></div>
-                        <div></div>
-                        <div></div>
+                        <div onClick={onUserProfileUpdate}>
+                            <img src={Pic8} alt="" />
+                        </div>
+                        <div>
+                            <img src={Pic7} alt="" />
+                        </div>
+                        <div>
+                            <img src={Pic6} alt="" />
+                        </div>
                     </StGrid>  
                     <div>
                         <img src={Pic4} alt="" />
@@ -105,7 +110,7 @@ export const StDiv = styled.div`
     }
     & > div > img{
         width: calc(100vh - 60vh);
-        height: 120px;
+        height: 150px;
         margin-bottom: 0.5rem;
     }
 
@@ -152,8 +157,9 @@ export const StGrid = styled.div`
     & > div:hover{
         background-color: var(--font-secondary);
     }
-`;
 
-export const StList = styled.div`
-
+    & > div > img{
+        width: 100%;
+        height: 100%;
+    }
 `;

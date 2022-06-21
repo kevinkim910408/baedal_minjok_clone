@@ -96,13 +96,13 @@ const UpdateUserInfo = () => {
                     <StInput 
                         type="text"
                         placeholder='용산구'
-                        maxLength={7}
+                        maxLength={5}
                         ref={AddressTwo}
                     />
                     <StInput 
                         type="text"
                         placeholder='한남동'
-                        maxLength={7}
+                        maxLength={5}
                         ref={AddressThree}
                     />
                     </StFlexRow>
@@ -110,7 +110,7 @@ const UpdateUserInfo = () => {
                     <StInput 
                         type="text"
                         placeholder='상세주소'
-                        maxLength={15}
+                        maxLength={12}
                         style={{width:'350px'}}
                         ref={AddressDetail}
                     />
