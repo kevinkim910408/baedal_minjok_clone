@@ -146,12 +146,12 @@ export const __getUser = () => async (dispatch) =>{
     const myToken = localStorage.getItem("Authorization");
     dispatch(getRequestLoading(true))
     try{
-        const data = await api.get(`/user/update`,{
+        const data = await api.get(`/user/my-page`,{
             headers: {
               'Authorization': `Bearer ${myToken}`,
             }
           });
-        dispatch(getUser(data))
+        dispatch(getUser(data.data.user))
         // alert('수정에 성공하였습니다.')
     }catch(error){
         // alert("다른 사람의 질문은 완료 할 수 없습니다")

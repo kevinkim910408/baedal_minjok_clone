@@ -135,7 +135,6 @@ const SearchButton = styled.button`
 const StSwiperBox = styled.div`
   width: calc(100vh - 60vh);
   height: 150px;
-  background-color: red;
   & > img{
     width:100%
   }
