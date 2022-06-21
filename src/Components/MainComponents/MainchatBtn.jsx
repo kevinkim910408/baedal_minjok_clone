@@ -35,13 +35,13 @@ const MainchatBtn = () => {
                     return (
                         <>
                             <AddButton>
-                                <IoIosAddCircle size={60} color={'#b71540'} onClick={() => {
+                                <IoIosAddCircle size={60} color={'var(--primary-hover)'} onClick={() => {
                                     navigate('/post');
                                 }}>
                                 </IoIosAddCircle>
                             </AddButton>
                             <ChatButton>
-                                <BsFillChatFill size={60} color={'#b71540'} onClick={(e)=>joinRoom(e)}>
+                                <BsFillChatFill size={60} color={'var(--primary-hover)'} onClick={(e)=>joinRoom(e)}>
                                 </BsFillChatFill>
                             </ChatButton>
                         </>
@@ -50,7 +50,7 @@ const MainchatBtn = () => {
                     return (
                         <>
                             <ChatButton>
-                                <BsFillChatFill size={60} color={'#b71540'} onClick={(e)=>joinRoom(e)}>
+                                <BsFillChatFill size={60} color={'var(--primary-hover)'} onClick={(e)=>joinRoom(e)}>
                                 </BsFillChatFill>
                             </ChatButton>
                         </>
@@ -73,6 +73,9 @@ const MainchatBtn = () => {
 export default MainchatBtn;
 
 const ChatButton = styled.div`
+    background-color: white;
+    border-radius: 40%;
+    padding: 10px;
     position: fixed;
     right: 5%;
     bottom: 5%;
@@ -80,15 +83,18 @@ const ChatButton = styled.div`
 `;
 
 const AddButton = styled.div`
+    background-color: white;
+    border-radius: 40%;
+    padding: 10px;
     position: fixed;
     right: 5%;
-    bottom: 12%;
+    bottom: 15%;
     cursor: pointer;
 `;
 
 const StDiv = styled.div`
     position: fixed;
     right: 5%;
-    bottom: 20%;
+    bottom: 25%;
     cursor: pointer;
 `;
