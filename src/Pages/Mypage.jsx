@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components';
 import flex from '../Components/Common/flex';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Mainheader from '../Components/MainComponents/Mainheader'
 import Pic from '../Assets/Image/mypagePic.png'
@@ -9,13 +9,13 @@ import Pic2 from '../Assets/Image/mypagePic2.jpg'
 import Pic3 from '../Assets/Image/arrow.png'
 import Pic4 from '../Assets/Image/mainSlide04.png'
 import Pic5 from '../Assets/Image/mainSlide05.jpg'
-
-import { __logOut } from '../Redux/modules/user';
+import { __logOut, __getUser } from '../Redux/modules/user';
 
 const Mypage = () => {
     const username = localStorage.getItem('username')
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {address, phone} = useSelector(state=>state.userReducer)
 
     // 로그아웃
     const onLogoutHandler = () => {
@@ -26,8 +26,10 @@ const Mypage = () => {
     const onUserProfileUpdate = () => {
         navigate('/UpdateUserInfo')
     }
-        
-    
+
+    useEffect(()=>{
+        dispatch(__getUser());
+    },[dispatch])
 
     return (
         <>
@@ -52,11 +54,19 @@ const Mypage = () => {
                             style={{cursor:'pointer'}}
                         />
                     </StLoginDiv>
+                    {
+                        address==="" ? 
+                        <>
+                            <p>아래의 회원정보 수정을 눌러서</p>
+                            <p>전화번호와 주소를 추가해주세요</p>
+                        </> :
+                        <>
+                            <p>주소:{address}</p>
+                            <p>핸드폰:{phone}</p>
+                        </>
+                    }
                     <StGrid>
                         <div onClick={onUserProfileUpdate}></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
                         <div></div>
                         <div></div>
                     </StGrid>  

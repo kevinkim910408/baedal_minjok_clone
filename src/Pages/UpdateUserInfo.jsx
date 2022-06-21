@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux/es/exports'
 import { useNavigate } from 'react-router-dom'
 import flex from '../Components/Common/flex'
 import { __userUpdate } from '../Redux/modules/user'
-import { useEffect } from 'react'
 
 const UpdateUserInfo = () => {
     const dispatch = useDispatch();
@@ -20,8 +19,6 @@ const UpdateUserInfo = () => {
     const AddressTwo  = useRef();
     const AddressThree = useRef();
     const AddressDetail = useRef();
-
-    
 
     const onUpdateUserHandler = () =>{
         if(numberOne.current.value === "" || numberTwo.current.value === "" || numberThree.current.value === "" || 
@@ -39,9 +36,9 @@ const UpdateUserInfo = () => {
             return;
         } 
         dispatch(__userUpdate({
-            phone: numberOne.current.value + " " + numberTwo.current.value + " " +numberThree.current.value,
+            phone: numberOne.current.value + numberTwo.current.value + numberThree.current.value,
             postAddress: postAddress.current.value,
-            address: AddressOne.current.value + " " + AddressTwo.current.value + " " + AddressThree.current.value,
+            address: AddressOne.current.value + " " + AddressTwo.current.value + " " + AddressThree.current.value + " " + AddressDetail.current.value,
         }));
         alert('수정이 완료되었습니다.')
         navigate(-1)
