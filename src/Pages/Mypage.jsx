@@ -19,7 +19,6 @@ const Mypage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {address, phone} = useSelector(state=>state.userReducer)
-
     const onUserProfileUpdate = () => {
         navigate('/UpdateUserInfo')
     }
@@ -54,7 +53,7 @@ const Mypage = () => {
                         />
                     </StLoginDiv>
                     {
-                    address==="" ? 
+                    address===null ? 
                     <div>
                         <p>아래의 회원정보 수정을 눌러서</p>
                         <p>전화번호와 주소를 추가해주세요</p>
