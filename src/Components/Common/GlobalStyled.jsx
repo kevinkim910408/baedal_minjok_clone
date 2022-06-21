@@ -39,11 +39,18 @@ button{
     border: none;
 }
 
+input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 body {
     background-color: var(--white);
     -ms-overflow-style: none;
+    font-family: 'BMDOHYEON';
     }
-    ::-webkit-scrollbar {
+::-webkit-scrollbar {
     display: none;
     
 }

@@ -6,7 +6,7 @@ import { passwordRegCheck, emailRegCheck, idRegCheck } from '../../Shared/LoginC
 import {StInput, StWrap, StSmallInput , StSubmitButton, StDiv, StTitle, StFlexInfoInput, StButton} from './SigninupStyled'
 import ExitHeader from '../Common/ExitHeader'
 
-const NICKNAME_MAX_LENGTH = 10;
+const NICKNAME_MAX_LENGTH = 6;
 const EMAIL_MAX_LENGTH = 25;
 const PW_MAX_LENGTH = 20;
 const PW_MIN_LENGTH = 8;
@@ -69,7 +69,7 @@ const Signup = () => {
           </StFlexInfoInput>
           {/* Inputs */}
           <StDiv>
-            <StSmallInput type="text" placeholder='닉네임*(4-10글자)' onChange={(e)=> setNickName(e.target.value)} maxLength={NICKNAME_MAX_LENGTH}/>
+            <StSmallInput type="text" placeholder='닉네임*(2-6글자)' onChange={(e)=> setNickName(e.target.value)} maxLength={NICKNAME_MAX_LENGTH}/>
             <StButton disabled={onDupIdDisableHandler()} onClick={()=>{onIdDupCheckHandler(nickName)}}>중복체크</StButton>
           </StDiv>
 

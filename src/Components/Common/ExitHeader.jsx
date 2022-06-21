@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import flex from './flex';
 
-const ExitHeader = ({text}) => {
+const ExitHeader = ({text, title}) => {
     const navigate = useNavigate();
     const onBackHandler = () => {
         navigate(`/${text}`)
@@ -37,6 +37,7 @@ const StWrap = styled.div`
 `;
 
 const StBackBtn = styled.div`
+    ${flex({justify:'flex-start'})}
     font-size: 2rem;
     margin-left: 2rem;
 `;
