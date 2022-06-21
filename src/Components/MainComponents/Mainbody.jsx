@@ -121,7 +121,7 @@ const CategoryBody = styled.div`
 
 const Categorybox = styled.div`
   & > img{
-    width: 100px;
+    width: 95px;
   }
 `;
 
