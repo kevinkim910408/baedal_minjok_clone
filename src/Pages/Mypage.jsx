@@ -55,15 +55,15 @@ const Mypage = () => {
                         />
                     </StLoginDiv>
                     {
-                        address==="" ? 
-                        <>
-                            <p>아래의 회원정보 수정을 눌러서</p>
-                            <p>전화번호와 주소를 추가해주세요</p>
-                        </> :
-                        <>
-                            <p>주소:{address}</p>
-                            <p>핸드폰:{phone}</p>
-                        </>
+                    address==="" ? 
+                    <div>
+                        <p>아래의 회원정보 수정을 눌러서</p>
+                        <p>전화번호와 주소를 추가해주세요</p>
+                    </div> :
+                    <div>
+                        <p>주소:{address}</p>
+                        <p>핸드폰:{phone}</p>
+                    </div>
                     }
                     <StGrid>
                         <div onClick={onUserProfileUpdate}></div>
@@ -108,6 +108,10 @@ export const StDiv = styled.div`
         height: 120px;
         margin-bottom: 0.5rem;
     }
+
+    & > div > p{
+        margin-bottom: 1rem;
+    }
 `;
 
 export const StLoginDiv = styled.div`
@@ -125,6 +129,7 @@ export const StLoginDiv = styled.div`
     & > div > div > p{
         font-size: 1rem;
         margin-left: 0.5rem;
+        margin-bottom: 1rem;
     }
     & > .icon{
         width: 30px;

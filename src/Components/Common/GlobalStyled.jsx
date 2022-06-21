@@ -48,8 +48,9 @@ input::-webkit-outer-spin-button,
 body {
     background-color: var(--white);
     -ms-overflow-style: none;
+    font-family: 'BMDOHYEON';
     }
-    ::-webkit-scrollbar {
+::-webkit-scrollbar {
     display: none;
     
 }
