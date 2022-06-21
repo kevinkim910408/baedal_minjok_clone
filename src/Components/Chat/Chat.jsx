@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react'
+import ScrollToBottom from 'react-scroll-to-bottom';
 import './Chat.css'
 
 const Chat = ({socket, username, room}) => {
     const [currentMessage, setCurrentMessage] = useState("");
     const [messageList, setMessageList] = useState([]);
-    const scrollRef = useRef();
+    const inputRef = useRef();
     const sendMessage = async () => {
         if(currentMessage !== ""){
             const messageData = {
@@ -18,17 +19,12 @@ const Chat = ({socket, username, room}) => {
             };
             await socket.emit("send_message", messageData)
             setMessageList((list)=>[...list, messageData]);
+            inputRef.current.value="";
         }
     }
 
-    const scollToMyRef = () => {
-        const scroll =
-          scrollRef.current.scrollHeight - scrollRef.current.clientHeight;
-        scrollRef.current.scrollTo(0, scroll);
-      };
 
     useEffect(()=>{
-        scollToMyRef();
         socket.on("receive_message", (data)=>{
             setMessageList((list)=>[...list, data]);
         })
@@ -39,7 +35,8 @@ const Chat = ({socket, username, room}) => {
         <div className='chat-header'>
             <p>배민 고객센터</p>
         </div>
-        <div className='chat-body' ref={scrollRef}>
+        <div className='chat-body'>
+            <ScrollToBottom className='message-container'>
             {messageList.map((messageContent)=>{
                 return (
                     <div 
@@ -58,12 +55,17 @@ const Chat = ({socket, username, room}) => {
                     </div>
                 );
             })}
+            </ScrollToBottom>
         </div>
         <div className='chat-footer'>
             <input 
                 type="text" 
-                placeholder='Hey...'
+                placeholder='대화를 입력하세요.'
                 onChange={(e)=> setCurrentMessage(e.target.value)}
+                onKeyDown={(e)=>{
+                    e.key === 'Enter' && sendMessage();
+                }}
+                ref={inputRef}
             />
             <button onClick={sendMessage}>&#9658;</button>
         </div>
