@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
-import { IoIosAddCircle } from 'react-icons/io'
+import { AiFillMinusCircle } from 'react-icons/ai'
 import flex from "../Common/flex";
 
-function AddBtn() {
+function MinusBtn() {
 
-  return (
-    <>
-      <CircleButton>
-        <IoIosAddCircle />
-      </CircleButton>
-    </>
-  );
+    return (
+        <>
+            <CircleButton>
+                <AiFillMinusCircle />
+            </CircleButton>
+        </>
+    );
 }
 
 const CircleButton = styled.button`
@@ -28,4 +28,4 @@ ${flex({ direction: "column" })}
   cursor: pointer;
 `;
 
-export default AddBtn;
+export default MinusBtn;
