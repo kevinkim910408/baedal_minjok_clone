@@ -6,7 +6,8 @@ import { IoIosAddCircle } from 'react-icons/io'
 // 다른 모양 import { RiQuestionAnswerFill } from 'react-icons/ri';
 import io from 'socket.io-client'
 import Chat from '../Chat/Chat';
-const socket = io.connect("http://localhost:3001/")
+
+const socket = io.connect("http://3.37.87.166/")
 
 const MainchatBtn = () => {
     const navigate = useNavigate();

@@ -19,10 +19,7 @@ import category12 from '../../image/category12.JPG'
 import category13 from '../../image/category13.JPG'
 import category14 from '../../image/category14.JPG'
 import slide01 from '../../Assets/Image/mainSlide01.jpg'
-import slide02 from '../../Assets/Image/mainSlide02.jpg'
-import slide03 from '../../Assets/Image/mainSlide03.jpg'
-import slide04 from '../../Assets/Image/mainSlide04.png'
-import slide05 from '../../Assets/Image/mainSlide05.jpg'
+
 
 const Maininput = () => {
   return (
@@ -81,7 +78,7 @@ const Maininput = () => {
         </Categorybox>
       </CategoryBody>
       <StSwiperBox>
-     
+        <img src={slide01} alt="" />
       </StSwiperBox>
     </StWrap>
   );
@@ -139,4 +136,7 @@ const StSwiperBox = styled.div`
   width: calc(100vh - 60vh);
   height: 150px;
   background-color: red;
+  & > img{
+    width:100%
+  }
 `;
