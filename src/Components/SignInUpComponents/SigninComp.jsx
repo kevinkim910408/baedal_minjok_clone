@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import { __userSignIn } from '../../Redux/modules/user'
 import { useDispatch, useSelector } from 'react-redux/es/exports'
 import { useNavigate } from 'react-router-dom'
@@ -14,9 +14,11 @@ const SigninComp = () => {
   const {isLogin} = useSelector(state=>state.userReducer)
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const pwRef = useRef();
   
   const onLoginHandler = () =>{
-    dispatch(__userSignIn({email, pw}))
+    dispatch(__userSignIn({email, pw}));
+    pwRef.current.value = "";
   }
 
   useEffect(()=>{
@@ -32,7 +34,7 @@ const SigninComp = () => {
         <ExitHeader text=""/>
         <StTitle>로그인</StTitle>
         <StInput type="text" placeholder='아이디'  onChange={(e)=> setEmail(e.target.value)}/>
-        <StInput type="password" placeholder='비밀번호' onChange={(e)=> setPw(e.target.value)}/>
+        <StInput type="password" placeholder='비밀번호' onChange={(e)=> setPw(e.target.value)} ref={pwRef}/>
         <StSubmitInput type="submit" value="로그인" onClick={onLoginHandler}/>
       </StWrap>
 
