@@ -1,4 +1,4 @@
-import React, { useEffect }  from 'react'
+import React, { useEffect, useState }  from 'react'
 import { useDispatch, useSelector } from 'react-redux/es/exports'
 import { __getPostDetail } from '../Redux/modules/detail'
 import styled from 'styled-components'
@@ -6,13 +6,31 @@ import flex from '../Components/Common/flex'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone, faLocationDot, faClock } from "@fortawesome/free-solid-svg-icons";
 import Mainheader from '../Components/MainComponents/Mainheader'
+import Loading from './Status/Loading'
+import { useRef } from 'react'
 
 const Detail = () => {
-    const {detailLists} = useSelector(state=> state.detailReducer)
+    const {detailLists, loading} = useSelector(state=> state.detailReducer)
+    const [toggle, setToggle] = useState(false);
+    const commentRef = useRef();
+
     const dispatch = useDispatch();
     useEffect(()=>{
       dispatch(__getPostDetail({id:32}));
   },[dispatch])
+
+  const onToggleReviewHandler = () => {
+    setToggle(toggle=> !toggle);
+  }
+
+  const onSubmitCommentHandler = () => {
+
+  }
+
+//   if(loading){
+//     return <Loading />
+//   }
+
   return (
     <>
         <Mainheader />
@@ -46,7 +64,7 @@ const Detail = () => {
                     {
                         detailLists.length !== 0 ? 
                         detailLists.Menus.map((value,index)=>{
-                            return  <StList>
+                            return  <StList key={index}>
                                     <div>
                                         <p>{value.menuName}</p>
                                         <p>₩ {value.price} </p>
@@ -59,6 +77,27 @@ const Detail = () => {
                     }
                 </ul>
             </StDiv>
+            {
+                toggle ? 
+                <StToggleBox>
+                    <p>{detailLists.name}</p>
+                    <p>{detailLists.location}</p>
+                    <input 
+                        type="text" 
+                        ref={commentRef} 
+                        placeholder="한줄 리뷰를 달아주세요! 최대 20자!"
+                        maxLength={20}
+                    />
+                    <button onClick={onSubmitCommentHandler}>추가하기</button>
+                </StToggleBox> : <></>
+            }
+            <StButton onClick={onToggleReviewHandler}>
+                {
+                    toggle ? 
+                    <p>리뷰 닫기</p>:
+                    <p>리뷰 달기</p>
+                }
+            </StButton>
         </StWrap>
     </>
   )
@@ -115,12 +154,50 @@ const StInfoBoxZIndex = styled.div`
 `;
 
 const StList = styled.li`
-    ${flex({direction:'row'})}
+    ${flex({})}
     width: calc(100vh - 60vh);
     height: 150px;
     border-bottom: 1px solid var(--font-secondary);
     font-size: 1.5rem;
     & > img {
         width: 50%;
+    }
+`;
+
+const StButton = styled.button`
+    width: 200px;
+    margin-top: 1rem;
+    padding: 10px;
+    border-radius: 30px;
+    font-size: 2rem;
+`;
+
+const StToggleBox = styled.div`
+    ${flex({direction:'column'})}
+    width: calc(100vh - 60vh);
+    height: 300px;
+    position: absolute;
+    background-color: var(--white);
+    border: 1px solid var(--primary);
+    border-radius: 30px;
+    & > input{
+        width: 90%;
+        height: 30px;
+        font-weight: 700;
+        font-size: 1rem;
+        border: none;
+        border-bottom: 1px solid var(--font-secondary);
+        background-color: #f8f6f6;
+    }
+    & > button {
+        width: 200px;
+        margin-top: 1rem;
+        padding: 10px;
+        border-radius: 30px;
+        font-size: 1.5rem;
+    }
+    & > p{
+        font-size: 2rem;
+        margin-bottom: 1rem;
     }
 `;

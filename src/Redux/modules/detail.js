@@ -40,6 +40,11 @@ export default function detailReducer(state = initialState, { payload, type }) {
                 ...state,
                 detailLists: payload,
             };
+        case GET_REQUEST_LOADING:
+            return {
+                ...state,
+                loading: payload,
+            }
         default:
             return state;
     }
