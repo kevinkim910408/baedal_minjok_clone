@@ -7,7 +7,7 @@ import { IoIosAddCircle } from 'react-icons/io'
 import io from 'socket.io-client'
 import Chat from '../Chat/Chat';
 
-const socket = io.connect("http://3.37.87.166/")
+const socket = io.connect("http://3.37.87.166/chat")
 
 const MainchatBtn = () => {
     const navigate = useNavigate();
@@ -26,7 +26,6 @@ const MainchatBtn = () => {
     const joinRoom = (e) => {
         setShowChat(value => !value);
         socket.emit("join_room", room);
-        console.log("i am in Chat room: " + room +  ", userName: " + username)
     }
 
     return (
