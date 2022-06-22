@@ -52,30 +52,31 @@ const Post = () => {
     imgRef.current = {url:file_url};
     console.log(imgRef.current)
   };
+  console.log(logoImgRef.current)
 
   const onPostHandler = () => {
     dispatch(__addPost({
       name: nameRef.current.value,
       location: locationRef.current.value,
       phone: phoneRef.current.value,
-      logoImg: logoImgRef.current.value,
+      logoImg: logoImgRef.current.url,
       openingHours: openingHoursRef.current.value,
       minPrice: minPriceRef.current.value,
 
-      menuName: nameRef.current.value,
-      price: nameRef.current.value,
-      explain: nameRef.current.value,
-      menuImg: nameRef.current.value,
+      menuName: menuNameRef.current.value,
+      price: priceRef.current.value,
+      explain: explainRef.current.value,
+      menuImg: menuImgRef.current.url,
 
       menuNameTwo: twomenuNameRef.current.value,
       priceTwo: twopriceRef.current.value,
       explainTwo: twoexplainRef.current.value,
-      menuImgTwo: twomenuImgRef.current.value,
+      menuImgTwo: twomenuImgRef.current.url,
 
       menuNameThree: threemenuNameRef.current.value,
       priceThree: threepriceRef.current.value,
       explainThree: threeexplainRef.current.value,
-      menuImgThree: threemenuImgRef.current.value,
+      menuImgThree: threemenuImgRef.current.url,
     }))
     alert('등록이 완료되었습니다')
     navigate('/')

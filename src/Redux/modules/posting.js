@@ -15,69 +15,50 @@ const getPostRequest = (payload) => ({ type: GET_POST_REQUEST, payload });
 const getPostError = (payload) => ({ type: GET_POST_ERROR, payload });
 
 // 초기값
-const initialState = {
-    lists: [
-        // restaurantList:[] ~ minprice까지
-        // Menus:[] menuname ~ menuimg
-        {
-            name: "",
-            location: "",
-            phone: "",
-            logoImg: "",
-            openingHours: "",
-            minPrice: "",
-            menuName: "",
-            price: "",
-            explain: "",
-            menuImg: "",
-            twomenuNameRef: "",
-            twopriceRef: "",
-            twoexplainRef: "",
-            twomenuImgRef: "",
-            threemenuNameRef: "",
-            threepriceRef: "",
-            threeexplainRef: "",
-            threemenuImgRef: "",
-        }
-    ],
-}
+const initialState = [
 
+]
 // thunk
 
 // 포스트
-export const __addPost = (payload) => async (dispatch, getState) => {
+export const __addPost = (payload) => async (dispatch) => {
     const token = localStorage.getItem("Authorization");
-    // console.log(payload);
     dispatch(getPostRequest(true))
     try {
-        const data = await api.post('/api/posts', {
-            categoryId: payload.categoryId,
-            name: payload.name,
-            location: payload.location,
-            phone: payload.phone,
-            logoImg: payload.logoImg,
-            openingHours: payload.openingHours,
-            minPrice: payload.minPrice,
-            menuName: payload.menuName,
-            price: payload.price,
-            explain: payload.explain,
-            menuImg: payload.menuImg,
-            twomenuNameRef: payload.twomenuNameRef,
-            twopriceRef: payload.twopriceRef,
-            twoexplainRef: payload.twoexplainRef,
-            twomenuImgRef: payload.twomenuImgRef,
-            threemenuNameRef: payload.threemenuNameRef,
-            threepriceRef: payload.threepriceRef,
-            threeexplainRef: payload.threeexplainRef,
-            threemenuImgRef: payload.threemenuImgRef,
-
-        }, {
+        await api.post('/api/posts', [
+            {
+                name: payload.name,
+                location: payload.location,
+                phone: payload.phone,
+                logoImg: payload.logoImg,
+                openingHours: payload.openingHours,
+                minPrice: payload.minPrice,
+                category: "치킨",
+            },
+            {
+                menuName: payload.menuName,
+                price:payload.price,
+                explain: payload.explain,
+                menuImg: payload.menuImg
+            },
+            {
+                menuName: payload.menuNameTwo,
+                price: payload.priceTwo,
+                explain: payload.explainTwo,
+                menuImg: payload.menuImgTwo
+            },
+            {
+                menuName: payload.menuNameThree,
+                price: payload.priceThree,
+                explain: payload.explainThree,
+                menuImg: payload.menuImgThree
+            }
+        ], {
             headers: {
                 'Authorization': `Bearer ${token}`,
             }
         })
-        // console.log(data)
-        dispatch(addPost(data.data))
+        // dispatch(addPost(data.data))
     } catch (error) {
         dispatch(getPostError(error))
     } finally {
@@ -110,8 +91,8 @@ const postReducer = (state = initialState, { type, payload }) => {
     switch (type) {
         case GET_POST:
             return { ...state, lists: payload }
-        case ADD_POST:
-            return { ...state, lists: [...state.lists, payload] }
+        // case ADD_POST:
+        //     return { ...state, lists: [...state.lists, payload] }
         case GET_POST_REQUEST:
             return { ...state, loading: payload }
         case GET_POST_ERROR:
