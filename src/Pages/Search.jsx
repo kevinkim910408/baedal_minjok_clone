@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Mainheader from "../Components/MainComponents/Mainheader";
 import styled from "styled-components";
 import flex from "../Components/Common/flex";
+import { __getPost } from "../Redux/modules/posting"
+
 
 
 const Search = () => {
+    const dispatch = useDispatch();
+    //console.log(dispatch(__getPost));
+    const [loadpost, setLoadpost] = useState();
+
+
+    const page = useEffect(() => {
+        dispatch(__getPost({ id: 1 }));
+    }, [dispatch])
+
+    // console.log(__getPost())
+    // console.log(__get)
+    console.log()
+
     return (
         <>
             <Mainheader />

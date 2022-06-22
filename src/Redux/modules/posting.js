@@ -8,7 +8,7 @@ const GET_POST_REQUEST = 'post/GET_POST_REQUEST'
 const GET_POST_ERROR = 'post/GET_POST_ERROR'
 
 // 액션 함수
-const getMenus = (payload) => ({ type: GET_POST, payload });
+const getPost = (payload) => ({ type: GET_POST, payload });
 const addPost = (payload) => ({ type: ADD_POST, payload });
 
 const getPostRequest = (payload) => ({ type: GET_POST_REQUEST, payload });
@@ -47,7 +47,7 @@ const initialState = {
 // 포스트
 export const __addPost = (payload) => async (dispatch, getState) => {
     const token = localStorage.getItem("Authorization");
-    console.log(payload);
+    // console.log(payload);
     dispatch(getPostRequest(true))
     try {
         const data = await api.post('/api/posts', {
@@ -76,7 +76,7 @@ export const __addPost = (payload) => async (dispatch, getState) => {
                 'Authorization': `Bearer ${token}`,
             }
         })
-        console.log(data)
+        // console.log(data)
         dispatch(addPost(data.data))
     } catch (error) {
         dispatch(getPostError(error))
@@ -84,6 +84,26 @@ export const __addPost = (payload) => async (dispatch, getState) => {
         dispatch(getPostRequest(false))
     }
 }
+
+// get
+export const __getPost = () => async (dispatch) => {
+    const token = localStorage.getItem("Authorization");
+    try {
+        const data = await api.get(`/api/post`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        dispatch(getPost(data.data))
+        console.log(data.data.restaurantList)
+    } catch (error) {
+        dispatch(getPostError(error))
+    } finally {
+        dispatch(getPostRequest(false))
+    }
+}
+
+
 
 // 리듀서
 const postReducer = (state = initialState, { type, payload }) => {
@@ -101,4 +121,5 @@ const postReducer = (state = initialState, { type, payload }) => {
     }
 }
 
-export default postReducer;
+
+export default postReducer
