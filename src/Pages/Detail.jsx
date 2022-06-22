@@ -34,7 +34,7 @@ const Detail = () => {
     useEffect(()=>{
       dispatch(__loadComment({id:id}));
       dispatch(__getPostDetail({id:id}));
-    },[dispatch])
+    },[dispatch, id])
 
     const onToggleReviewHandler = () => {
         setToggle(toggle=> !toggle);
@@ -147,6 +147,7 @@ const Detail = () => {
                                             placeholder="설명은 여기에 써요"
                                             style={{width:'200px'}}
                                             onChange={(e)=>setUpdateComment(e.target.value)}
+                                            maxLength={20}
                                             />
                                             <button onClick={()=>updatePostHandler({reviewId: value.reviewId, restaurantId: value.restaurantId, comment: updateComment})}>
                                                 수정하기
@@ -273,7 +274,7 @@ const StList = styled.li`
     width: calc(100vh - 60vh);
     height: 150px;
     border-bottom: 1px solid var(--font-secondary);
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     & > img {
         width: 50%;
     }

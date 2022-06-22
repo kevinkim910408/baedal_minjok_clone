@@ -24,7 +24,7 @@ const UpdateUserInfo = () => {
         if(numberOne.current.value === "" || numberTwo.current.value === "" || numberThree.current.value === "" || 
             postAddress.current.value === "" || AddressOne.current.value === "" || AddressTwo.current.value === "" || AddressThree.current.value === "" ||  
             AddressDetail.current.value === ""){
-            alert('빈칸이 있으면 안됩니다.')
+            alert('빈칸이 있으면 안되고, 형식을 맞춰주세요')
             return;
         }
         if(numberOne.current.value.length > 3  || numberTwo.current.value.length > 4   || numberThree.current.value.length > 4){

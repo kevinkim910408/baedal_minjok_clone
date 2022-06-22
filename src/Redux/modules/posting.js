@@ -72,7 +72,6 @@ export const __getPost = () => async (dispatch) => {
                 Authorization: `Bearer ${token}`,
             },
         });
-        console.log(data)
         dispatch(getPost(data.data))
     } catch (error) {
         dispatch(getPostError(error))

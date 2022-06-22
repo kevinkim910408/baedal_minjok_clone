@@ -52,7 +52,6 @@ const Post = () => {
     imgRef.current = {url:file_url};
     console.log(imgRef.current)
   };
-  console.log(logoImgRef.current)
 
   const onPostHandler = () => {
     dispatch(__addPost({
@@ -92,9 +91,9 @@ const Post = () => {
           <input type="file" placeholder='PICTURE' onChange={(e)=>saveFileImage(e,logoImgRef, setFileImage)} required/>
           </StList>
           <StList>
-            <input type="text" placeholder='가게 이름' maxLength={10} ref={nameRef}/>
+            <input type="text" placeholder='가게 이름' maxLength={11} ref={nameRef}/>
             <input type="text" placeholder='장소 예) 영등포점' maxLength={10} ref={locationRef}/>
-            <input type="text" placeholder='전화번호 예) 07012345678' maxLength={11} ref={phoneRef}/>
+            <input type="number" placeholder='전화번호 예) 07012345678' maxLength={11} ref={phoneRef}/>
             <input type="text" placeholder='오프시간 예) 오전11시' maxLength={6} ref={openingHoursRef}/>
             <input type="text" placeholder='최소 주문 금액 예) 20000' maxLength={7} ref={minPriceRef}/>
           </StList>
@@ -103,8 +102,8 @@ const Post = () => {
           </StList>
           <StList>
           <input type="file" placeholder='PICTURE' onChange={(e)=>saveFileImage(e,menuImgRef, setMenuOne)} required/>
-            <input type="text" placeholder='메뉴 이름(최대10자)' maxLength={10} ref={menuNameRef}/>
-            <input type="text" placeholder='가격 예) 30000' maxLength={10} ref={priceRef}/>
+            <input type="text" placeholder='메뉴 이름(최대10자)' maxLength={15} ref={menuNameRef}/>
+            <input type="number" placeholder='가격 예) 30000' maxLength={6} ref={priceRef}/>
             <input type="text" placeholder='설명 (최대20자)' maxLength={20} ref={explainRef}/>
           </StList>
           <StList>
@@ -112,7 +111,7 @@ const Post = () => {
           </StList>
           <StList>
           <input type="file" placeholder='PICTURE' onChange={(e)=>saveFileImage(e,twomenuImgRef, setMenuTwo)} required/>
-            <input type="text" placeholder='메뉴 이름(최대10자)' maxLength={10} ref={twomenuNameRef}/>
+            <input type="text" placeholder='메뉴 이름(최대10자)' maxLength={15} ref={twomenuNameRef}/>
             <input type="text" placeholder='가격 예) 30000' maxLength={10} ref={twopriceRef}/>
             <input type="text" placeholder='설명 (최대20자)' maxLength={20} ref={twoexplainRef}/>
           </StList>
@@ -121,8 +120,8 @@ const Post = () => {
           </StList>
           <StList>
           <input type="file" placeholder='PICTURE' onChange={(e)=>saveFileImage(e,threemenuImgRef, setMenuThree)} required/>
-            <input type="text" placeholder='메뉴 이름(최대10자)' maxLength={10} ref={threemenuNameRef}/>
-            <input type="text" placeholder='가격 예) 30000' maxLength={10} ref={threepriceRef}/>
+            <input type="text" placeholder='메뉴 이름(최대10자)' maxLength={15} ref={threemenuNameRef}/>
+            <input type="number" placeholder='가격 예) 30000' maxLength={10} ref={threepriceRef}/>
             <input type="text" placeholder='설명 (최대20자)' maxLength={20} ref={threeexplainRef}/>
           </StList>
         </StDiv>

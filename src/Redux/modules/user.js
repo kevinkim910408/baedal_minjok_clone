@@ -160,8 +160,6 @@ export const __getUser = () => async (dispatch) =>{
     }
 }
 
-
-
 // 초기값
 const initialState = {
     loading: false,

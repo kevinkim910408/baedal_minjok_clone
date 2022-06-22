@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Mainheader from "../Components/MainComponents/Mainheader";
@@ -21,6 +21,7 @@ const Search = () => {
 
     return (
         <>
+        
             <Mainheader />
             <StWrap>
                 <StDiv>
@@ -29,13 +30,13 @@ const Search = () => {
                         return  <StoreList onClick={()=>onDetailPageMoveHandler(value.restaurantId)} key={index}>
                                     <img style={{width:'50%', height:'100px'}} src={value.logoImg} alt="" />
                                     <div>
-                                        <div>가게이름: {value.name}</div>
-                                        <div>최소주문가격: {value.minPrice}</div>
-                                        <div>영업지점: {value.location}</div>
+                                        <div>{value.name}</div>
+                                        <div>{value.location}</div>
+                                        <div>최소주문금액: \{value.minPrice}</div>
                                     </div>
                                 </StoreList>
                     })
-                   }
+                }
                 </StDiv>
             </StWrap>
         </>
