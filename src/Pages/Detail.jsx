@@ -57,9 +57,9 @@ const Detail = () => {
         setEdit(false)
       }
 
-//   if(loading){
-//     return <Loading />
-//   }
+  if(loading){
+    return <Loading />
+  }
 
   return (
     <>
@@ -122,7 +122,7 @@ const Detail = () => {
                                    </StFlexRowOnly>
                                   {
                                     value.User?.nickname === username ? 
-                                    <div>
+                                    <div className='icons'>
                                     <FontAwesomeIcon 
                                         style={{ marginLeft: "30px" }} 
                                         className="icon" 
@@ -222,15 +222,18 @@ const StInfoBox = styled.div`
     width: calc(100vh - 60vh);
     height: 50px;
     & > p{
+        width: 100%;
         font-size: 1rem;
         margin-left: 1rem;
-        
+    }
+    & > .icons{
+        width: 35%
     }
 `;
 
 const StFlexCol = styled.div`
     ${flex({direction:'column'})};
-    width: calc(100vh - 60vh);
+    width: 100%;
     height: 500px;
 `;
 

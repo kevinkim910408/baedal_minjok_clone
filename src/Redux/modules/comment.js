@@ -49,6 +49,7 @@ export const __updateComment = ({restaurantId, reviewId, comment}) => async (dis
         },
       }
     );
+    alert('댓글이 수정되었습니다')
     dispatch(updateComment(data.data.patchReviews));
 };
 
