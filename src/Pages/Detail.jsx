@@ -111,13 +111,14 @@ const Detail = () => {
                         }) : <></>
                     }
                 </ul>
+                <p style={{color:'gold', fontSize: '2rem', margin:'1rem'}}>- 후기 -</p>
                 <StFlexCol>
                     {
                         comments.map((value,index)=>{
                             return (<div key={index}>
                                 <StInfoBox>
                                    <StFlexRowOnly>
-                                        <p>{value.User?.nickname}:</p>
+                                        <p className='nickName'>{value.User?.nickname}:</p>
                                         <p>{value.review}</p>
                                    </StFlexRowOnly>
                                   {
@@ -222,13 +223,18 @@ const StInfoBox = styled.div`
     ${flex({justify:'space-between'})};
     width: calc(100vh - 60vh);
     height: 50px;
+    border-bottom: 1px solid var(--font-secondary);
+    margin-top: 1rem;
     & > p{
-        width: 100%;
         font-size: 1rem;
         margin-left: 1rem;
     }
     & > .icons{
-        width: 35%
+        width: 35%;
+    }
+    .icon:hover{
+        cursor: pointer;
+        color: var(--primary);
     }
 `;
 
@@ -243,9 +249,10 @@ const StFlexColOnly = styled.div`
 `;
 
 const StFlexRowOnly = styled.div`
-    ${flex({})};
-    & > p{
-        margin-right: 1rem;
+    ${flex({justify:'flex-start'})};
+    width: 100%;
+    & > .nickName{
+        width: 120px;
     }
 `;
 

@@ -34,9 +34,9 @@ const Search = () => {
                         return  <StoreList onClick={()=>onDetailPageMoveHandler(value.restaurantId)} key={index}>
                                     <img style={{width:'50%', height:'100px'}} src={value.logoImg} alt="" />
                                     <div>
-                                        <div>{value.name}</div>
-                                        <div>{value.location}</div>
-                                        <div>최소주문금액: \{value.minPrice}</div>
+                                        <p>{value.name}</p>
+                                        <p>{value.location}</p>
+                                        <p>최소주문금액: \{value.minPrice}</p>
                                     </div>
                                 </StoreList>
                     })
@@ -65,8 +65,14 @@ const StoreList = styled.div`
     ${flex({ justify: 'space-evenly' })}
     width: 95%;
     min-height: 150px;
-    border: 2px solid #0f0f0f;
-    border-radius: 10px;
-    margin: 1rem 0 1rem 0;
+    border-bottom: 1px dashed var( --font-secondary);
+    margin-top: 1rem;
+    cursor: pointer;
+    &:hover{
+        background-color:  #f1f1f1;
+    }
+    & > div > p{
+        margin-bottom: 0.5rem;
+    }
 `;
 export default Search;
