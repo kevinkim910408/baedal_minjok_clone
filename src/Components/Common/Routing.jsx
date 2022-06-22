@@ -13,6 +13,7 @@ import Detail from "../../Pages/Detail";
 import ProtectedRoutesNoLogin from "./ProtectedRoutesNoLogin";
 import ProtectedRoutesYesLogin from "./ProtectedRoutesYesLogin";
 import Search from "../../Pages/Search";
+import Error from "../../Pages/Status/Error";
 
 
 const Routing = () => {
@@ -33,7 +34,7 @@ const Routing = () => {
         <Route path="/Detail/:id" element={<Detail />}/>
         <Route path="/Search" element={<Search />} />
       </Route>
-      <Route />
+      <Route path="*" element={<Error />} />
       <Route />
     </Routes>
   );
