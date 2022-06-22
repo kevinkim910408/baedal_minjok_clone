@@ -1,31 +1,56 @@
 import React, { useEffect, useState }  from 'react'
 import { useDispatch, useSelector } from 'react-redux/es/exports'
 import { __getPostDetail } from '../Redux/modules/detail'
+import { __postComment, __loadComment, __updateComment, __deleteComment } from '../Redux/modules/comment'
 import styled from 'styled-components'
 import flex from '../Components/Common/flex'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPhone, faLocationDot, faClock } from "@fortawesome/free-solid-svg-icons";
+import { faPhone, faLocationDot, faClock, faTrashCan, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import Mainheader from '../Components/MainComponents/Mainheader'
 import Loading from './Status/Loading'
 import { useRef } from 'react'
+import {useNavigate} from 'react-router-dom'
 
 const Detail = () => {
     const {detailLists, loading} = useSelector(state=> state.detailReducer)
+    const {comments} = useSelector(state=> state.commentReducer)
     const [toggle, setToggle] = useState(false);
     const commentRef = useRef();
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
+
+    // 업데이트 버튼 누르면 아래 toggle창 생기게 해주는 state
+    const [edit, setEdit] = useState(false);
+    const [updateId, setUpdataId] = useState(null);
+    const [updateComment, setUpdateComment] = useState("");
+
+    // 수정버튼 toggle
+    const updateModal = (id) =>{
+        setEdit(true)
+        setUpdataId(id)
+    }
+
     useEffect(()=>{
       dispatch(__getPostDetail({id:32}));
-  },[dispatch])
+      dispatch(__loadComment({id:32}));
+    },[dispatch])
 
-  const onToggleReviewHandler = () => {
-    setToggle(toggle=> !toggle);
-  }
+    const onToggleReviewHandler = () => {
+        setToggle(toggle=> !toggle);
+    }
 
-  const onSubmitCommentHandler = () => {
+    const onSubmitCommentHandler = () => {
+        dispatch(__postComment({
+            id: detailLists.restaurantId,
+            comment: commentRef.current.value,
+        }))
+    }
 
-  }
+    const onDeleteHandler = (id) => {
+        dispatch(__deleteComment(id));
+    }
+
 
 //   if(loading){
 //     return <Loading />
@@ -45,11 +70,19 @@ const Detail = () => {
                             <p>{detailLists.name}</p>
                             <div>
                                 <div>
-                                    <FontAwesomeIcon className='icon' icon={faLocationDot} />
+                                    <FontAwesomeIcon 
+                                        className='icon' 
+                                        icon={faLocationDot}
+                                        // onClick={()=>updateModal(commentId)}
+                                    />
                                     <span>{detailLists.location}</span>
                                 </div>
                                 <div>
-                                    <FontAwesomeIcon className='icon' icon={faPhone} />
+                                    <FontAwesomeIcon 
+                                        className='icon' 
+                                        icon={faPhone}
+                                        // onClick={()=>onDeleteHandler(32)}
+                                    />
                                     <span>{detailLists.phone}</span>
                                     </div>
                                 <div>
@@ -72,10 +105,28 @@ const Detail = () => {
                                     </div>
                                     <img src="https://d3af5evjz6cdzs.cloudfront.net/images/uploads/800x0/kakaotalk_20180817_151911423_0a0b386f73084834dacb836bf50460e3.jpg" alt="" />
                                 </StList>
-                            }) :
-                            <></>
+                        }) : <></>
                     }
                 </ul>
+                <StInfoBox>
+                    <p>username:</p>
+                    <p>댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글</p>
+                    <FontAwesomeIcon style={{ marginLeft: "30px" }} className="icon" icon={faPenToSquare} />
+                    <FontAwesomeIcon style={{ marginLeft: "10px" }} className="icon" icon={faTrashCan} />
+                </StInfoBox>
+                {/* {
+                    edit && updateId === value.commentId &&(
+                        <>
+                            <input
+                            type="text" 
+                            placeholder="설명은 여기에 써요"
+                            style={{width:'400px'}}
+                            onChange={(e)=>setUpdateComment(e.target.value)}
+                            />
+                            <button onClick={()=>updatePostHandler({comment: updateComment, commentId: value.commentId})}>수정하기</button>
+                        </>
+                    )
+                } */}
             </StDiv>
             {
                 toggle ? 
@@ -91,6 +142,7 @@ const Detail = () => {
                     <button onClick={onSubmitCommentHandler}>추가하기</button>
                 </StToggleBox> : <></>
             }
+
             <StButton onClick={onToggleReviewHandler}>
                 {
                     toggle ? 
@@ -115,8 +167,11 @@ const StWrap = styled.div`
 const StDiv = styled.div`
     ${flex({direction:'column',justify:'flex-start'})}
     width: calc(100vh - 60vh);
-    height: 700px;
+    height: 650px;
     overflow-y: scroll;
+    & > ul{
+        margin-bottom: 1rem;
+    }
 `;
 
 const StPicBox = styled.div`
@@ -128,9 +183,16 @@ const StPicBox = styled.div`
 `;
 
 const StInfoBox = styled.div`
-    ${flex({})}
+    ${flex({})};
     width: calc(100vh - 60vh);
     height: 200px;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--font-secondary);
+    & > p{
+        font-size: 1rem;
+        margin-left: 1rem;
+        
+    }
 `;
 
 const StInfoBoxZIndex = styled.div`
@@ -161,6 +223,9 @@ const StList = styled.li`
     font-size: 1.5rem;
     & > img {
         width: 50%;
+    }
+    & > div > p {
+        margin-bottom: 0.5rem;
     }
 `;
 
