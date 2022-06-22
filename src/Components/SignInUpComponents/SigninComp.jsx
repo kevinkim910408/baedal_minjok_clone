@@ -2,9 +2,8 @@ import React, {useState, useRef} from 'react'
 import { __userSignIn } from '../../Redux/modules/user'
 import { useDispatch, useSelector } from 'react-redux/es/exports'
 import { useNavigate } from 'react-router-dom'
-import {StInput, StWrap, StFlex, StSubmitInput, StTitle, StLoginDiv, StLink, StImg} from './SigninupStyled'
-import Kakao from '../../Assets/Image/kakao_login.png'
-import Naver from '../../Assets/Image/naver_login.png'
+import {StInput, StWrap, StFlex, StSubmitInput, StTitle, StLoginDiv, StLink, StSubmit} from './SigninupStyled'
+import styled from 'styled-components'
 import ExitHeader from '../Common/ExitHeader'
 import { useEffect } from 'react'
 
@@ -41,12 +40,12 @@ const SigninComp = () => {
       <StFlex>
         <StLoginDiv >
           <a href='http://3.37.87.166/user/kakao'>
-            <StImg src={Kakao} alt=""/>
+            <StSubmit kakao>카카오 로그인</StSubmit>
           </a>
         </StLoginDiv>
         <StLoginDiv>
-        <a href='http://3.37.87.166/user/naver'>
-            <StImg src={Naver} alt=""/>
+          <a href='http://3.37.87.166/user/naver'>
+            <StSubmit>네이버 로그인</StSubmit>
           </a>
         </StLoginDiv>
         <span>
