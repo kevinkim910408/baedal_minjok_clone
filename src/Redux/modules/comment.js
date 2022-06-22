@@ -12,9 +12,7 @@ const loadComment = (payload) => ({ type: LOAD_COMMENT, payload });
 const updateComment = (payload) => ({ type: UPDATE_COMMENT, payload });
 const deleteComment = (payload) => ({ type: DELETE_COMMENT, payload });
 
-// 중복체크
 export const __postComment = ({ comment, id }) => async (dispatch) => {
-    console.log(comment,id)
     const token = localStorage.getItem("Authorization");
     const data = await api.post(`/api/posts/${id}/review`, {
         review : comment
@@ -38,11 +36,12 @@ export const __loadComment = ({id}) => async (dispatch) => {
 };
 
 export const __updateComment = ({restaurantId, reviewId, comment}) => async (dispatch) => {
+    console.log(restaurantId, reviewId, comment)
     const token = localStorage.getItem("Authorization");
     const data = await api.put(
       `/api/posts/${restaurantId}/review/${reviewId}`,
       {
-        comment: comment,
+        review: comment,
       },
       {
         headers: {
@@ -50,7 +49,7 @@ export const __updateComment = ({restaurantId, reviewId, comment}) => async (dis
         },
       }
     );
-    dispatch(updateComment(data.data));
+    dispatch(updateComment(data.data.patchReviews));
 };
 
 export const __deleteComment = ({restaurantId, reviewId}) => async (dispatch) => {
@@ -65,8 +64,6 @@ export const __deleteComment = ({restaurantId, reviewId}) => async (dispatch) =>
   
 };
 
-
-// 초기값
 const initialState = {
     comments:[],
     loading: false,
@@ -76,17 +73,15 @@ const initialState = {
 export default function commentReducer(state = initialState, { payload, type }) {
     switch (type) {
         case POST_COMMENT:
-            return {
-                ...state,
-                comments: [...state.comments, payload],
-            };
+            return {...state, comments: payload };
         case LOAD_COMMENT:
             return { ...state, comments: payload };
-        // case UPDATE_COMMENT:
-        //     const newChangeComment = state.comment.map((value) => {
-        //         return value.commentId === Number(payload.commentId) ? payload : value;
-        //     });
-        //     return { ...state, comment: newChangeComment };
+        case UPDATE_COMMENT:
+            const newChangeComment = state.comments.map((value) => {
+                console.log(payload)
+                return value.reviewId === Number(payload.reviewId) ? payload : value;
+            });
+            return { ...state, comments: newChangeComment };
         case DELETE_COMMENT:
             const newDeletedComment = state.comments.filter((value) => {
                 return value.reviewId !== Number(payload);

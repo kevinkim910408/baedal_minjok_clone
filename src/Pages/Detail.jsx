@@ -23,6 +23,7 @@ const Detail = () => {
     const [edit, setEdit] = useState(false);
     const [updateId, setUpdataId] = useState(null);
     const [updateComment, setUpdateComment] = useState("");
+    const username = localStorage.getItem("username")
 
     // 수정버튼 toggle
     const updateModal = (id) =>{
@@ -31,8 +32,8 @@ const Detail = () => {
     }
 
     useEffect(()=>{
-      dispatch(__getPostDetail({id:32}));
       dispatch(__loadComment({id:32}));
+      dispatch(__getPostDetail({id:32}));
     },[dispatch])
 
     const onToggleReviewHandler = () => {
@@ -51,6 +52,10 @@ const Detail = () => {
         dispatch(__deleteComment(payload));
     }
 
+    const updatePostHandler = (updatedData) => {
+        dispatch(__updateComment(updatedData))
+        setEdit(false)
+      }
 
 //   if(loading){
 //     return <Loading />
@@ -91,7 +96,7 @@ const Detail = () => {
                          </StInfoBoxZIndex>
                     </StInfoBox>
                     <div style={{margin:'2rem'}}></div>
-                    <StList style={{color:'gold', fontSize: '3rem'}}>- 대표 메뉴 - </StList>
+                    <StList style={{color:'gold', fontSize: '3rem', marginTop:'7rem'}}>- 대표 메뉴 - </StList>
                     {
                         detailLists.length !== 0 ? 
                         detailLists.Menus.map((value,index)=>{
@@ -109,38 +114,54 @@ const Detail = () => {
                 <StFlexCol>
                     {
                         comments.map((value,index)=>{
-                            return <StInfoBox key={index}>
-                                <p>username</p>
-                                {/* <p>{value.username}</p> */}
-                                <p>{value.review}</p>
-                                <FontAwesomeIcon 
-                                    style={{ marginLeft: "30px" }} 
-                                    className="icon" 
-                                    icon={faPenToSquare} 
-                                />
-                                <FontAwesomeIcon 
-                                    style={{ marginLeft: "10px" }} 
-                                    className="icon" 
-                                    icon={faTrashCan} 
-                                    onClick={()=>onDeleteHandler({reviewId: value.reviewId, restaurantId: value.restaurantId})}
-                                />
-                            </StInfoBox>
+                            return (<div key={index}>
+                                <StInfoBox>
+                                   <StFlexRowOnly>
+                                        <p>{value.User?.nickname}:</p>
+                                        <p>{value.review}</p>
+                                   </StFlexRowOnly>
+                                  {
+                                    value.User?.nickname === username ? 
+                                    <div>
+                                    <FontAwesomeIcon 
+                                        style={{ marginLeft: "30px" }} 
+                                        className="icon" 
+                                        icon={faPenToSquare} 
+                                        onClick={()=>updateModal(value.reviewId)}
+                                    />
+                                    <FontAwesomeIcon 
+                                        style={{ marginLeft: "10px" }} 
+                                        className="icon" 
+                                        icon={faTrashCan} 
+                                        onClick={()=>onDeleteHandler({reviewId: value.reviewId, restaurantId: value.restaurantId})}
+                                    />
+                                    </div> :  <></>
+                                  }
+                                </StInfoBox>
+                                <StFlexColOnly>
+                               {
+                                    edit && updateId === value.reviewId &&(
+                                        <div>
+                                            <input
+                                            type="text" 
+                                            placeholder="설명은 여기에 써요"
+                                            style={{width:'200px'}}
+                                            onChange={(e)=>setUpdateComment(e.target.value)}
+                                            />
+                                            <button onClick={()=>updatePostHandler({reviewId: value.reviewId, restaurantId: value.restaurantId, comment: updateComment})}>
+                                                수정하기
+                                            </button>
+                                        </div>
+                                    )
+                                }
+                                </StFlexColOnly>  
+                            </div>
+
+                            )
                         })
                     }
+
                 </StFlexCol>
-                {/* {
-                    edit && updateId === value.commentId &&(
-                        <>
-                            <input
-                            type="text" 
-                            placeholder="설명은 여기에 써요"
-                            style={{width:'400px'}}
-                            onChange={(e)=>setUpdateComment(e.target.value)}
-                            />
-                            <button onClick={()=>updatePostHandler({comment: updateComment, commentId: value.commentId})}>수정하기</button>
-                        </>
-                    )
-                } */}
             </StDiv>
             {
                 toggle ? 
@@ -197,10 +218,9 @@ const StPicBox = styled.div`
 `;
 
 const StInfoBox = styled.div`
-    ${flex({})};
+    ${flex({justify:'space-between'})};
     width: calc(100vh - 60vh);
-    height: 200px;
-    border-bottom: 1px solid var(--font-secondary);
+    height: 50px;
     & > p{
         font-size: 1rem;
         margin-left: 1rem;
@@ -211,9 +231,19 @@ const StInfoBox = styled.div`
 const StFlexCol = styled.div`
     ${flex({direction:'column'})};
     width: calc(100vh - 60vh);
-    height: 400px;
+    height: 500px;
 `;
 
+const StFlexColOnly = styled.div`
+    ${flex({direction:'column'})};
+`;
+
+const StFlexRowOnly = styled.div`
+    ${flex({})};
+    & > p{
+        margin-right: 1rem;
+    }
+`;
 
 const StInfoBoxZIndex = styled.div`
     ${flex({direction:'column', justify:'space-evenly'})}
