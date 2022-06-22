@@ -1,7 +1,6 @@
 import api from '../../Shared/api'
 
 // 액션 타입
-const ADD_POST = 'post/ADD_POST'
 const GET_POST = 'post/GET_POST'
 
 const GET_POST_REQUEST = 'post/GET_POST_REQUEST'
@@ -9,14 +8,12 @@ const GET_POST_ERROR = 'post/GET_POST_ERROR'
 
 // 액션 함수
 const getPost = (payload) => ({ type: GET_POST, payload });
-const addPost = (payload) => ({ type: ADD_POST, payload });
 
 const getPostRequest = (payload) => ({ type: GET_POST_REQUEST, payload });
 const getPostError = (payload) => ({ type: GET_POST_ERROR, payload });
 
 // 초기값
 const initialState = [
-
 ]
 // thunk
 
@@ -76,7 +73,6 @@ export const __getPost = () => async (dispatch) => {
             },
         });
         dispatch(getPost(data.data))
-        console.log(data.data.restaurantList)
     } catch (error) {
         dispatch(getPostError(error))
     } finally {
