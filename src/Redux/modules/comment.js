@@ -17,14 +17,14 @@ export const __postComment = ({ comment, id }) => async (dispatch) => {
     console.log(comment,id)
     const token = localStorage.getItem("Authorization");
     const data = await api.post(`/api/posts/${id}/review`, {
-        comment : comment
+        review : comment
     },{
         headers: {
             'Authorization': `Bearer ${token}`,
         }
     })
-    console.log(data)
-    dispatch(postComment(comment))
+    alert('댓글이 추가되었습니다')
+    dispatch(postComment(data.data))
 }
 
 export const __loadComment = ({id}) => async (dispatch) => {
@@ -37,7 +37,7 @@ export const __loadComment = ({id}) => async (dispatch) => {
     dispatch(loadComment(data.data));
 };
 
-export const __updateComment = ({restaurantId, reviewId, comment}) => async (dispatch, getState) => {
+export const __updateComment = ({restaurantId, reviewId, comment}) => async (dispatch) => {
     const token = localStorage.getItem("Authorization");
     const data = await api.put(
       `/api/posts/${restaurantId}/review/${reviewId}`,
@@ -53,15 +53,15 @@ export const __updateComment = ({restaurantId, reviewId, comment}) => async (dis
     dispatch(updateComment(data.data));
 };
 
-export const __deleteComment = ({restaurantId, reviewId}) => async (dispatch, getState) => {
+export const __deleteComment = ({restaurantId, reviewId}) => async (dispatch) => {
     const token = localStorage.getItem("Authorization");
-    const msg = await api.delete(`/api/posts/${restaurantId}/review/${reviewId}`, {
+    await api.delete(`/api/posts/${restaurantId}/review/${reviewId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-      alert(msg.data);
-      dispatch(deleteComment(reviewId));
+      alert("댓글이 삭제 되었습니다.");
+    dispatch(deleteComment(reviewId));
   
 };
 
@@ -87,11 +87,11 @@ export default function commentReducer(state = initialState, { payload, type }) 
         //         return value.commentId === Number(payload.commentId) ? payload : value;
         //     });
         //     return { ...state, comment: newChangeComment };
-        // case DELETE_COMMENT:
-        //     const newDeletedComment = state.comment.filter((value) => {
-        //         return value.commentId !== Number(payload);
-        //     });
-        //     return { ...state, comment: [...newDeletedComment] };
+        case DELETE_COMMENT:
+            const newDeletedComment = state.comments.filter((value) => {
+                return value.reviewId !== Number(payload);
+            });
+            return { ...state, comments: [...newDeletedComment] };
         default:
             return state;
     }

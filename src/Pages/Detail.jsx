@@ -17,7 +17,6 @@ const Detail = () => {
     const [toggle, setToggle] = useState(false);
     const commentRef = useRef();
     const navigate = useNavigate();
-
     const dispatch = useDispatch();
 
     // 업데이트 버튼 누르면 아래 toggle창 생기게 해주는 state
@@ -41,14 +40,15 @@ const Detail = () => {
     }
 
     const onSubmitCommentHandler = () => {
+        setToggle(toggle=> !toggle);
         dispatch(__postComment({
             id: detailLists.restaurantId,
             comment: commentRef.current.value,
         }))
     }
 
-    const onDeleteHandler = (id) => {
-        dispatch(__deleteComment(id));
+    const onDeleteHandler = (payload) => {
+        dispatch(__deleteComment(payload));
     }
 
 
@@ -73,7 +73,6 @@ const Detail = () => {
                                     <FontAwesomeIcon 
                                         className='icon' 
                                         icon={faLocationDot}
-                                        // onClick={()=>updateModal(commentId)}
                                     />
                                     <span>{detailLists.location}</span>
                                 </div>
@@ -81,7 +80,6 @@ const Detail = () => {
                                     <FontAwesomeIcon 
                                         className='icon' 
                                         icon={faPhone}
-                                        // onClick={()=>onDeleteHandler(32)}
                                     />
                                     <span>{detailLists.phone}</span>
                                     </div>
@@ -108,12 +106,28 @@ const Detail = () => {
                         }) : <></>
                     }
                 </ul>
-                <StInfoBox>
-                    <p>username:</p>
-                    <p>댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글</p>
-                    <FontAwesomeIcon style={{ marginLeft: "30px" }} className="icon" icon={faPenToSquare} />
-                    <FontAwesomeIcon style={{ marginLeft: "10px" }} className="icon" icon={faTrashCan} />
-                </StInfoBox>
+                <StFlexCol>
+                    {
+                        comments.map((value,index)=>{
+                            return <StInfoBox key={index}>
+                                <p>username</p>
+                                {/* <p>{value.username}</p> */}
+                                <p>{value.review}</p>
+                                <FontAwesomeIcon 
+                                    style={{ marginLeft: "30px" }} 
+                                    className="icon" 
+                                    icon={faPenToSquare} 
+                                />
+                                <FontAwesomeIcon 
+                                    style={{ marginLeft: "10px" }} 
+                                    className="icon" 
+                                    icon={faTrashCan} 
+                                    onClick={()=>onDeleteHandler({reviewId: value.reviewId, restaurantId: value.restaurantId})}
+                                />
+                            </StInfoBox>
+                        })
+                    }
+                </StFlexCol>
                 {/* {
                     edit && updateId === value.commentId &&(
                         <>
@@ -186,7 +200,6 @@ const StInfoBox = styled.div`
     ${flex({})};
     width: calc(100vh - 60vh);
     height: 200px;
-    padding-bottom: 1rem;
     border-bottom: 1px solid var(--font-secondary);
     & > p{
         font-size: 1rem;
@@ -194,6 +207,13 @@ const StInfoBox = styled.div`
         
     }
 `;
+
+const StFlexCol = styled.div`
+    ${flex({direction:'column'})};
+    width: calc(100vh - 60vh);
+    height: 400px;
+`;
+
 
 const StInfoBoxZIndex = styled.div`
     ${flex({direction:'column', justify:'space-evenly'})}
