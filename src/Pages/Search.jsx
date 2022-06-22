@@ -6,35 +6,36 @@ import styled from "styled-components";
 import flex from "../Components/Common/flex";
 import { __getPost } from "../Redux/modules/posting"
 
-
-
 const Search = () => {
     const dispatch = useDispatch();
-    //console.log(dispatch(__getPost));
-    const [loadpost, setLoadpost] = useState();
+    const navigate = useNavigate();
+    const data = useSelector(state=> state.postReducer?.lists?.restaurantList)
 
-
-    const page = useEffect(() => {
-        dispatch(__getPost({ id: 1 }));
+    useEffect(() => {
+        dispatch(__getPost());
     }, [dispatch])
 
-    // console.log(__getPost())
-    // console.log(__get)
-    console.log()
+    const onDetailPageMoveHandler = (id) => {
+        navigate(`/detail/${id}`)
+    }
 
     return (
         <>
             <Mainheader />
             <StWrap>
                 <StDiv>
-                    <StoreList>
-                        <div>로고이미지</div>
-                        <div>
-                            <div>상품 이름</div>
-                            <div>가격</div>
-                            <div>상품 설명</div>
-                        </div>
-                    </StoreList>
+                {
+                    data?.map((value,index)=>{
+                        return  <StoreList onClick={()=>onDetailPageMoveHandler(value.restaurantId)} key={index}>
+                                    <img style={{width:'50%', height:'100px'}} src={value.logoImg} alt="" />
+                                    <div>
+                                        <div>가게이름: {value.name}</div>
+                                        <div>최소주문가격: {value.minPrice}</div>
+                                        <div>영업지점: {value.location}</div>
+                                    </div>
+                                </StoreList>
+                    })
+                   }
                 </StDiv>
             </StWrap>
         </>
