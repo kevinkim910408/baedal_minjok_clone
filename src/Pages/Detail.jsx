@@ -9,14 +9,14 @@ import { faPhone, faLocationDot, faClock, faTrashCan, faPenToSquare } from "@for
 import Mainheader from '../Components/MainComponents/Mainheader'
 import Loading from './Status/Loading'
 import { useRef } from 'react'
-import {useNavigate} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 
 const Detail = () => {
     const {detailLists, loading} = useSelector(state=> state.detailReducer)
     const {comments} = useSelector(state=> state.commentReducer)
     const [toggle, setToggle] = useState(false);
     const commentRef = useRef();
-    const navigate = useNavigate();
+    const {id} = useParams();
     const dispatch = useDispatch();
 
     // 업데이트 버튼 누르면 아래 toggle창 생기게 해주는 state
@@ -32,8 +32,8 @@ const Detail = () => {
     }
 
     useEffect(()=>{
-      dispatch(__loadComment({id:32}));
-      dispatch(__getPostDetail({id:32}));
+      dispatch(__loadComment({id:id}));
+      dispatch(__getPostDetail({id:id}));
     },[dispatch])
 
     const onToggleReviewHandler = () => {
@@ -57,6 +57,8 @@ const Detail = () => {
         setEdit(false)
       }
 
+      console.log(detailLists)
+
   if(loading){
     return <Loading />
   }
@@ -68,7 +70,7 @@ const Detail = () => {
             <StDiv>
                 <ul>
                     <StPicBox>
-                        <img src="https://post-phinf.pstatic.net/MjAxOTA4MTlfMjgy/MDAxNTY2MTkzNDgyMDU5.k8dyis-tMy0GSiPkQDLveNQ8WEnpDpUg6fzAd-SAmXsg.LqfuUotXOPuObkao5cMb1Iqczzu2osIILHcjP3Vgf78g.JPEG/image_2219871881566193468342.jpg?type=w1200" alt="" />
+                        <img src={detailLists.logoImg} style={{width:'100%', height:'200px'}} alt="" />
                     </StPicBox>
                     <StInfoBox>
                         <StInfoBoxZIndex>
@@ -106,7 +108,7 @@ const Detail = () => {
                                         <p>₩ {value.price} </p>
                                         <p style={{fontSize:'1rem', color:'var(--font-secondary)'}}>{detailLists.Menus[0].explain} </p>
                                     </div>
-                                    <img src="https://d3af5evjz6cdzs.cloudfront.net/images/uploads/800x0/kakaotalk_20180817_151911423_0a0b386f73084834dacb836bf50460e3.jpg" alt="" />
+                                    <img style={{height:'120px'}} src={value.menuImg} alt="" />
                                 </StList>
                         }) : <></>
                     }

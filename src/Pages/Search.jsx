@@ -6,12 +6,10 @@ import styled from "styled-components";
 import flex from "../Components/Common/flex";
 import { __getPost } from "../Redux/modules/posting"
 
-
-
 const Search = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const data = useSelector(state=> state.postReducer.lists.restaurantList)
+    const data = useSelector(state=> state.postReducer?.lists?.restaurantList)
 
     useEffect(() => {
         dispatch(__getPost());
@@ -21,15 +19,13 @@ const Search = () => {
         navigate(`/detail/${id}`)
     }
 
-    console.log(data)
-
     return (
         <>
             <Mainheader />
             <StWrap>
                 <StDiv>
                 {
-                    data.map((value,index)=>{
+                    data?.map((value,index)=>{
                         return  <StoreList onClick={()=>onDetailPageMoveHandler(value.restaurantId)} key={index}>
                                     <img style={{width:'50%', height:'100px'}} src={value.logoImg} alt="" />
                                     <div>
