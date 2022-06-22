@@ -11,6 +11,8 @@ import Post from '../../Pages/Post';
 import UpdateUserInfo from '../../Pages/UpdateUserInfo';
 import Detail from "../../Pages/Detail";
 import ProtectedRoutes from "./ProtectedRoutes";
+import Search from "../../Pages/Search";
+
 
 const Routing = () => {
   return (
@@ -20,11 +22,13 @@ const Routing = () => {
       <Route path="/signup" element={<Signup />} />
       <Route path="/user/kakao/callback" element={<Kakao />} />
       <Route path="/user/naver/callback" element={<Naver />} />
+
       <Route element={<ProtectedRoutes />} >
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/post" element={<Post />} />
         <Route path="/UpdateUserInfo" element={<UpdateUserInfo />}/>
         <Route path="/Detail/:id" element={<Detail />}/>
+        <Route path="/Search" element={<Search />} />
       </Route>
       <Route />
       <Route />

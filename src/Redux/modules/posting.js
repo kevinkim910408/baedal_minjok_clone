@@ -17,6 +17,8 @@ const getPostError = (payload) => ({ type: GET_POST_ERROR, payload });
 // 초기값
 const initialState = {
     lists: [
+        // restaurantList:[] ~ minprice까지
+        // Menus:[] menuname ~ menuimg
         {
             name: "",
             location: "",
@@ -28,6 +30,14 @@ const initialState = {
             price: "",
             explain: "",
             menuImg: "",
+            twomenuNameRef: "",
+            twopriceRef: "",
+            twoexplainRef: "",
+            twomenuImgRef: "",
+            threemenuNameRef: "",
+            threepriceRef: "",
+            threeexplainRef: "",
+            threemenuImgRef: "",
         }
     ],
 }
@@ -37,6 +47,7 @@ const initialState = {
 // 포스트
 export const __addPost = (payload) => async (dispatch, getState) => {
     const token = localStorage.getItem("Authorization");
+    console.log(payload);
     dispatch(getPostRequest(true))
     try {
         const data = await api.post('/api/posts', {
@@ -50,14 +61,22 @@ export const __addPost = (payload) => async (dispatch, getState) => {
             menuName: payload.menuName,
             price: payload.price,
             explain: payload.explain,
-            menuImg: payload.menuImg
+            menuImg: payload.menuImg,
+            twomenuNameRef: payload.twomenuNameRef,
+            twopriceRef: payload.twopriceRef,
+            twoexplainRef: payload.twoexplainRef,
+            twomenuImgRef: payload.twomenuImgRef,
+            threemenuNameRef: payload.threemenuNameRef,
+            threepriceRef: payload.threepriceRef,
+            threeexplainRef: payload.threeexplainRef,
+            threemenuImgRef: payload.threemenuImgRef,
+
         }, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             }
         })
         console.log(data)
-
         dispatch(addPost(data.data))
     } catch (error) {
         dispatch(getPostError(error))

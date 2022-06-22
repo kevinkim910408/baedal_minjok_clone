@@ -1,7 +1,5 @@
-import React, { useState, useRef } from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
-import AddBtn from './PostAddBtn'
-import MinusBtn from './PostMinusBtn'
 
 const Postbody = () => {
     const menuNameRef = useRef();
@@ -16,7 +14,6 @@ const Postbody = () => {
                 가격 <PostInput type="number" ref={priceRef} /><br />
                 상품설명 <PostInputLong ref={explainRef} />
             </PostMenu>
-
         </>
     );
 }
