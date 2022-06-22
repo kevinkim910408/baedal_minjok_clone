@@ -108,7 +108,7 @@ const Detail = () => {
                          </StInfoBoxZIndex>
                     </StInfoBox>
                     <div style={{margin:'2rem'}}></div>
-                    <StList style={{color:'gold', fontSize: '3rem', marginTop:'7rem'}}>- 대표 메뉴 - </StList>
+                    <StList style={{color:'gold', fontSize: '3rem', marginTop:'7rem', justifyContent:'center'}}>- 대표 메뉴 - </StList>
                     {
                         detailLists.length !== 0 ? 
                         detailLists.Menus.map((value,index)=>{

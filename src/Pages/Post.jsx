@@ -8,6 +8,8 @@ import { useDispatch } from "react-redux";
 import { storage } from '../Shared/firebase'
 import {getDownloadURL, ref, uploadBytes} from 'firebase/storage'
 
+const UPLOAD_IMG = "https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg"
+
 const Post = () => {
   const nameRef = useRef();
   const locationRef = useRef();
@@ -34,10 +36,10 @@ const Post = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [fileImage, setFileImage] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_eq4vhqgsMYr_9QiNLuKk2DJksM_7Qo1FQw&usqp=CAU");
-  const [menuOne, setMenuOne] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_eq4vhqgsMYr_9QiNLuKk2DJksM_7Qo1FQw&usqp=CAU");
-  const [menuTwo, setMenuTwo] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_eq4vhqgsMYr_9QiNLuKk2DJksM_7Qo1FQw&usqp=CAU");
-  const [menuThree, setMenuThree] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_eq4vhqgsMYr_9QiNLuKk2DJksM_7Qo1FQw&usqp=CAU");
+  const [fileImage, setFileImage] = useState(UPLOAD_IMG);
+  const [menuOne, setMenuOne] = useState(UPLOAD_IMG);
+  const [menuTwo, setMenuTwo] = useState(UPLOAD_IMG);
+  const [menuThree, setMenuThree] = useState(UPLOAD_IMG);
 
    // 파일 저장
    const saveFileImage = (e, imgRef, set) => {
