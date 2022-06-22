@@ -18,7 +18,7 @@ export const __getPostDetail = ({ id }) => async (dispatch) => {
                 'Authorization': `Bearer ${token}`,
             }
         })
-        dispatch(getPostDetail(data.data.result));
+        dispatch(getPostDetail(data.data.restaurantDetail));
     } catch (error) {
         // alert('이미 있는 아이디 입니다');
     } finally {
