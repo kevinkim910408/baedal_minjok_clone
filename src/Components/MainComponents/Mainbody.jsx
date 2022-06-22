@@ -19,15 +19,20 @@ import category12 from '../../image/category12.JPG'
 import category13 from '../../image/category13.JPG'
 import category14 from '../../image/category14.JPG'
 import slide01 from '../../Assets/Image/mainSlide01.jpg'
+import { useNavigate } from 'react-router-dom';
 
 
 const Maininput = () => {
+  const navigate = useNavigate();
+  const onSearchHandler = () => {
+    navigate('/Search')
+  }
   return (
     <StWrap>
       <InputBox>
         <input className="input" type="text" placeholder='찾는 메뉴가 뭐예요?'
         />
-        <SearchButton>
+        <SearchButton onClick={onSearchHandler}>
           <FontAwesomeIcon className='icon' icon={faMagnifyingGlass}
             color={"black"}
           />

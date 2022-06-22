@@ -23,13 +23,23 @@ const Post = () => {
   const explainRef = useRef();
   const menuImgRef = useRef();
 
-  const [selectImage, setSelectImage] = useState();
+  const twomenuNameRef = useRef();
+  const twopriceRef = useRef();
+  const twoexplainRef = useRef();
+  const twomenuImgRef = useRef();
+
+  const threemenuNameRef = useRef();
+  const threepriceRef = useRef();
+  const threeexplainRef = useRef();
+  const threemenuImgRef = useRef();
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onChangeSelectImage = (e) => {
-    setSelectImage(e.target.files);
-  }
+  // const [selectImage, setSelectImage] = useState();
+  // const onChangeSelectImage = (e) => {
+  //   setSelectImage(e.target.files);
+  // }
 
   const onPostHandler = () => {
     dispatch(__addPost({
@@ -43,6 +53,14 @@ const Post = () => {
       price: priceRef.current.value,
       explain: explainRef.current.value,
       menuImg: menuImgRef.current.value,
+      twomenuNameRef: twomenuNameRef.current.value,
+      twopriceRef: twopriceRef.current.value,
+      twoexplainRef: twoexplainRef.current.value,
+      twomenuImgRef: twomenuImgRef.current.value,
+      threemenuNameRef: threemenuNameRef.current.value,
+      threepriceRef: threepriceRef.current.value,
+      threeexplainRef: threeexplainRef.current.value,
+      threemenuImgRef: threemenuImgRef.current.value,
     }))
     alert('등록이 완료되었습니다')
     navigate('/')
@@ -68,9 +86,18 @@ const Post = () => {
               가격 <PostInput type="number" ref={priceRef} /><br />
               상품설명 <PostInputLong type='text' ref={explainRef} />
             </PostMenu>
-            <Postbody />
-            <AddBtn />
-            <MinusBtn />
+            <PostMenu >
+              메뉴 <PostInput ref={twomenuNameRef} />
+              메뉴사진<PostInput type="file" ref={twomenuImgRef} /> <br />
+              가격 <PostInput type="number" ref={twopriceRef} /><br />
+              상품설명 <PostInputLong type='text' ref={twoexplainRef} />
+            </PostMenu>
+            <PostMenu >
+              메뉴 <PostInput ref={threemenuNameRef} />
+              메뉴사진<PostInput type="file" ref={threemenuImgRef} /> <br />
+              가격 <PostInput type="number" ref={threepriceRef} /><br />
+              상품설명 <PostInputLong type='text' ref={threemenuImgRef} />
+            </PostMenu>
           </PostDiv>
           <PostBtn onClick={onPostHandler}>등록하기</PostBtn>
         </PostInsideDiv>
@@ -97,7 +124,7 @@ const PostDiv = styled.div`
 const PostInsideDiv = styled.div`
   ${flex({ direction: 'column' })}
   width: calc(100vh - 50vh);
-  height: 750px;
+  height: 700px;
 `
 const PostMenu = styled.div`
     width: 95%;
@@ -125,6 +152,7 @@ const PostInputLong = styled.input`
   font-size: 1.5rem;
   outline: none;
   border-radius: 10px;
+  font-size: 15px;
 `;
 
 const PostBtn = styled.button`

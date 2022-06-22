@@ -9,6 +9,7 @@ import Naver from "../../Pages/Naver";
 import Mypage from '../../Pages/Mypage';
 import Post from '../../Pages/Post';
 import UpdateUserInfo from '../../Pages/UpdateUserInfo';
+import Search from "../../Pages/Search";
 
 const Routing = () => {
   return (
@@ -20,8 +21,8 @@ const Routing = () => {
       <Route path="/user/naver/callback" element={<Naver />} />
       <Route path="/mypage" element={<Mypage />} />
       <Route path="/post" element={<Post />} />
-      <Route path="/UpdateUserInfo" element={<UpdateUserInfo />}/>
-      <Route />
+      <Route path="/UpdateUserInfo" element={<UpdateUserInfo />} />
+      <Route path="/Search" element={<Search />} />
       <Route />
       <Route />
     </Routes>
