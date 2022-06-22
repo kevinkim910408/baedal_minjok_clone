@@ -36,7 +36,6 @@ export const __loadComment = ({id}) => async (dispatch) => {
 };
 
 export const __updateComment = ({restaurantId, reviewId, comment}) => async (dispatch) => {
-    console.log(restaurantId, reviewId, comment)
     const token = localStorage.getItem("Authorization");
     const data = await api.put(
       `/api/posts/${restaurantId}/review/${reviewId}`,
