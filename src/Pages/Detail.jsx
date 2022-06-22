@@ -51,7 +51,7 @@ const Detail = () => {
     const onDeleteHandler = (payload) => {
         dispatch(__deleteComment(payload));
     }
-
+    
     const updatePostHandler = (updatedData) => {
         dispatch(__updateComment(updatedData))
         setEdit(false)

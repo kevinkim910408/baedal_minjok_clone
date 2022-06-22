@@ -5,6 +5,7 @@ import Mainheader from "../Components/MainComponents/Mainheader";
 import styled from "styled-components";
 import flex from "../Components/Common/flex";
 import { __getPost } from "../Redux/modules/posting"
+import Loading from './Status/Loading'
 
 const Search = () => {
     const dispatch = useDispatch();
@@ -19,9 +20,12 @@ const Search = () => {
         navigate(`/detail/${id}`)
     }
 
+    if(data === undefined){
+        return <Loading />
+    }
+
     return (
         <>
-        
             <Mainheader />
             <StWrap>
                 <StDiv>
