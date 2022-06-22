@@ -199,6 +199,11 @@ export default function userReducer(state = initialState, { payload, type }) {
                 address: payload.address,
                 phone: payload.phone,
             }
+        case GET_REQUEST_LOADING:
+            return {
+                ...state,
+                loading: payload,
+            }
         default:
             return state;
     }

@@ -46,14 +46,14 @@ const Post = () => {
    };
    
   const uploadFB = async (e, imgRef) => {
-    const upload_file = await uploadBytes(ref(storage, `images/${e.target.files[0].name}`),
-    e.target.files[0])
-    const file_url = await getDownloadURL(upload_file.ref);
-    imgRef.current = {url:file_url};
-    console.log(imgRef.current)
+      const upload_file = await uploadBytes(ref(storage, `images/${e.target.files[0].name}`),
+      e.target.files[0])
+      const file_url = await getDownloadURL(upload_file.ref);
+      imgRef.current = {url:file_url};
   };
 
   const onPostHandler = () => {
+   try{
     dispatch(__addPost({
       name: nameRef.current.value,
       location: locationRef.current.value,
@@ -79,6 +79,9 @@ const Post = () => {
     }))
     alert('등록이 완료되었습니다')
     navigate('/')
+   }catch(e){
+    alert("사진을 선택해 주셔야합니다.");
+   }
   }
 
   return (
@@ -125,7 +128,11 @@ const Post = () => {
             <input type="text" placeholder='설명 (최대20자)' maxLength={20} ref={threeexplainRef}/>
           </StList>
         </StDiv>
-        <StButton onClick={onPostHandler}>추가하기</StButton>
+        <StButton 
+          onClick={onPostHandler}
+        >
+          추가하기
+        </StButton>
       </StWrap>
     </>
   )

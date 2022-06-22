@@ -3,21 +3,24 @@ import { useDispatch, useSelector } from 'react-redux/es/exports'
 import { __getPostDetail } from '../Redux/modules/detail'
 import { __postComment, __loadComment, __updateComment, __deleteComment } from '../Redux/modules/comment'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
 import flex from '../Components/Common/flex'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPhone, faLocationDot, faClock, faTrashCan, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faPhone, faLocationDot, faClock, faTrashCan, faPenToSquare, faXmark } from "@fortawesome/free-solid-svg-icons";
 import Mainheader from '../Components/MainComponents/Mainheader'
 import Loading from './Status/Loading'
+import Error from './Status/Error'
 import { useRef } from 'react'
 import {useParams} from 'react-router-dom'
 
 const Detail = () => {
-    const {detailLists, loading} = useSelector(state=> state.detailReducer)
+    const {detailLists, loading, error} = useSelector(state=> state.detailReducer)
     const {comments} = useSelector(state=> state.commentReducer)
     const [toggle, setToggle] = useState(false);
     const commentRef = useRef();
     const {id} = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     // 업데이트 버튼 누르면 아래 toggle창 생기게 해주는 state
     const [edit, setEdit] = useState(false);
@@ -55,10 +58,16 @@ const Detail = () => {
     const updatePostHandler = (updatedData) => {
         dispatch(__updateComment(updatedData))
         setEdit(false)
-      }
+    }
+    const onBackHandler = () => {
+        navigate(-1)
+    }
 
   if(loading){
     return <Loading />
+  }
+  if(error){
+    return <Error />
   }
 
   return (
@@ -66,6 +75,9 @@ const Detail = () => {
         <Mainheader />
         <StWrap>
             <StDiv>
+            <StBackBtn onClick={onBackHandler}>
+                <FontAwesomeIcon icon={faXmark} />
+            </StBackBtn>
                 <ul>
                     <StPicBox>
                         <img src={detailLists.logoImg} style={{width:'100%', height:'200px'}} alt="" />
@@ -219,8 +231,13 @@ const StPicBox = styled.div`
     }
 `;
 
+const StBackBtn = styled.div`
+    width: 100%;
+    font-size: 2rem;
+`;
+
 const StInfoBox = styled.div`
-    ${flex({justify:'space-between'})};
+    ${flex({})};
     width: calc(100vh - 60vh);
     height: 50px;
     border-bottom: 1px solid var(--font-secondary);
@@ -277,7 +294,7 @@ const StInfoBoxZIndex = styled.div`
 `;
 
 const StList = styled.li`
-    ${flex({})}
+    ${flex({justify:'space-between'})}
     width: calc(100vh - 60vh);
     height: 150px;
     border-bottom: 1px solid var(--font-secondary);

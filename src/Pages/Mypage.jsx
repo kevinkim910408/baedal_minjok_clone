@@ -13,12 +13,14 @@ import Pic6 from '../Assets/Image/Mypage_cate01.PNG'
 import Pic7 from '../Assets/Image/Mypage_cate02.PNG'
 import Pic8 from '../Assets/Image/Mypage_cate03.PNG'
 import { __getUser } from '../Redux/modules/user';
+import Loading from './Status/Loading';
+import Error from './Status/Error';
 
 const Mypage = () => {
     const username = localStorage.getItem('username')
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { address, phone } = useSelector(state => state.userReducer)
+    const { address, phone, loading, error } = useSelector(state => state.userReducer)
     const onUserProfileUpdate = () => {
         navigate('/UpdateUserInfo')
     }
@@ -27,6 +29,13 @@ const Mypage = () => {
         dispatch(__getUser());
     }, [dispatch])
 
+    if(loading){
+        return <Loading />
+      }
+      if(error){
+        return <Error />
+      }
+    
     return (
         <>
             <Mainheader username={username} />
