@@ -57,8 +57,6 @@ const Detail = () => {
         setEdit(false)
       }
 
-      console.log(detailLists)
-
   if(loading){
     return <Loading />
   }
@@ -106,7 +104,7 @@ const Detail = () => {
                                     <div>
                                         <p>{value.menuName}</p>
                                         <p>₩ {value.price} </p>
-                                        <p style={{fontSize:'1rem', color:'var(--font-secondary)'}}>{detailLists.Menus[0].explain} </p>
+                                        <p style={{fontSize:'1rem', color:'var(--font-secondary)'}}>{value.explain} </p>
                                     </div>
                                     <img style={{height:'120px'}} src={value.menuImg} alt="" />
                                 </StList>
