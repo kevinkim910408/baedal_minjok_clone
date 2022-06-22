@@ -18,53 +18,53 @@ const Mypage = () => {
     const username = localStorage.getItem('username')
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {address, phone} = useSelector(state=>state.userReducer)
+    const { address, phone } = useSelector(state => state.userReducer)
     const onUserProfileUpdate = () => {
         navigate('/UpdateUserInfo')
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(__getUser());
-    },[dispatch])
+    }, [dispatch])
 
     return (
         <>
-            <Mainheader username={username}/>
+            <Mainheader username={username} />
             <StWrap>
                 <StDiv>
                     <h1>My 배민</h1>
                     <img src={Pic} alt="" />
                     <StLoginDiv>
-                        <div style={{display:'flex', alignItems:'center'}}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
                             <img src={Pic2} alt="" />
                             <div>
                                 <p>{username}님</p>
                                 <p>어서오세요</p>
                             </div>
                         </div>
-                        <img 
-                            class="icon" 
-                            src={Pic3} 
-                            alt="" 
-                            onClick={()=>{
+                        <img
+                            class="icon"
+                            src={Pic3}
+                            alt=""
+                            onClick={() => {
                                 navigate('/UpdateUserInfo')
-                            }} 
-                            style={{cursor:'pointer'}}
+                            }}
+                            style={{ cursor: 'pointer' }}
                         />
                     </StLoginDiv>
                     {
-                    address===null ? 
-                    <div>
-                        <p>아래의 회원정보 수정을 눌러서</p>
-                        <p>전화번호와 주소를 추가해주세요</p>
-                    </div> :
-                    <div>
-                        <p>주소:{address}</p>
-                        <p>핸드폰:{phone}</p>
-                    </div>
+                        address === null ?
+                            <div>
+                                <p>아래의 회원정보 수정을 눌러서</p>
+                                <p>전화번호와 주소를 추가해주세요</p>
+                            </div> :
+                            <div>
+                                <p>주소:{address}</p>
+                                <p>핸드폰:{phone}</p>
+                            </div>
                     }
                     <StGrid>
-                        <div onClick={onUserProfileUpdate}>
+                        <div classname="signuprevise" onClick={onUserProfileUpdate} >
                             <img src={Pic8} alt="" />
                         </div>
                         <div>
@@ -73,7 +73,7 @@ const Mypage = () => {
                         <div>
                             <img src={Pic6} alt="" />
                         </div>
-                    </StGrid>  
+                    </StGrid>
                     <div>
                         <img src={Pic4} alt="" />
                         <img src={Pic5} alt="" />
@@ -87,14 +87,14 @@ const Mypage = () => {
 export default Mypage
 
 export const StWrap = styled.div`
-    ${flex({direction:'column',align:'center'})}
+    ${flex({ direction: 'column', align: 'center' })}
     width: 100%;
     height: 100%;
     background-color: var(--white);
 `;
 
 export const StDiv = styled.div`
-    ${flex({direction:'column',justify:'flex-start'})}
+    ${flex({ direction: 'column', justify: 'flex-start' })}
     width: calc(100vh - 60vh);
     height: 700px;
     border: none;
@@ -119,7 +119,7 @@ export const StDiv = styled.div`
 `;
 
 export const StLoginDiv = styled.div`
-    ${flex({justify:'space-between'})}
+    ${flex({ justify: 'space-between' })}
     width: 100%;
     margin-bottom: 1rem;
     & > div > img{
@@ -160,5 +160,6 @@ export const StGrid = styled.div`
     & > div > img{
         width: 100%;
         height: 100%;
+        cursor: pointer;
     }
 `;

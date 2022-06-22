@@ -18,8 +18,10 @@ import category11 from '../../image/category11.JPG'
 import category12 from '../../image/category12.JPG'
 import category13 from '../../image/category13.JPG'
 import category14 from '../../image/category14.JPG'
+import questionmark from '../../image/questionmark.jpg'
 import slide01 from '../../Assets/Image/mainSlide01.jpg'
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 
 const Maininput = () => {
@@ -27,6 +29,18 @@ const Maininput = () => {
   const onSearchHandler = () => {
     navigate('/Search')
   }
+
+  const backgroundArr = [questionmark, category1, category2, category3, category4,
+    category5, category6, category7, category8, category9, category10,
+    category11, category12, category13, category14];
+  const randomIndex = Math.floor(Math.random() * backgroundArr.length);
+  const backgroundImg = backgroundArr[randomIndex];
+
+  const [stateimg, setStateimg] = useState(0);
+  const changeimg = () => {
+    setStateimg(randomIndex)
+  };
+
   return (
     <StWrap>
       <InputBox>
@@ -81,6 +95,9 @@ const Maininput = () => {
         <Categorybox>
           <img src={category14} alt="" />
         </Categorybox>
+        <Questionbox onClick={changeimg}>
+          <img src={backgroundArr[stateimg]} alt="" />
+        </Questionbox>
       </CategoryBody>
       <StSwiperBox>
         <img src={slide01} alt="" />
@@ -142,5 +159,12 @@ const StSwiperBox = styled.div`
   height: 150px;
   & > img{
     width:100%
+  }
+`;
+
+const Questionbox = styled.div`
+cursor: pointer;
+  & > img{
+    width: 95px;
   }
 `;
