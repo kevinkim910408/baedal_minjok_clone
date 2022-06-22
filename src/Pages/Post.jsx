@@ -2,13 +2,11 @@ import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import flex from '../Components/Common/flex'
-import Postbody from '../Components/Postcomponents/Postbody'
 import Mainheader from '../Components/MainComponents/Mainheader'
 import { __addPost } from '../Redux/modules/posting'
 import { useDispatch } from "react-redux";
-import AddBtn from '../Components/Postcomponents/PostAddBtn'
-import MinusBtn from '../Components/Postcomponents/PostMinusBtn'
-
+import { storage } from '../Shared/firebase'
+import {getDownloadURL, ref, uploadBytes} from 'firebase/storage'
 
 const Post = () => {
   const nameRef = useRef();
@@ -36,10 +34,24 @@ const Post = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // const [selectImage, setSelectImage] = useState();
-  // const onChangeSelectImage = (e) => {
-  //   setSelectImage(e.target.files);
-  // }
+  const [fileImage, setFileImage] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_eq4vhqgsMYr_9QiNLuKk2DJksM_7Qo1FQw&usqp=CAU");
+  const [menuOne, setMenuOne] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_eq4vhqgsMYr_9QiNLuKk2DJksM_7Qo1FQw&usqp=CAU");
+  const [menuTwo, setMenuTwo] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_eq4vhqgsMYr_9QiNLuKk2DJksM_7Qo1FQw&usqp=CAU");
+  const [menuThree, setMenuThree] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_eq4vhqgsMYr_9QiNLuKk2DJksM_7Qo1FQw&usqp=CAU");
+
+   // 파일 저장
+   const saveFileImage = (e, imgRef, set) => {
+    set(URL.createObjectURL(e.target.files[0]));
+    uploadFB(e, imgRef)
+   };
+   
+  const uploadFB = async (e, imgRef) => {
+    const upload_file = await uploadBytes(ref(storage, `images/${e.target.files[0].name}`),
+    e.target.files[0])
+    const file_url = await getDownloadURL(upload_file.ref);
+    imgRef.current = {url:file_url};
+    console.log(imgRef.current)
+  };
 
   const onPostHandler = () => {
     dispatch(__addPost({
@@ -49,18 +61,21 @@ const Post = () => {
       logoImg: logoImgRef.current.value,
       openingHours: openingHoursRef.current.value,
       minPrice: minPriceRef.current.value,
-      menuName: menuNameRef.current.value,
-      price: priceRef.current.value,
-      explain: explainRef.current.value,
-      menuImg: menuImgRef.current.value,
-      twomenuNameRef: twomenuNameRef.current.value,
-      twopriceRef: twopriceRef.current.value,
-      twoexplainRef: twoexplainRef.current.value,
-      twomenuImgRef: twomenuImgRef.current.value,
-      threemenuNameRef: threemenuNameRef.current.value,
-      threepriceRef: threepriceRef.current.value,
-      threeexplainRef: threeexplainRef.current.value,
-      threemenuImgRef: threemenuImgRef.current.value,
+
+      menuName: nameRef.current.value,
+      price: nameRef.current.value,
+      explain: nameRef.current.value,
+      menuImg: nameRef.current.value,
+
+      menuNameTwo: twomenuNameRef.current.value,
+      priceTwo: twopriceRef.current.value,
+      explainTwo: twoexplainRef.current.value,
+      menuImgTwo: twomenuImgRef.current.value,
+
+      menuNameThree: threemenuNameRef.current.value,
+      priceThree: threepriceRef.current.value,
+      explainThree: threeexplainRef.current.value,
+      menuImgThree: threemenuImgRef.current.value,
     }))
     alert('등록이 완료되었습니다')
     navigate('/')
@@ -69,98 +84,88 @@ const Post = () => {
   return (
     <>
       <Mainheader />
-      <PostWrap>
-        <PostInsideDiv>
-          <PostDiv>
-            <PostMenu>
-              가게이름 <PostInput type='text' ref={nameRef} /><br />
-              전화번호 <PostInput type="number" ref={phoneRef} />
-              최소주문금액 <PostInput type="number" ref={minPriceRef} /><br />
-              위치 <PostInput ref={locationRef} />
-              영업시간 <PostInput type="number" ref={openingHoursRef} />
-              가게로고 <PostInput type="file" ref={logoImgRef} />
-            </PostMenu>
-            <PostMenu >
-              메뉴 <PostInput ref={menuNameRef} />
-              메뉴사진<PostInput type="file" ref={menuImgRef} /> <br />
-              가격 <PostInput type="number" ref={priceRef} /><br />
-              상품설명 <PostInputLong type='text' ref={explainRef} />
-            </PostMenu>
-            <PostMenu >
-              메뉴 <PostInput ref={twomenuNameRef} />
-              메뉴사진<PostInput type="file" ref={twomenuImgRef} /> <br />
-              가격 <PostInput type="number" ref={twopriceRef} /><br />
-              상품설명 <PostInputLong type='text' ref={twoexplainRef} />
-            </PostMenu>
-            <PostMenu >
-              메뉴 <PostInput ref={threemenuNameRef} />
-              메뉴사진<PostInput type="file" ref={threemenuImgRef} /> <br />
-              가격 <PostInput type="number" ref={threepriceRef} /><br />
-              상품설명 <PostInputLong type='text' ref={threemenuImgRef} />
-            </PostMenu>
-          </PostDiv>
-          <PostBtn onClick={onPostHandler}>등록하기</PostBtn>
-        </PostInsideDiv>
-      </PostWrap>
+      <StWrap>
+        <StDiv>
+          <StList>
+          <img style={{width:'90%', height:'150px'}} src={fileImage} alt="" />
+          <input type="file" placeholder='PICTURE' onChange={(e)=>saveFileImage(e,logoImgRef, setFileImage)} required/>
+          </StList>
+          <StList>
+            <input type="text" placeholder='가게 이름' maxLength={10} ref={nameRef}/>
+            <input type="text" placeholder='장소 예) 영등포점' maxLength={10} ref={locationRef}/>
+            <input type="text" placeholder='전화번호 예) 07012345678' maxLength={11} ref={phoneRef}/>
+            <input type="text" placeholder='오프시간 예) 오전11시' maxLength={6} ref={openingHoursRef}/>
+            <input type="text" placeholder='최소 주문 금액 예) 20000' maxLength={7} ref={minPriceRef}/>
+          </StList>
+          <StList>
+          <img style={{width:'90%', height:'150px'}} src={menuOne} alt="" />
+          </StList>
+          <StList>
+          <input type="file" placeholder='PICTURE' onChange={(e)=>saveFileImage(e,menuImgRef, setMenuOne)} required/>
+            <input type="text" placeholder='메뉴 이름(최대10자)' maxLength={10} ref={menuNameRef}/>
+            <input type="text" placeholder='가격 예) 30000' maxLength={10} ref={priceRef}/>
+            <input type="text" placeholder='설명 (최대20자)' maxLength={20} ref={explainRef}/>
+          </StList>
+          <StList>
+          <img style={{width:'90%', height:'150px'}} src={menuTwo} alt="" />
+          </StList>
+          <StList>
+          <input type="file" placeholder='PICTURE' onChange={(e)=>saveFileImage(e,twomenuImgRef, setMenuTwo)} required/>
+            <input type="text" placeholder='메뉴 이름(최대10자)' maxLength={10} ref={twomenuNameRef}/>
+            <input type="text" placeholder='가격 예) 30000' maxLength={10} ref={twopriceRef}/>
+            <input type="text" placeholder='설명 (최대20자)' maxLength={20} ref={twoexplainRef}/>
+          </StList>
+          <StList>
+          <img style={{width:'90%', height:'150px'}} src={menuThree} alt="" />
+          </StList>
+          <StList>
+          <input type="file" placeholder='PICTURE' onChange={(e)=>saveFileImage(e,threemenuImgRef, setMenuThree)} required/>
+            <input type="text" placeholder='메뉴 이름(최대10자)' maxLength={10} ref={threemenuNameRef}/>
+            <input type="text" placeholder='가격 예) 30000' maxLength={10} ref={threepriceRef}/>
+            <input type="text" placeholder='설명 (최대20자)' maxLength={20} ref={threeexplainRef}/>
+          </StList>
+        </StDiv>
+        <StButton onClick={onPostHandler}>추가하기</StButton>
+      </StWrap>
     </>
   )
 }
+export default Post
 
-const PostWrap = styled.div`
-    ${flex({ direction: 'column' })}
-    height: calc(100vh - 75px);
+const StWrap = styled.div`
+    ${flex({direction:'column',align:'center'})}
+    width: 100%;
+    height: 100%;
     background-color: var(--white);
 `;
 
-const PostDiv = styled.div`
-    ${flex({ direction: 'column', justify: 'flex-start' })}
-    width: 100%;
-    height: 100%;
-    border: 2px solid var(--primary);
-    border-radius: 10px;
-    overflow: scroll;
+const StDiv = styled.div`
+    ${flex({direction:'column',justify:'flex-start'})}
+    width: calc(100vh - 60vh);
+    height: 650px;
+    overflow-y: scroll;
+    & > ul{
+        margin-bottom: 1rem;
+    }
 `;
 
-const PostInsideDiv = styled.div`
-  ${flex({ direction: 'column' })}
-  width: calc(100vh - 50vh);
-  height: 700px;
-`
-const PostMenu = styled.div`
-    width: 95%;
-    min-height: 150px;
-    border: 2px solid var(--primary);
-    border-radius: 10px;
-    margin: 1rem 0 1rem 0;
-
+const StList = styled.div`
+    ${flex({direction:'column'})}
+    width: calc(100vh - 60vh);
+    min-height: 200px;
+    border-bottom: 1px solid var(--font-secondary);
+    font-size: 1.5rem;
+    & > input{
+      border: none;
+      border-bottom: 1px solid var(--font-secondary);
+      margin-bottom: 1rem;
+    }
 `;
 
-const PostInput = styled.input`
-  width: 75px;
-  height: 40px;
-  margin: 0.4rem 0 0 0.4rem;
-  font-size: 1.5rem;
-  outline: none;
-  border-radius: 10px;
-  font-size: 15px;
+const StButton = styled.button`
+    width: 200px;
+    margin-top: 1rem;
+    padding: 10px;
+    border-radius: 30px;
+    font-size: 2rem;
 `;
-
-const PostInputLong = styled.input`
-  width: 200px;
-  height: 40px;
-  margin: 0.4rem 0 0 0.4rem;
-  font-size: 1.5rem;
-  outline: none;
-  border-radius: 10px;
-  font-size: 15px;
-`;
-
-const PostBtn = styled.button`
-  width: 100px;
-  height: 30px;
-  border-radius: 10px;
-  margin: 10px;
-`
-
-
-export default Post
