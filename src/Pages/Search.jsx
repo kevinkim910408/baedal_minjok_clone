@@ -13,11 +13,12 @@ const Search = () => {
                 <StDiv>
                     <StoreList>
                         <div>로고이미지</div>
-                        <div>상품 이름</div>
-                        <div>가격</div>
-                        <div>상품 설명</div>
+                        <div>
+                            <div>상품 이름</div>
+                            <div>가격</div>
+                            <div>상품 설명</div>
+                        </div>
                     </StoreList>
-
                 </StDiv>
             </StWrap>
         </>
@@ -39,11 +40,11 @@ const StDiv = styled.div`
     border: none;
 `
 const StoreList = styled.div`
+    ${flex({ justify: 'space-evenly' })}
     width: 95%;
     min-height: 150px;
     border: 2px solid #0f0f0f;
     border-radius: 10px;
     margin: 1rem 0 1rem 0;
-
 `;
 export default Search;
