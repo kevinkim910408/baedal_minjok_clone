@@ -13,15 +13,15 @@ const MainchatBtn = () => {
     const navigate = useNavigate();
     const getType = localStorage.getItem("usertype");
     const [type, setType] = useState(getType);
-     
+
     // chat
     const username = localStorage.getItem("username")
     const [room, setRoom] = useState("");
     const [showChat, setShowChat] = useState(false);
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         setRoom(1)
-    },[username])
+    }, [username])
 
     const joinRoom = (e) => {
         setShowChat(value => !value);
@@ -41,37 +41,37 @@ const MainchatBtn = () => {
                                 </IoIosAddCircle>
                             </AddButton>
                             <ChatButton>
-                                <BsFillChatFill size={60} color={'var(--primary-hover)'} onClick={(e)=>joinRoom(e)}>
+                                <BsFillChatFill size={60} color={'var(--primary-hover)'} onClick={(e) => joinRoom(e)}>
                                 </BsFillChatFill>
                             </ChatButton>
                         </>
                     )
-                else if(type !== "1" && getType !== null) {
+                else if (type !== "1" && getType !== null) {
                     return (
                         <>
                             <ChatButton>
-                                <BsFillChatFill size={60} color={'var(--primary-hover)'} onClick={(e)=>joinRoom(e)}>
+                                <BsFillChatFill size={60} color={'var(--primary-hover)'} onClick={(e) => joinRoom(e)}>
                                 </BsFillChatFill>
                             </ChatButton>
                         </>
                     );
                 }
-                else{
+                else {
                     return (
                         <>
                         </>
                     );
                 }
             })()}
-        <StDiv>
-            {!showChat ? ( 
-            <></>
-        )
-        : (      
-            <Chat socket={socket} username={username} room={room}/>
-        )}
+            <StDiv>
+                {!showChat ? (
+                    <></>
+                )
+                    : (
+                        <Chat socket={socket} username={username} room={room} />
+                    )}
 
-        </StDiv>
+            </StDiv>
         </>
     );
 }
@@ -79,7 +79,7 @@ const MainchatBtn = () => {
 export default MainchatBtn;
 
 const ChatButton = styled.div`
-    background-color: white;
+    background-color: #cec7c7;
     border-radius: 40%;
     padding: 10px;
     position: fixed;
@@ -89,7 +89,7 @@ const ChatButton = styled.div`
 `;
 
 const AddButton = styled.div`
-    background-color: white;
+    background-color: #cec7c7;
     border-radius: 40%;
     padding: 10px;
     position: fixed;

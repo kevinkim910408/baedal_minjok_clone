@@ -8,7 +8,7 @@ import { useNavigate, Link } from "react-router-dom";
 import mainLogo from "../../image/mainlogo2.png"
 import { __logOut } from '../../Redux/modules/user';
 
-const Mainheader = ({username}) => {
+const Mainheader = ({ username }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const getNickname = localStorage.getItem("username");
@@ -30,6 +30,7 @@ const Mainheader = ({username}) => {
     const onLogoutHandler = () => {
         dispatch(__logOut());
         setCookies(null)
+        navigate('/')
     };
 
 

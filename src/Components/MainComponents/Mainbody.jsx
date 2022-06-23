@@ -37,11 +37,14 @@ const Maininput = () => {
   const randomIndex = Math.floor(Math.random() * backgroundArr.length);
 
   const [stateimg, setStateimg] = useState(0);
+  console.log(randomIndex);
   const changeimg = () => {
     setStateimg(randomIndex)
-    if(stateimg === randomIndex){
+    if (stateimg === randomIndex) {
       return setStateimg(stateimg + 1)
     }
+    if (14 === randomIndex)
+      return setStateimg(stateimg(Math.round(Math.random() * 13)))
   };
 
   return (
@@ -56,46 +59,46 @@ const Maininput = () => {
         </SearchButton>
       </InputBox>
       <CategoryBody>
-        <Categorybox>
+        <Categorybox onClick={onSearchHandler}>
           <img src={category1} alt="" />
-        </Categorybox>
-        <Categorybox>
+        </Categorybox >
+        <Categorybox onClick={onSearchHandler}>
           <img src={category2} alt="" />
         </Categorybox>
-        <Categorybox>
+        <Categorybox onClick={onSearchHandler}>
           <img src={category3} alt="" />
         </Categorybox>
-        <Categorybox>
+        <Categorybox onClick={onSearchHandler}>
           <img src={category4} alt="" />
         </Categorybox>
-        <Categorybox>
+        <Categorybox onClick={onSearchHandler}>
           <img src={category5} alt="" />
         </Categorybox>
-        <Categorybox>
+        <Categorybox onClick={onSearchHandler}>
           <img src={category6} alt="" />
-        </Categorybox>
-        <Categorybox>
+        </Categorybox >
+        <Categorybox onClick={onSearchHandler}>
           <img src={category7} alt="" />
         </Categorybox>
-        <Categorybox>
+        <Categorybox onClick={onSearchHandler}>
           <img src={category8} alt="" />
         </Categorybox>
-        <Categorybox>
+        <Categorybox onClick={onSearchHandler}>
           <img src={category9} alt="" />
         </Categorybox>
-        <Categorybox>
+        <Categorybox onClick={onSearchHandler}>
           <img src={category10} alt="" />
         </Categorybox>
-        <Categorybox>
+        <Categorybox onClick={onSearchHandler}>
           <img src={category11} alt="" />
         </Categorybox>
-        <Categorybox>
+        <Categorybox onClick={onSearchHandler}>
           <img src={category12} alt="" />
         </Categorybox>
-        <Categorybox>
+        <Categorybox onClick={onSearchHandler}>
           <img src={category13} alt="" />
         </Categorybox>
-        <Categorybox>
+        <Categorybox onClick={onSearchHandler}>
           <img src={category14} alt="" />
         </Categorybox>
         <Questionbox onClick={changeimg}>
