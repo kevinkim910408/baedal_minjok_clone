@@ -3,21 +3,24 @@ import { useDispatch, useSelector } from 'react-redux/es/exports'
 import { __getPostDetail } from '../Redux/modules/detail'
 import { __postComment, __loadComment, __updateComment, __deleteComment } from '../Redux/modules/comment'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
 import flex from '../Components/Common/flex'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPhone, faLocationDot, faClock, faTrashCan, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faPhone, faLocationDot, faClock, faTrashCan, faPenToSquare, faXmark } from "@fortawesome/free-solid-svg-icons";
 import Mainheader from '../Components/MainComponents/Mainheader'
 import Loading from './Status/Loading'
+import Error from './Status/Error'
 import { useRef } from 'react'
 import {useParams} from 'react-router-dom'
 
 const Detail = () => {
-    const {detailLists, loading} = useSelector(state=> state.detailReducer)
+    const {detailLists, loading, error} = useSelector(state=> state.detailReducer)
     const {comments} = useSelector(state=> state.commentReducer)
     const [toggle, setToggle] = useState(false);
     const commentRef = useRef();
     const {id} = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     // 업데이트 버튼 누르면 아래 toggle창 생기게 해주는 state
     const [edit, setEdit] = useState(false);
@@ -34,7 +37,7 @@ const Detail = () => {
     useEffect(()=>{
       dispatch(__loadComment({id:id}));
       dispatch(__getPostDetail({id:id}));
-    },[dispatch])
+    },[dispatch, id])
 
     const onToggleReviewHandler = () => {
         setToggle(toggle=> !toggle);
@@ -51,14 +54,20 @@ const Detail = () => {
     const onDeleteHandler = (payload) => {
         dispatch(__deleteComment(payload));
     }
-
+    
     const updatePostHandler = (updatedData) => {
         dispatch(__updateComment(updatedData))
         setEdit(false)
-      }
+    }
+    const onBackHandler = () => {
+        navigate(-1)
+    }
 
   if(loading){
     return <Loading />
+  }
+  if(error){
+    return <Error />
   }
 
   return (
@@ -66,6 +75,9 @@ const Detail = () => {
         <Mainheader />
         <StWrap>
             <StDiv>
+            <StBackBtn onClick={onBackHandler}>
+                <FontAwesomeIcon icon={faXmark} />
+            </StBackBtn>
                 <ul>
                     <StPicBox>
                         <img src={detailLists.logoImg} style={{width:'100%', height:'200px'}} alt="" />
@@ -96,7 +108,7 @@ const Detail = () => {
                          </StInfoBoxZIndex>
                     </StInfoBox>
                     <div style={{margin:'2rem'}}></div>
-                    <StList style={{color:'gold', fontSize: '3rem', marginTop:'7rem'}}>- 대표 메뉴 - </StList>
+                    <StList style={{color:'gold', fontSize: '3rem', marginTop:'7rem', justifyContent:'center'}}>- 대표 메뉴 - </StList>
                     {
                         detailLists.length !== 0 ? 
                         detailLists.Menus.map((value,index)=>{
@@ -111,13 +123,14 @@ const Detail = () => {
                         }) : <></>
                     }
                 </ul>
+                <p style={{color:'gold', fontSize: '2rem', margin:'1rem'}}>- 후기 -</p>
                 <StFlexCol>
                     {
                         comments.map((value,index)=>{
                             return (<div key={index}>
                                 <StInfoBox>
                                    <StFlexRowOnly>
-                                        <p>{value.User?.nickname}:</p>
+                                        <p className='nickName'>{value.User?.nickname}:</p>
                                         <p>{value.review}</p>
                                    </StFlexRowOnly>
                                   {
@@ -147,6 +160,7 @@ const Detail = () => {
                                             placeholder="설명은 여기에 써요"
                                             style={{width:'200px'}}
                                             onChange={(e)=>setUpdateComment(e.target.value)}
+                                            maxLength={20}
                                             />
                                             <button onClick={()=>updatePostHandler({reviewId: value.reviewId, restaurantId: value.restaurantId, comment: updateComment})}>
                                                 수정하기
@@ -217,17 +231,27 @@ const StPicBox = styled.div`
     }
 `;
 
+const StBackBtn = styled.div`
+    width: 100%;
+    font-size: 2rem;
+`;
+
 const StInfoBox = styled.div`
-    ${flex({justify:'space-between'})};
+    ${flex({})};
     width: calc(100vh - 60vh);
     height: 50px;
+    border-bottom: 1px solid var(--font-secondary);
+    margin-top: 1rem;
     & > p{
-        width: 100%;
         font-size: 1rem;
         margin-left: 1rem;
     }
     & > .icons{
-        width: 35%
+        width: 35%;
+    }
+    .icon:hover{
+        cursor: pointer;
+        color: var(--primary);
     }
 `;
 
@@ -242,9 +266,10 @@ const StFlexColOnly = styled.div`
 `;
 
 const StFlexRowOnly = styled.div`
-    ${flex({})};
-    & > p{
-        margin-right: 1rem;
+    ${flex({justify:'flex-start'})};
+    width: 100%;
+    & > .nickName{
+        width: 120px;
     }
 `;
 
@@ -269,11 +294,11 @@ const StInfoBoxZIndex = styled.div`
 `;
 
 const StList = styled.li`
-    ${flex({})}
+    ${flex({justify:'space-between'})}
     width: calc(100vh - 60vh);
     height: 150px;
     border-bottom: 1px solid var(--font-secondary);
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     & > img {
         width: 50%;
     }

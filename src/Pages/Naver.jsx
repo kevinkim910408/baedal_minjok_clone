@@ -16,7 +16,6 @@ const Naver = () => {
     useEffect(()=>{
       dispatch(__naverSignIn(code))
       if(isLogin){
-        alert('환영합니다')
         navigate('/')
       }
     },[dispatch, code, navigate, isLogin])

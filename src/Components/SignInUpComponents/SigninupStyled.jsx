@@ -101,9 +101,26 @@ export const StSubmitInput = styled(StInput)`
 
 export const StLink = styled(Link)`
   color: var(--primary) !important;
+  &:hover{
+    color: var(--primary-hover) !important;
+  }
 `;
 
 export const StImg = styled.img`
   width: calc(100vh - 60vh);
   height: 60px;
+`;
+
+export const StSubmit = styled.div`
+  ${flex({direction:'column'})}
+  width: calc(100vh - 60vh);
+  height: 60px;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 5px;
+  color:${props => props.kakao? "var(--black)" : "var(--white)"};
+  background-color: ${props => props.kakao? "var(--yellow)" : "#2ecc71"};
+  &:hover{  
+    background-color: ${props => props.kakao? "#e9d526" : "#26b160"};
+  }
 `;

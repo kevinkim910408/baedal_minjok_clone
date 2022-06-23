@@ -8,6 +8,8 @@ import { useDispatch } from "react-redux";
 import { storage } from '../Shared/firebase'
 import {getDownloadURL, ref, uploadBytes} from 'firebase/storage'
 
+const UPLOAD_IMG = "https://t3.ftcdn.net/jpg/02/70/22/86/360_F_270228625_yujevz1E4E45qE1mJe3DyyLPZDmLv4Uj.jpg"
+
 const Post = () => {
   const nameRef = useRef();
   const locationRef = useRef();
@@ -34,10 +36,10 @@ const Post = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [fileImage, setFileImage] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_eq4vhqgsMYr_9QiNLuKk2DJksM_7Qo1FQw&usqp=CAU");
-  const [menuOne, setMenuOne] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_eq4vhqgsMYr_9QiNLuKk2DJksM_7Qo1FQw&usqp=CAU");
-  const [menuTwo, setMenuTwo] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_eq4vhqgsMYr_9QiNLuKk2DJksM_7Qo1FQw&usqp=CAU");
-  const [menuThree, setMenuThree] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_eq4vhqgsMYr_9QiNLuKk2DJksM_7Qo1FQw&usqp=CAU");
+  const [fileImage, setFileImage] = useState(UPLOAD_IMG);
+  const [menuOne, setMenuOne] = useState(UPLOAD_IMG);
+  const [menuTwo, setMenuTwo] = useState(UPLOAD_IMG);
+  const [menuThree, setMenuThree] = useState(UPLOAD_IMG);
 
    // 파일 저장
    const saveFileImage = (e, imgRef, set) => {
@@ -46,15 +48,14 @@ const Post = () => {
    };
    
   const uploadFB = async (e, imgRef) => {
-    const upload_file = await uploadBytes(ref(storage, `images/${e.target.files[0].name}`),
-    e.target.files[0])
-    const file_url = await getDownloadURL(upload_file.ref);
-    imgRef.current = {url:file_url};
-    console.log(imgRef.current)
+      const upload_file = await uploadBytes(ref(storage, `images/${e.target.files[0].name}`),
+      e.target.files[0])
+      const file_url = await getDownloadURL(upload_file.ref);
+      imgRef.current = {url:file_url};
   };
-  console.log(logoImgRef.current)
 
   const onPostHandler = () => {
+   try{
     dispatch(__addPost({
       name: nameRef.current.value,
       location: locationRef.current.value,
@@ -80,6 +81,9 @@ const Post = () => {
     }))
     alert('등록이 완료되었습니다')
     navigate('/')
+   }catch(e){
+    alert("사진을 선택해 주셔야합니다.");
+   }
   }
 
   return (
@@ -92,9 +96,9 @@ const Post = () => {
           <input type="file" placeholder='PICTURE' onChange={(e)=>saveFileImage(e,logoImgRef, setFileImage)} required/>
           </StList>
           <StList>
-            <input type="text" placeholder='가게 이름' maxLength={10} ref={nameRef}/>
+            <input type="text" placeholder='가게 이름' maxLength={11} ref={nameRef}/>
             <input type="text" placeholder='장소 예) 영등포점' maxLength={10} ref={locationRef}/>
-            <input type="text" placeholder='전화번호 예) 07012345678' maxLength={11} ref={phoneRef}/>
+            <input type="number" placeholder='전화번호 예) 07012345678' maxLength={11} ref={phoneRef}/>
             <input type="text" placeholder='오프시간 예) 오전11시' maxLength={6} ref={openingHoursRef}/>
             <input type="text" placeholder='최소 주문 금액 예) 20000' maxLength={7} ref={minPriceRef}/>
           </StList>
@@ -103,8 +107,8 @@ const Post = () => {
           </StList>
           <StList>
           <input type="file" placeholder='PICTURE' onChange={(e)=>saveFileImage(e,menuImgRef, setMenuOne)} required/>
-            <input type="text" placeholder='메뉴 이름(최대10자)' maxLength={10} ref={menuNameRef}/>
-            <input type="text" placeholder='가격 예) 30000' maxLength={10} ref={priceRef}/>
+            <input type="text" placeholder='메뉴 이름(최대10자)' maxLength={15} ref={menuNameRef}/>
+            <input type="number" placeholder='가격 예) 30000' maxLength={6} ref={priceRef}/>
             <input type="text" placeholder='설명 (최대20자)' maxLength={20} ref={explainRef}/>
           </StList>
           <StList>
@@ -112,7 +116,7 @@ const Post = () => {
           </StList>
           <StList>
           <input type="file" placeholder='PICTURE' onChange={(e)=>saveFileImage(e,twomenuImgRef, setMenuTwo)} required/>
-            <input type="text" placeholder='메뉴 이름(최대10자)' maxLength={10} ref={twomenuNameRef}/>
+            <input type="text" placeholder='메뉴 이름(최대10자)' maxLength={15} ref={twomenuNameRef}/>
             <input type="text" placeholder='가격 예) 30000' maxLength={10} ref={twopriceRef}/>
             <input type="text" placeholder='설명 (최대20자)' maxLength={20} ref={twoexplainRef}/>
           </StList>
@@ -121,12 +125,16 @@ const Post = () => {
           </StList>
           <StList>
           <input type="file" placeholder='PICTURE' onChange={(e)=>saveFileImage(e,threemenuImgRef, setMenuThree)} required/>
-            <input type="text" placeholder='메뉴 이름(최대10자)' maxLength={10} ref={threemenuNameRef}/>
-            <input type="text" placeholder='가격 예) 30000' maxLength={10} ref={threepriceRef}/>
+            <input type="text" placeholder='메뉴 이름(최대10자)' maxLength={15} ref={threemenuNameRef}/>
+            <input type="number" placeholder='가격 예) 30000' maxLength={10} ref={threepriceRef}/>
             <input type="text" placeholder='설명 (최대20자)' maxLength={20} ref={threeexplainRef}/>
           </StList>
         </StDiv>
-        <StButton onClick={onPostHandler}>추가하기</StButton>
+        <StButton 
+          onClick={onPostHandler}
+        >
+          추가하기
+        </StButton>
       </StWrap>
     </>
   )

@@ -78,7 +78,6 @@ export default function commentReducer(state = initialState, { payload, type }) 
             return { ...state, comments: payload };
         case UPDATE_COMMENT:
             const newChangeComment = state.comments.map((value) => {
-                console.log(payload)
                 return value.reviewId === Number(payload.reviewId) ? payload : value;
             });
             return { ...state, comments: newChangeComment };

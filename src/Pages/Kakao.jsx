@@ -16,7 +16,6 @@ const Kakao = () => {
     useEffect(()=>{
       dispatch(__kakaoSignIn(code))
       if(isLogin){
-        alert('환영합니다')
         navigate('/')
       }
     },[dispatch, code, navigate, isLogin])

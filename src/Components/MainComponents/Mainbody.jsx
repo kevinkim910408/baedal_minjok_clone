@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import flex from '../Common/flex';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -33,12 +33,15 @@ const Maininput = () => {
   const backgroundArr = [questionmark, category1, category2, category3, category4,
     category5, category6, category7, category8, category9, category10,
     category11, category12, category13, category14];
+
   const randomIndex = Math.floor(Math.random() * backgroundArr.length);
-  const backgroundImg = backgroundArr[randomIndex];
 
   const [stateimg, setStateimg] = useState(0);
   const changeimg = () => {
     setStateimg(randomIndex)
+    if(stateimg === randomIndex){
+      return setStateimg(stateimg + 1)
+    }
   };
 
   return (

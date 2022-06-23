@@ -7,9 +7,9 @@ const useAuth = () =>{
     return token;
 }
 
-const ProtectedRoutes = () =>{
+const ProtectedRoutesNoLogin = () =>{
     const isAuth = useAuth();
     return isAuth !== null ? <Outlet /> : <Signin />
 }
 
-export default ProtectedRoutes;
+export default ProtectedRoutesNoLogin;

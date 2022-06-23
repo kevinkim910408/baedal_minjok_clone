@@ -160,8 +160,6 @@ export const __getUser = () => async (dispatch) =>{
     }
 }
 
-
-
 // 초기값
 const initialState = {
     loading: false,
@@ -200,6 +198,11 @@ export default function userReducer(state = initialState, { payload, type }) {
                 ...state,
                 address: payload.address,
                 phone: payload.phone,
+            }
+        case GET_REQUEST_LOADING:
+            return {
+                ...state,
+                loading: payload,
             }
         default:
             return state;

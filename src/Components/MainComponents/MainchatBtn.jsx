@@ -31,7 +31,7 @@ const MainchatBtn = () => {
     return (
         <>
             {(() => {
-                if (type === "1")
+                if (type === "1" && getType !== null)
                     return (
                         <>
                             <AddButton>
@@ -46,13 +46,19 @@ const MainchatBtn = () => {
                             </ChatButton>
                         </>
                     )
-                else {
+                else if(type !== "1" && getType !== null) {
                     return (
                         <>
                             <ChatButton>
                                 <BsFillChatFill size={60} color={'var(--primary-hover)'} onClick={(e)=>joinRoom(e)}>
                                 </BsFillChatFill>
                             </ChatButton>
+                        </>
+                    );
+                }
+                else{
+                    return (
+                        <>
                         </>
                     );
                 }

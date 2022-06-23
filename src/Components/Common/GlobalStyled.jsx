@@ -37,6 +37,15 @@ button{
     color: var(--white);
     background-color: var(--primary);
     border: none;
+    font-family: 'BMDOHYEON';
+}
+
+input::placeholder{
+    font-family: 'BMDOHYEON';
+}
+
+img:hover{
+    cursor: pointer;
 }
 
 input::-webkit-outer-spin-button,
