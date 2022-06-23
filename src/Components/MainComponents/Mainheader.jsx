@@ -71,11 +71,11 @@ const Mainheader = ({ username }) => {
                                     <HeaderNickName>
                                         안녕하세요 {getNickname}님
                                     </HeaderNickName>
-                                    <HeaderBtn onClick={onLogoutHandler}>
-                                        😢
-                                    </HeaderBtn>
                                     <HeaderBtn onClick={onMyPageHandler}>
                                         😋
+                                    </HeaderBtn>
+                                    <HeaderBtn onClick={onLogoutHandler}>
+                                        😢
                                     </HeaderBtn>
                                     <div style={{cursor:'pointer'}} onClick={onAboutUsHandler}>About Us</div>
                                 </Mainicon>
