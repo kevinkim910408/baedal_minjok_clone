@@ -19,8 +19,8 @@ import Error from "../../Pages/Status/Error";
 const Routing = () => {
   return (
     <Routes>
+      <Route path="/" element={<Home />} />
       <Route element={<ProtectedRoutesYesLogin />} >
-        <Route path="/" element={<Home />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/user/kakao/callback" element={<Kakao />} />
