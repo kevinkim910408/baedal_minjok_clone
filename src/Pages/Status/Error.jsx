@@ -15,7 +15,8 @@ const Error = () => {
         <img src={ErrorPic} alt="" />
       </StDiv>
       <p>페이지에 오류가 있습니다.</p>
-      <p>불편을 끼쳐드려 죄송합니다.</p>
+      <p>사용에 불편을 끼쳐드려 </p>
+      <p>죄송합니다. </p>
       <StButton onClick={onClickEventHandler}>뒤로가기</StButton>
     </StWrap>
   )

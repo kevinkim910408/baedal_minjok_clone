@@ -33,6 +33,10 @@ const Mainheader = ({ username }) => {
         navigate('/')
     };
 
+    const onAboutUsHandler = () => {
+        navigate('/aboutUs')
+    }
+
 
     return (
         <>
@@ -46,6 +50,7 @@ const Mainheader = ({ username }) => {
                                     <img onClick={onHomeHandler} src={mainLogo} style={{ width: '150px' }} alt="" />
                                 </Imagebox>
                                 <Mainicon>
+                                    <div style={{cursor:'pointer'}} onClick={onAboutUsHandler}>About Us</div>
                                     <HeaderBtn onClick={onLoginHandler}>
                                         😍
                                     </HeaderBtn>
@@ -72,6 +77,7 @@ const Mainheader = ({ username }) => {
                                     <HeaderBtn onClick={onMyPageHandler}>
                                         😋
                                     </HeaderBtn>
+                                    <div style={{cursor:'pointer'}} onClick={onAboutUsHandler}>About Us</div>
                                 </Mainicon>
                             </HeaderWrap>
                         </HeaderFlex>

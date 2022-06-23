@@ -10,6 +10,7 @@ import Mypage from '../../Pages/Mypage';
 import Post from '../../Pages/Post';
 import UpdateUserInfo from '../../Pages/UpdateUserInfo';
 import Detail from "../../Pages/Detail";
+import AboutUs from "../../Pages/AboutUs";
 import ProtectedRoutesNoLogin from "./ProtectedRoutesNoLogin";
 import ProtectedRoutesYesLogin from "./ProtectedRoutesYesLogin";
 import Search from "../../Pages/Search";
@@ -34,8 +35,9 @@ const Routing = () => {
         <Route path="/Detail/:id" element={<Detail />}/>
         <Route path="/Search" element={<Search />} />
       </Route>
+      
       <Route path="*" element={<Error />} />
-      <Route />
+      <Route path='/aboutUs' element={<AboutUs />} />
     </Routes>
   );
 };

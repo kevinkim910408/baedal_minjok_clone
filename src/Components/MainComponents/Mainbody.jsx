@@ -37,7 +37,6 @@ const Maininput = () => {
   const randomIndex = Math.floor(Math.random() * backgroundArr.length);
 
   const [stateimg, setStateimg] = useState(0);
-  console.log(randomIndex);
   const changeimg = () => {
     setStateimg(randomIndex)
     if (stateimg === randomIndex) {
