@@ -12,9 +12,9 @@
 # ⭐️ 팀 구성
 | 이름     | 깃허브 주소                                                | 포지션     |
 |:--------:|:----------------------------------------------------------:|:-----------:|
-| 송민지 | [https://github.com/Luwin-Seo/](https://github.com/mj-song00?tab=repositories)](https://github.com/Luwin-Seo/)                     | Backend     |
-| 강명지   | [https://github.com/gaius365](https://github.com/monmokk?tab=repositories)](https://github.com/gaius365)                     | Backend     |
-| 김용우   | [https://github.com/Son-Gyeongi](https://github.com/woo0o?tab=repositories)](https://github.com/Son-Gyeongi) | Backend     |
+| 송민지 |  [https://github.com/mj-song00?tab=repositories](https://github.com/mj-song00?tab=repositories)                 | Backend     |
+| 강명지   | [https://github.com/monmokk?tab=repositories](https://github.com/monmokk?tab=repositories)                     | Backend     |
+| 김용우   |  [https://github.com/woo0o?tab=repositories](https://github.com/woo0o?tab=repositories) | Frontend     |
 | 김준호   | [https://github.com/kevinkim910408?tab=repositories](https://github.com/kevinkim910408?tab=repositories)                     | Frontend |
 
 # 💛 API 설계
